@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GeoAseo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_b__menu_principal">B_MenuPrincipal</string>
+    <string name="title_activity_c__grupo_trabajo">C_GrupoTrabajo</string>
+    <string name="title_activity_d__iniciar_dia">D_IniciarDia</string>
+    <string name="title_activity_e__menu_ciclo">E_MenuCiclo</string>
+    <string name="title_activity_e__menu_en_ciclo">E_MenuEnCiclo</string>
+    <string name="title_activity_f__seleccionar_ruta">F_SeleccionarRuta</string>
+    <string name="title_activity_g__ticket_relleno">G_TicketRelleno</string>
+    <string name="title_activity_h__registrar_inoperatividad">H_RegistrarInoperatividad</string>
+    <string name="title_activity_i__crear_ruta">I_CrearRuta</string>
+    <string name="title_activity_j__cerrar_ruta">J_CerrarRuta</string>
+    <string name="title_activity_k__registrar_combustible">K_RegistrarCombustible</string>
+    <string name="title_activity_l__registrar_peaje">L_RegistrarPeaje</string>
+    <string name="title_activity_m__visualizar_mapa">M_VisualizarMapa</string>
+
+</resources>

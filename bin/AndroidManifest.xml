@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.quasol.geoaseo"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:screenOrientation="landscape"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        <activity
+            android:name="com.quasol.geoaseo.A_LogIn"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.B_MenuPrincipal"
+            android:label="@string/title_activity_b__menu_principal" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.C_GrupoTrabajo"
+            android:label="@string/title_activity_c__grupo_trabajo" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.D_RegistrarDatosVehiculo"
+            android:label="@string/title_activity_d__iniciar_dia" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.E_MenuCiclo"
+            android:label="@string/title_activity_e__menu_ciclo" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.F_SeleccionarRuta"
+            android:label="@string/title_activity_f__seleccionar_ruta" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.G_TicketRelleno"
+            android:label="@string/title_activity_g__ticket_relleno" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.H_RegistrarInoperatividad"
+            android:label="@string/title_activity_h__registrar_inoperatividad" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.I_CrearRuta"
+            android:label="@string/title_activity_i__crear_ruta" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.J_CerrarRuta"
+            android:label="@string/title_activity_j__cerrar_ruta" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.K_RegistrarCombustible"
+            android:label="@string/title_activity_k__registrar_combustible" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.L_RegistrarPeaje"
+            android:label="@string/title_activity_l__registrar_peaje" >
+        </activity>
+        <activity
+            android:name="com.quasol.geoaseo.M_VisualizarMapa"
+            android:label="@string/title_activity_m__visualizar_mapa" >
+        </activity>
+    </application>
+
+</manifest>
