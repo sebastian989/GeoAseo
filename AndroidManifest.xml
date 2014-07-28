@@ -19,6 +19,7 @@
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
             android:name="com.quasol.geoaseo.A_LogIn"
+            android:screenOrientation="landscape"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,51 +29,63 @@
         </activity>
         <activity
             android:name="com.quasol.geoaseo.B_MenuPrincipal"
-            android:label="@string/title_activity_b__menu_principal" >
+            android:label="@string/title_activity_b__menu_principal"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.C_GrupoTrabajo"
-            android:label="@string/title_activity_c__grupo_trabajo" >
+            android:label="@string/title_activity_c__grupo_trabajo"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.D_RegistrarDatosVehiculo"
-            android:label="@string/title_activity_d__iniciar_dia" >
+            android:label="@string/title_activity_d__iniciar_dia"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.E_MenuCiclo"
-            android:label="@string/title_activity_e__menu_ciclo" >
+            android:label="@string/title_activity_e__menu_ciclo"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.F_SeleccionarRuta"
-            android:label="@string/title_activity_f__seleccionar_ruta" >
+            android:label="@string/title_activity_f__seleccionar_ruta"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.G_TicketRelleno"
-            android:label="@string/title_activity_g__ticket_relleno" >
+            android:label="@string/title_activity_g__ticket_relleno"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.H_RegistrarInoperatividad"
-            android:label="@string/title_activity_h__registrar_inoperatividad" >
+            android:label="@string/title_activity_h__registrar_inoperatividad"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.I_CrearRuta"
-            android:label="@string/title_activity_i__crear_ruta" >
+            android:label="@string/title_activity_i__crear_ruta"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.J_CerrarRuta"
-            android:label="@string/title_activity_j__cerrar_ruta" >
+            android:label="@string/title_activity_j__cerrar_ruta"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.K_RegistrarCombustible"
-            android:label="@string/title_activity_k__registrar_combustible" >
+            android:label="@string/title_activity_k__registrar_combustible"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.L_RegistrarPeaje"
-            android:label="@string/title_activity_l__registrar_peaje" >
+            android:label="@string/title_activity_l__registrar_peaje"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.quasol.geoaseo.M_VisualizarMapa"
-            android:label="@string/title_activity_m__visualizar_mapa" >
+            android:label="@string/title_activity_m__visualizar_mapa"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 
