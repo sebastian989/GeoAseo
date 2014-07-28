@@ -25,7 +25,8 @@
     <string name="toastErrorLogin">Error al iniciar sesión</string>
     <string name="titleProgress">Iniciando sesión</string>
     <string name="messageProgress">Por favor espere un momento&#8230;</string>
-     
+    <string name="toastInternetFail">No hay conexión a internet.</string>
+    
     <!-- B Menu Principal -->
     <string name="date_example">24/07/2014</string>
     <string name="logout">X</string>

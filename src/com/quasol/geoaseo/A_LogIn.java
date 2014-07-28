@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,8 @@ public class A_LogIn extends Activity {
 	private WebService conection;
 	private SharedPreferences sharedpreferences;
 	private String user;
+	private TextView txtUser;
+	private TextView txtPassword;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,22 +44,37 @@ public class A_LogIn extends Activity {
 		{
 			Intent intent = new Intent(getApplicationContext(), B_MenuPrincipal.class);
 			startActivity(intent);
-			this.finish();
 		}
 	}
 
 	public void logIn(View v){
-		TextView txtUser = (TextView) findViewById(R.id.txtUser);
-		TextView txtPassword = (TextView) findViewById(R.id.txtPassword);
+		this.txtUser = (TextView) findViewById(R.id.txtUser);
+		this.txtPassword = (TextView) findViewById(R.id.txtPassword);
 		
-		this.user = txtUser.getText().toString();
+		this.user = this.txtUser.getText().toString();
 		String password = txtPassword.getText().toString();
 		
 		if(this.user.equals("") || password.equals("")){
 			Toast.makeText(this, getResources().getString(R.string.toastIncompleteFields), Toast.LENGTH_SHORT).show();
 		}
 		else{
-			new Login().execute(this.user,password);
+			if(hayInternet()){
+				new Login().execute(this.user,password);
+			}
+			else{
+				Toast.makeText(this, getResources().getString(R.string.toastInternetFail), Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+	
+	private boolean hayInternet() {
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (cm.getActiveNetworkInfo() != null
+				&& cm.getActiveNetworkInfo().isAvailable()
+				&& cm.getActiveNetworkInfo().isConnected()) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
@@ -91,9 +109,10 @@ public class A_LogIn extends Activity {
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastErrorLogin), Toast.LENGTH_SHORT).show();
 			}
 			else{
+				txtUser.setText("");
+				txtPassword.setText("");
 				Intent intent = new Intent(getApplicationContext(), B_MenuPrincipal.class);
 				startActivity(intent);
-				finish();
 			}
 		}
 		
