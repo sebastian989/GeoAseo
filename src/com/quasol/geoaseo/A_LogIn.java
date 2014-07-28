@@ -53,7 +53,7 @@ public class A_LogIn extends Activity {
 		String password = txtPassword.getText().toString();
 		
 		if(this.user.equals("") || password.equals("")){
-			Toast.makeText(this, "Hay campos incompletos", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getResources().getString(R.string.toastIncompleteFields), Toast.LENGTH_SHORT).show();
 		}
 		else{
 			new Login().execute(this.user,password);
@@ -66,8 +66,8 @@ public class A_LogIn extends Activity {
 		
 		@Override
 		protected void onPreExecute() {
-			progress.setTitle("Iniciando sesión");
-			progress.setMessage("Por favor espere un momento...");
+			progress.setTitle(getResources().getString(R.string.titleProgress));
+			progress.setMessage(getResources().getString(R.string.messageProgress));
 			progress.setCancelable(true);
 			progress.show();
 			super.onPreExecute();
@@ -88,7 +88,7 @@ public class A_LogIn extends Activity {
 		protected void onPostExecute(Boolean result) {
 			progress.dismiss();
 			if(!result){
-				Toast.makeText(getApplicationContext(), "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastErrorLogin), Toast.LENGTH_SHORT).show();
 			}
 			else{
 				Intent intent = new Intent(getApplicationContext(), B_MenuPrincipal.class);
