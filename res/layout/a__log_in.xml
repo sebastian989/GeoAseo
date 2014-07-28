@@ -2,19 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/a_background"
     android:gravity="center_vertical"
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
-
     
     <EditText
         android:id="@+id/txtUser"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="105dp"
+        android:layout_marginTop="190dp"
         android:ems="10"
         android:hint="@string/txtUser"
+        android:inputType="text"
         android:textSize="25sp" >
 
         <requestFocus />
@@ -25,21 +28,26 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="105dp"
         android:ems="10"
         android:hint="@string/txtPassword"
         android:inputType="textPassword"
+        android:maxLines="1"
         android:textSize="25sp" />
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/blue1"
+        android:gravity="center_vertical|center_horizontal|center"
         android:onClick="logIn"
+        android:padding="10dp"
         android:text="@string/btnLogin"
-        android:textSize="25sp" />
-
+        android:textColor="@android:color/white"
+        android:textColorLink="@android:color/white" />
 
 </LinearLayout>

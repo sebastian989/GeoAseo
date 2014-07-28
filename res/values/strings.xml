@@ -16,12 +16,17 @@
     <string name="title_activity_k__registrar_combustible">K_RegistrarCombustible</string>
     <string name="title_activity_l__registrar_peaje">L_RegistrarPeaje</string>
     <string name="title_activity_m__visualizar_mapa">M_VisualizarMapa</string>
-    
+
     <!-- A Login -->
     <string name="txtUser">Usuario</string>
     <string name="txtPassword">Contraseña</string>
     <string name="btnLogin">Ingresar</string>
-    
+    <string name="toastIncompleteFields">Hay campos incompletos</string>
+    <string name="toastErrorLogin">Error al iniciar sesión</string>
+    <string name="titleProgress">Iniciando sesión</string>
+    <string name="messageProgress">Por favor espere un momento&#8230;</string>
+    <string name="toastInternetFail">No hay conexión a internet.</string>
+
     <!-- B Menu Principal -->
     <string name="date_example">24/07/2014</string>
     <string name="logout">X</string>
