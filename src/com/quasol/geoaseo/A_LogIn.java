@@ -66,7 +66,7 @@ public class A_LogIn extends Activity {
 		
 		@Override
 		protected void onPreExecute() {
-			progress.setTitle("Iniciando sesiÃ³n");
+			progress.setTitle("Iniciando sesión");
 			progress.setMessage("Por favor espere un momento...");
 			progress.setCancelable(true);
 			progress.show();
@@ -88,7 +88,7 @@ public class A_LogIn extends Activity {
 		protected void onPostExecute(Boolean result) {
 			progress.dismiss();
 			if(!result){
-				Toast.makeText(getApplicationContext(), "Error al iniciar sesiÃ³n", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
 			}
 			else{
 				Intent intent = new Intent(getApplicationContext(), B_MenuPrincipal.class);
