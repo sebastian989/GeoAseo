@@ -1,6 +1,13 @@
 package com.quasol.geoaseo;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import com.quasol.recursos.WebService;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -8,11 +15,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class A_LogIn extends Activity {
+	
+	private ProgressDialog progress;
+	private WebService conection;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.a__log_in);
+		
+		this.progress = new ProgressDialog(this); 
+		this.conection = new WebService();
 	}
 	
 	public void logIn(View v){
@@ -26,26 +39,43 @@ public class A_LogIn extends Activity {
 			Toast.makeText(this, "Hay campos incompletos", Toast.LENGTH_SHORT).show();
 		}
 		else{
-			
+			new Login().execute(user,password);
 		}
 	}
 	
-	public class Login extends AsyncTask<Void, Void, Void> {
-
+	public class Login extends AsyncTask<String, Void, Boolean> {
+		
+		private JSONArray answer;
+		
 		@Override
 		protected void onPreExecute() {
-//			pd2.setMessage("La configuracón inicial tardara algunos segundos");
-//			pd2.setTitle("Iniciando sesión");
-//			pd2.show();
-//			super.onPreExecute();
+			progress.setTitle("Iniciando sesión");
+			progress.setMessage("Por favor espere un momento...");
+			progress.setCancelable(true);
+			progress.show();
+			super.onPreExecute();
 		}
 		
 		@Override
-		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-			return null;
+		protected Boolean doInBackground(String... params) {
+			String [] parameters = {"login",params[0],params[1]};
+			conection.setUrl("http://pruebasgeoaseo.tk/controller/Fachada.php");
+			this.answer = conection.conectar(parameters);
+			
+			return false;
 		}
 		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			progress.dismiss();
+			if(!result){
+				Toast.makeText(getApplicationContext(), "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
+			}
+			else{
+				Intent intent = new Intent(getApplicationContext(), B_MenuPrincipal.class);
+				startActivity(intent);
+			}
+		}
 	}
 	
 }
