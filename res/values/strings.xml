@@ -25,6 +25,13 @@
     <!-- B Menu Principal -->
     <string name="date_example">24/07/2014</string>
     <string name="logout">X</string>
-    
+    <string name="logout_confirm">¿Deseas cerrar sesión?</string>
+    <string name="logout_confirm_button_1">Si</string>
+    <string name="logout_confirm_button_2">No</string>
+    <string name="logout_conten_description">Boton para cerrar sesión</string>
+    <string name="group_of_work_description">Boton para crear grupo de trabajo</string>
+    <string name="start_day_description">Boton para iniciar dia</string>
+    <string name="Create_route_description">Boton para crear una ruta</string>
+    <string name="Close_route_description">Boton para cerrar una ruta</string>
 
 </resources>
