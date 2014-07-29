@@ -3,6 +3,8 @@
 
     <string name="app_name">GeoAseo</string>
     <string name="hello_world">Hello world!</string>
+    <string name="Button_save">Guardar</string>
+    
     <string name="title_activity_b__menu_principal">B_MenuPrincipal</string>
     <string name="title_activity_c__grupo_trabajo">C_GrupoTrabajo</string>
     <string name="title_activity_d__iniciar_dia">D_IniciarDia</string>
@@ -17,7 +19,7 @@
     <string name="title_activity_l__registrar_peaje">L_RegistrarPeaje</string>
     <string name="title_activity_m__visualizar_mapa">M_VisualizarMapa</string>
 
-    <!-- A Login -->
+      <!-- A Login -->
     <string name="txtUser">Usuario</string>
     <string name="txtPassword">Contraseña</string>
     <string name="btnLogin">Ingresar</string>
@@ -26,23 +28,31 @@
     <string name="titleProgress">Iniciando sesión</string>
     <string name="messageProgress">Por favor espere un momento&#8230;</string>
     <string name="toastInternetFail">No hay conexión a internet.</string>
-
+    
     <!-- B Menu Principal -->
     <string name="date_example">24/07/2014</string>
     <string name="logout">X</string>
     <string name="logout_confirm">¿Deseas cerrar sesión?</string>
     <string name="logout_confirm_button_1">Si</string>
     <string name="logout_confirm_button_2">No</string>
-    <string name="logout_conten_description">Boton para cerrar sesión</string>
+    <string name="logout_conten_description">Boton para cerrar sesiÃ³n</string>
     <string name="group_of_work_description">Boton para crear grupo de trabajo</string>
     <string name="start_day_description">Boton para iniciar dia</string>
     <string name="Create_route_description">Boton para crear una ruta</string>
     <string name="Close_route_description">Boton para cerrar una ruta</string>
+    <string name="Bottom_banner_description">Banner inferior</string>
+    <string name="Maps_description">Boton para cargar el mapa</string>
+    <string name="Gas_description">Boton para comprar gasolina</string>
+    <string name="Toll_description">Boton para pagar un peaje</string>
 
     <!-- C Grupo de trabajo -->
     <string name="selectedOperaors">Operarios seleccionados:</string>
     <string name="searchOperator">Buscar operario</string>
     <string name="startTimeOperators">Iniciar</string>
     <string name="title_activity_c__item_selected_operator">C_ItemSelectedOperator</string>
-
+    
+    <!-- D Matos del vehiculo -->
+    <string name="truck_dates_hour_meter">Horometro</string>
+    <string name="truck_dates_odometer">Odometro</string>
+ 
 </resources>
