@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -19,8 +19,8 @@
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
             android:name="com.quasol.geoaseo.A_LogIn"
-            android:screenOrientation="landscape"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -86,6 +86,10 @@
             android:name="com.quasol.geoaseo.M_VisualizarMapa"
             android:label="@string/title_activity_m__visualizar_mapa"
             android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.quasol.adaptadores.C_ItemSelectedOperator"
+            android:label="@string/title_activity_c__item_selected_operator" >
         </activity>
     </application>
 

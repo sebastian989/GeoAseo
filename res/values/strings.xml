@@ -39,4 +39,10 @@
     <string name="Create_route_description">Boton para crear una ruta</string>
     <string name="Close_route_description">Boton para cerrar una ruta</string>
 
+    <!-- C Grupo de trabajo -->
+    <string name="selectedOperaors">Operarios seleccionados:</string>
+    <string name="searchOperator">Buscar operario</string>
+    <string name="startTimeOperators">Iniciar</string>
+    <string name="title_activity_c__item_selected_operator">C_ItemSelectedOperator</string>
+
 </resources>

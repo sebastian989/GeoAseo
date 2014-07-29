@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    tools:context="${packageName}.${activityClass}" >
+
+    <TextView
+        android:id="@+id/lblOperatorName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="80"
+        android:text="@string/hello_world"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:text="X" />
+
+</LinearLayout>

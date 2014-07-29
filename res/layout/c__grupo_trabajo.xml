@@ -6,9 +6,117 @@
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:background="@color/blue2">
+
+        <TextView
+            android:id="@+id/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/blue1"
+            android:hint="@string/date_example"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorLink="@color/white"/>
+
+        <DigitalClock
+            android:id="@+id/digitalClock1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/TextView1"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/TextView1"
+            android:padding="10dp"
+            android:textColor="@color/white"/>
+
+        <ImageButton
+            android:contentDescription="@string/logout_conten_description"
+            android:id="@+id/ImageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/logout" 
+            android:layout_marginRight="12dp"
+            android:onClick="logOut"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:baselineAligned="false"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="50"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/selectedOperaors"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="25sp" />
+
+            <ListView
+                android:id="@+id/lstSelectedOperators"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp" >
+
+            </ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="50"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/txtSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="@string/searchOperator"
+                android:textSize="25sp" >
+
+                <requestFocus />
+            </EditText>
+
+            <ListView
+                android:id="@+id/lstAllOperators"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" >
+
+            </ListView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
+        android:layout_gravity="center"
+        android:text="@string/startTimeOperators" />
+    
 </LinearLayout>
