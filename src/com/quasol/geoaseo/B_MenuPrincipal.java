@@ -9,16 +9,20 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.DigitalClock;
 
 public class B_MenuPrincipal extends Activity {
 	
 	private SharedPreferences sharedpreferences;
+	private DigitalClock dc;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.b__menu_principal);
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
+		this.dc = (DigitalClock)findViewById(R.id.digitalClock1);
+		
 	}
 	
 	public void logOut(View v){
@@ -26,7 +30,6 @@ public class B_MenuPrincipal extends Activity {
         adb.setTitle(getResources().getString(R.string.logout_confirm));
         adb.setPositiveButton(getResources().getString(R.string.logout_confirm_button_1),
                 new DialogInterface.OnClickListener() {
-
                     @Override
                     public void onClick(DialogInterface dialog,
                             int which) {
@@ -34,12 +37,10 @@ public class B_MenuPrincipal extends Activity {
                 		editor.clear();
                 		editor.commit();
                 		finish();
-                        
                     }
                 });
         adb.setNegativeButton(getResources().getString(R.string.logout_confirm_button_2),
                 new DialogInterface.OnClickListener() {
-
                     @Override
                     public void onClick(DialogInterface dialog,
                             int which) {
