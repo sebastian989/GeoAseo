@@ -6,4 +6,76 @@
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
 
+     <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue2"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/blue1"
+            android:hint="@string/date_example"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorLink="@color/white"
+            android:textSize="25sp" />
+
+        <DigitalClock
+            android:id="@+id/digitalClock1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/TextView1"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/TextView1"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+     <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="match_parent"
+         android:gravity="center_vertical|center_horizontal"
+         android:orientation="vertical" >
+
+         <EditText
+             android:id="@+id/editText1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="20dp"
+             android:ems="10"
+             android:hint="Horometro"
+             android:textSize="25sp" >
+
+         </EditText>
+
+         <EditText
+             android:id="@+id/editText2"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="20dp"
+             android:ems="10"
+             android:hint="Odometro"
+             android:textSize="25sp" />
+
+         <Button
+             android:id="@+id/button1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:background="@color/blue1"
+             android:ems="13"
+             android:gravity="center_vertical|center_horizontal|center"
+             android:padding="10dp"
+             android:text="Guardar"
+             android:textColor="@android:color/white"
+             android:textColorLink="@android:color/white" />
+     </LinearLayout>
+    
 </LinearLayout>

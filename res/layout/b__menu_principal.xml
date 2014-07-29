@@ -3,16 +3,16 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
-    
+
     <RelativeLayout
         android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" 
-        android:background="@color/blue2">
+        android:background="@color/blue2"
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/TextView1"
@@ -25,8 +25,8 @@
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorLink="@color/white"
-            android:textSize="25sp"/>
-		
+            android:textSize="25sp" />
+
         <DigitalClock
             android:id="@+id/digitalClock1"
             android:layout_width="wrap_content"
@@ -36,19 +36,18 @@
             android:layout_toRightOf="@+id/TextView1"
             android:padding="10dp"
             android:textColor="@color/white"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
 
         <ImageButton
-            android:contentDescription="@string/logout_conten_description"
             android:id="@+id/ImageButton1"
             android:layout_width="80dp"
             android:layout_height="43dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
-            android:src="@drawable/logout"
-            android:onClick="logOut"/>
-
+            android:contentDescription="@string/logout_conten_description"
+            android:onClick="logOut"
+            android:src="@drawable/logout" />
     </RelativeLayout>
 
     <LinearLayout
@@ -56,17 +55,18 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal"
-        android:padding="20dp" >
+        android:padding="20dp" 
+        android:layout_marginTop="30dp">
 
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/group_of_work_description"
-            android:src="@drawable/groupe_of_work"
-            android:background="@android:color/transparent" 
+            android:onClick="setOperators"
             android:padding="20dp"
-            android:onClick="setOperators"/>
+            android:src="@drawable/groupe_of_work" />
 
         <ImageButton
             android:id="@+id/imageButton3"
@@ -75,33 +75,73 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/start_day_description"
             android:padding="20dp"
-            android:src="@drawable/start_day" />
+            android:src="@drawable/start_day" 
+            android:onClick="startDay"/>
 
         <ImageButton
             android:id="@+id/imageButton4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/Create_route_description"
-            android:src="@drawable/create_route" 
             android:background="@android:color/transparent"
-            android:padding="20dp"/>
+            android:contentDescription="@string/Create_route_description"
+            android:padding="20dp"
+            android:src="@drawable/create_route" />
 
         <ImageButton
             android:id="@+id/imageButton5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/Close_route_description"
-            android:src="@drawable/close_route" 
             android:background="@android:color/transparent"
-            android:padding="20dp"/>
-
+            android:contentDescription="@string/Close_route_description"
+            android:padding="20dp"
+            android:src="@drawable/close_route" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/RelativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        
-        
-    </LinearLayout>
+        android:layout_height="match_parent" >
+
+        <ImageView
+            
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/banner_bajo"/>
+
+        <ImageButton
+            
+            android:id="@+id/ImageButton01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageButton6"
+            android:background="@android:color/transparent"
+            android:src="@drawable/gas" />
+
+        <ImageButton
+             
+            android:id="@+id/imageButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="218dp"
+            android:layout_toRightOf="@+id/imageView1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/maps" />
+
+        <ImageButton
+            
+            android:id="@+id/ImageButton02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ImageButton01"
+            android:layout_toRightOf="@+id/ImageButton01"
+            android:background="@android:color/transparent"
+            android:src="@drawable/peajes" />
+
+    </RelativeLayout>
 
 </LinearLayout>
