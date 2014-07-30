@@ -3,7 +3,9 @@ package com.quasol.adaptadores;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import com.quasol.geoaseo.C_GrupoTrabajo;
 import com.quasol.geoaseo.R;
+import com.quasol.recursos.Utilities;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -13,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class C_ItemSelectedOperator extends BaseAdapter {
 	
@@ -47,6 +48,7 @@ public class C_ItemSelectedOperator extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		final int pos = position;
 		LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.c__item_selected_operator, null,true);
         
@@ -59,7 +61,11 @@ public class C_ItemSelectedOperator extends BaseAdapter {
 				
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(activity, "OK", Toast.LENGTH_SHORT).show();
+					try {
+						((C_GrupoTrabajo)activity).changeOperator(jsonSelected.getJSONObject(pos),pos);
+						jsonSelected = Utilities.delete(jsonSelected, pos);
+					} catch (JSONException e) {
+					}
 					
 				}
 			});

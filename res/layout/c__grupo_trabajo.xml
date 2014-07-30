@@ -52,8 +52,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:baselineAligned="false"
-        android:layout_weight="1" >
+        android:layout_marginBottom="20dp"
+        android:layout_weight="80"
+        android:baselineAligned="false" >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -93,11 +94,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:inputType="text"
                 android:ems="10"
                 android:hint="@string/searchOperator"
                 android:textSize="25sp" >
 
-                <requestFocus />
             </EditText>
 
             <ListView
@@ -112,11 +113,21 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/startTimeOperators" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical" >
+        
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="iniciar"
+            android:text="@string/startTimeOperators"
+            android:textSize="25sp" />
+        
+    </LinearLayout>
     
 </LinearLayout>
