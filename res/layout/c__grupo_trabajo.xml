@@ -120,11 +120,11 @@
         android:orientation="vertical" >
         
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btnInit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="iniciar"
+            android:onClick="start"
             android:text="@string/startTimeOperators"
             android:textSize="25sp" />
         

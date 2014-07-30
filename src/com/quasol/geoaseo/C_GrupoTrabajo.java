@@ -1,6 +1,7 @@
 package com.quasol.geoaseo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,7 +12,9 @@ import com.quasol.adaptadores.C_ItemSelectedOperator;
 import com.quasol.recursos.Utilities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -29,8 +33,10 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 	private ListView lstAllOperators;
 	private ListView lstSelectedOperators;
 	private EditText txtSearch;
+	private Button btnInit;
 	private SharedPreferences sharedpreferences;
 	private JSONArray jsonSelectedOperators;
+	private JSONArray savedOperators;
 	private JSONArray jsonAllOperators;
 	private JSONArray displayedListOperators;
 	private C_ItemSelectedOperator adapter;
@@ -48,13 +54,28 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.txtSearch.addTextChangedListener(this);
 		this.lstAllOperators.setOnItemClickListener(this);
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
-		String strgOperators = sharedpreferences.getString("OPERATORS", null);
-		if(strgOperators != null){
+		String selectedOperators = sharedpreferences.getString("SELECTED_OPERATORS", null);
+		if(selectedOperators != null){
 			try {
-				this.jsonAllOperators = new JSONArray(strgOperators);
-				this.displayedListOperators = new JSONArray(this.jsonAllOperators.toString());
-				this.diaplayListAllOperators();
-			} catch (JSONException e) {
+				this.savedOperators = new JSONArray(selectedOperators);
+				for(int i=0; i<savedOperators.length(); i++){
+					if(savedOperators.getJSONObject(i).getString("hora_fin").equals("")){
+						jsonSelectedOperators.put(savedOperators.getJSONObject(i));
+					}
+				}
+				this.blockElements();
+				this.displayListSelectedOperators();
+			} catch (JSONException e) {}
+		}
+		else{
+			String strgOperators = sharedpreferences.getString("OPERATORS", null);
+			if(strgOperators != null){
+				try {
+					this.jsonAllOperators = new JSONArray(strgOperators);
+					this.displayedListOperators = new JSONArray(this.jsonAllOperators.toString());
+					this.diaplayListAllOperators();
+				} catch (JSONException e) {
+				}
 			}
 		}
 	}
@@ -71,18 +92,35 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.lstAllOperators.setAdapter(adapter);
 	}
 	
+	private void displayListSelectedOperators(){
+		this.adapter = new C_ItemSelectedOperator(this, this.jsonSelectedOperators);
+		this.lstSelectedOperators.setAdapter(adapter);
+	}
+	
 	private  void identifyElements(){
 		this.lstAllOperators = (ListView) findViewById(R.id.lstAllOperators);
 		this.lstSelectedOperators = (ListView) findViewById(R.id.lstSelectedOperators);
 		this.txtSearch = (EditText) findViewById(R.id.txtSearch);
+		this.btnInit = (Button) findViewById(R.id.btnInit);
 	}
 	
-	public void changeOperator(JSONObject operator, int position){
-		this.jsonAllOperators.put(operator);
-		if(!this.textChange){
-			this.displayedListOperators.put(operator);
+	public void changeOperator(JSONObject operator, final int position){
+		if(this.savedOperators != null){
+			try {
+				savedOperators.getJSONObject(position).put("hora_fin", getHour());
+			} catch (JSONException e) {
+			}
+			SharedPreferences.Editor editor = sharedpreferences.edit();
+			editor.putString("SELECTED_OPERATORS", savedOperators.toString());
+			editor.commit();
 		}
-		this.diaplayListAllOperators();
+		else{
+			this.jsonAllOperators.put(operator);
+			if(!this.textChange){
+				this.displayedListOperators.put(operator);
+			}
+			this.diaplayListAllOperators();
+		}
 		this.jsonSelectedOperators = Utilities.delete(this.jsonSelectedOperators, position);
 		this.adapter.notifyDataSetChanged();
 	}
@@ -104,8 +142,61 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 			this.diaplayListAllOperators();
 		} catch (JSONException e) {
 		}
-		this.adapter = new C_ItemSelectedOperator(this, this.jsonSelectedOperators);
-		this.lstSelectedOperators.setAdapter(adapter);
+		this.displayListSelectedOperators();
+	}
+	
+	public void start(View v){
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		adb.setTitle(getResources().getString(R.string.confirmSelectedOperators));
+		adb.setPositiveButton(
+				getResources().getString(R.string.confirm_button_1),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						saveSelectedOperators();
+						blockElements();
+						finish();
+					}
+				});
+		adb.setNegativeButton(
+				getResources().getString(R.string.confirm_button_2),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
+		adb.show();
+	}
+	
+	private void saveSelectedOperators(){
+		String hour = this.getHour();
+		for(int i=0; i<jsonSelectedOperators.length(); i++){
+			try {
+				jsonSelectedOperators.getJSONObject(i).put("hora_inicio", hour);
+				jsonSelectedOperators.getJSONObject(i).put("hora_fin", "");
+			} catch (JSONException e) {
+			}
+		}
+		
+		SharedPreferences.Editor editor = sharedpreferences.edit();
+		editor.putString("SELECTED_OPERATORS", jsonSelectedOperators.toString());
+		editor.commit();
+	}
+	
+	private void blockElements(){
+		btnInit.setEnabled(false);
+		lstAllOperators.setEnabled(false);
+		txtSearch.setEnabled(false);
+	}
+	
+	private String getHour(){
+		Calendar c = Calendar.getInstance(); 
+		int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
+		int min = c.get(Calendar.MINUTE);
+		String hour = ""+hourOfDay+":"+min;
+		return hour;
 	}
 	
 	@Override

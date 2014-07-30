@@ -4,6 +4,8 @@
     <string name="app_name">GeoAseo</string>
     <string name="hello_world">Hello world!</string>
     <string name="Button_save">Guardar</string>
+    <string name="confirm_button_1">Si</string>
+    <string name="confirm_button_2">No</string>
     
     <string name="title_activity_b__menu_principal">B_MenuPrincipal</string>
     <string name="title_activity_c__grupo_trabajo">C_GrupoTrabajo</string>
@@ -33,8 +35,6 @@
     <string name="date_example">24/07/2014</string>
     <string name="logout">X</string>
     <string name="logout_confirm">¿Deseas cerrar sesión?</string>
-    <string name="logout_confirm_button_1">Si</string>
-    <string name="logout_confirm_button_2">No</string>
     <string name="logout_conten_description">Boton para cerrar sesiÃ³n</string>
     <string name="group_of_work_description">Boton para crear grupo de trabajo</string>
     <string name="start_day_description">Boton para iniciar dia</string>
@@ -50,6 +50,8 @@
     <string name="searchOperator">Buscar operario</string>
     <string name="startTimeOperators">Iniciar</string>
     <string name="title_activity_c__item_selected_operator">C_ItemSelectedOperator</string>
+    <string name="confirmSelectedOperators">¿Realmente desea iniciar con los operarios seleccionados?</string>
+    <string name="confirmEndJourney">¿Realmente desea terminar la jornada de este operador?</string>
     
     <!-- D Matos del vehiculo -->
     <string name="truck_dates_hour_meter">Horometro</string>

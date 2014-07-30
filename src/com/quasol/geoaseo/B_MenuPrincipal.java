@@ -33,7 +33,7 @@ public class B_MenuPrincipal extends Activity {
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
 		adb.setTitle(getResources().getString(R.string.logout_confirm));
 		adb.setPositiveButton(
-				getResources().getString(R.string.logout_confirm_button_1),
+				getResources().getString(R.string.confirm_button_1),
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -44,7 +44,7 @@ public class B_MenuPrincipal extends Activity {
 					}
 				});
 		adb.setNegativeButton(
-				getResources().getString(R.string.logout_confirm_button_2),
+				getResources().getString(R.string.confirm_button_2),
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
