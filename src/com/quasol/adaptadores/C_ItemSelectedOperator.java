@@ -8,6 +8,9 @@ import com.quasol.geoaseo.R;
 import com.quasol.recursos.Utilities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,9 +65,40 @@ public class C_ItemSelectedOperator extends BaseAdapter {
 				@Override
 				public void onClick(View v) {
 					try {
-						((C_GrupoTrabajo)activity).changeOperator(jsonSelected.getJSONObject(pos),pos);
-						jsonSelected = Utilities.delete(jsonSelected, pos);
+						if(jsonSelected.getJSONObject(pos).getString("hora_fin").equals("")){
+							AlertDialog.Builder adb = new AlertDialog.Builder(activity);
+							adb.setTitle(activity.getResources().getString(R.string.confirmEndJourney));
+							adb.setPositiveButton(
+									activity.getResources().getString(R.string.confirm_button_1),
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											
+											try {
+												((C_GrupoTrabajo)activity).changeOperator(jsonSelected.getJSONObject(pos),pos);
+												jsonSelected = Utilities.delete(jsonSelected, pos);
+											} catch (JSONException e) {
+											}
+											
+										}
+									});
+							adb.setNegativeButton(
+									activity.getResources().getString(R.string.confirm_button_2),
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											dialog.dismiss();
+										}
+									});
+							adb.show();
+						}
+						
 					} catch (JSONException e) {
+						try {
+							((C_GrupoTrabajo)activity).changeOperator(jsonSelected.getJSONObject(pos),pos);
+							jsonSelected = Utilities.delete(jsonSelected, pos);
+						} catch (JSONException e1) {
+						}
 					}
 					
 				}
