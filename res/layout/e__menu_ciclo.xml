@@ -48,5 +48,12 @@
             android:onClick="logOut"
             android:src="@drawable/logout"/>
     </RelativeLayout>
+    
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:gravity="center_vertical|center_horizontal"
+       android:text="Menu ciclo"
+       android:textSize="@dimen/Large_more" />
 
 </LinearLayout>
