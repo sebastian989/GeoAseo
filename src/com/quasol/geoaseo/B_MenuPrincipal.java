@@ -1,4 +1,7 @@
 package com.quasol.geoaseo;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,7 +17,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.DigitalClock;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class B_MenuPrincipal extends Activity {
 
@@ -28,7 +30,18 @@ public class B_MenuPrincipal extends Activity {
 		setContentView(R.layout.b__menu_principal);
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
 		initialize_visual_controls();
-		this.dc=(DigitalClock)findViewById(R.id.clock1);	
+//		this.dc=(DigitalClock)findViewById(R.id.clock1);	
+//		Calendar c = Calendar.getInstance();
+//		System.out.println("Current time => " + c.getTime());
+//		SimpleDateFormat df1 = new SimpleDateFormat("dd-MMM-yyyy");
+//		String formattedDate1 = df1.format(c.getTime());
+//		SimpleDateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
+//		String formattedDate2 = df2.format(c.getTime());
+//		SimpleDateFormat df3 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
+//		String formattedDate3 = df3.format(c.getTime());
+//		System.out.println("=========> Date 1 => "+formattedDate1);
+//		System.out.println("=========> Date 2 => "+formattedDate2);
+//		System.out.println("=========> Date 3 => "+formattedDate3);
 	}
 
 	/**
@@ -39,7 +52,7 @@ public class B_MenuPrincipal extends Activity {
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
 		adb.setTitle(getResources().getString(R.string.logout_confirm));
 		adb.setPositiveButton(
-				getResources().getString(R.string.logout_confirm_button_1),
+				getResources().getString(R.string.confirm_button_1),
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -50,7 +63,7 @@ public class B_MenuPrincipal extends Activity {
 					}
 				});
 		adb.setNegativeButton(
-				getResources().getString(R.string.logout_confirm_button_2),
+				getResources().getString(R.string.confirm_button_2),
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
