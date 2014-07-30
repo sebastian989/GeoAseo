@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blue2"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/TextView1"
@@ -24,7 +24,7 @@
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorLink="@color/white"
-            android:textSize="25sp" />
+            android:textSize="25sp"/>
 
         <DigitalClock
             android:id="@+id/digitalClock1"
@@ -35,34 +35,54 @@
             android:layout_toRightOf="@+id/TextView1"
             android:padding="10dp"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="25sp"/>
+
+        <ImageButton
+            android:id="@+id/btn_Logout"
+            android:layout_width="80dp"
+            android:layout_height="43dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/logout_conten_description"
+            android:onClick="logOut"
+            android:src="@drawable/logout"/>
     </RelativeLayout>
 
-     <LinearLayout
-         android:layout_width="fill_parent"
-         android:layout_height="match_parent"
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical">    
+    
+    <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
          android:gravity="center_vertical|center_horizontal"
-         android:orientation="vertical" >
+         android:orientation="vertical">
 
          <EditText
-             android:id="@+id/editText1"
+             android:id="@+id/editText_hourmeter"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginBottom="20dp"
              android:ems="10"
              android:hint="Horometro"
-             android:textSize="25sp" >
+             android:textSize="25sp" 
+             android:inputType="number">
 
          </EditText>
 
          <EditText
-             android:id="@+id/editText2"
+             android:id="@+id/editText_odometer"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginBottom="20dp"
              android:ems="10"
              android:hint="Odometro"
-             android:textSize="25sp" />
+             android:textSize="25sp"
+             android:inputType="number"
+             />
 
          <Button
              android:id="@+id/button1"
@@ -75,7 +95,11 @@
              android:padding="10dp"
              android:text="Guardar"
              android:textColor="@android:color/white"
-             android:textColorLink="@android:color/white" />
+             android:textColorLink="@android:color/white" 
+             android:onClick="Save_truck_information"/>
      </LinearLayout>
+    
+</LinearLayout>     
+     
     
 </LinearLayout>

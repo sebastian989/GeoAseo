@@ -28,7 +28,7 @@
             android:textSize="25sp" />
 
         <DigitalClock
-            android:id="@+id/digitalClock1"
+            android:id="@+id/clock1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/TextView1"
@@ -39,7 +39,7 @@
             android:textSize="25sp" />
 
         <ImageButton
-            android:id="@+id/ImageButton1"
+            android:id="@+id/btn_Logout"
             android:layout_width="80dp"
             android:layout_height="43dp"
             android:layout_alignParentRight="true"
@@ -59,7 +59,7 @@
         android:layout_marginTop="30dp">
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/btn_team_of_work"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -69,7 +69,7 @@
             android:src="@drawable/groupe_of_work" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/btn_start_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -79,7 +79,7 @@
             android:onClick="startDay"/>
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/btn_create_route"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -88,7 +88,7 @@
             android:src="@drawable/create_route" />
 
         <ImageButton
-            android:id="@+id/imageButton5"
+            android:id="@+id/btn_close_route"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -103,44 +103,43 @@
         android:layout_height="match_parent" >
 
         <ImageView
-            
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/banner_bajo"/>
+            android:contentDescription="Banner bottom"
+            android:src="@drawable/banner_bajo" />
 
         <ImageButton
-            
-            android:id="@+id/ImageButton01"
+            android:id="@+id/btn_toll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageButton6"
+            android:layout_marginRight="81dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/gas" />
+            android:src="@drawable/peajes" />
 
         <ImageButton
-             
-            android:id="@+id/imageButton6"
+            android:id="@+id/btn_maps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="218dp"
-            android:layout_toRightOf="@+id/imageView1"
+            android:layout_alignTop="@+id/btn_gas"
+            android:layout_marginRight="29dp"
+            android:layout_toLeftOf="@+id/btn_gas"
             android:background="@android:color/transparent"
             android:src="@drawable/maps" />
 
         <ImageButton
-            
-            android:id="@+id/ImageButton02"
+            android:id="@+id/btn_gas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/ImageButton01"
-            android:layout_toRightOf="@+id/ImageButton01"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="21dp"
+            android:layout_toLeftOf="@+id/btn_toll"
             android:background="@android:color/transparent"
-            android:src="@drawable/peajes" />
+            android:src="@drawable/gas" />
 
     </RelativeLayout>
 
