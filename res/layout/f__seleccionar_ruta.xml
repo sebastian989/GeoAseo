@@ -5,10 +5,48 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
-
-    <TextView
-        android:layout_width="wrap_content"
+    
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:background="@color/blue2"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/blue1"
+            android:hint="@string/date_example"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorLink="@color/white"
+            android:textSize="25sp" />
+
+        <DigitalClock
+            android:id="@+id/clock1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/TextView1"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/TextView1"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <ImageButton
+            android:id="@+id/btn_Logout"
+            android:layout_width="80dp"
+            android:layout_height="43dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/logout_conten_description"
+            android:onClick="logOut"
+            android:src="@drawable/logout" />
+    </RelativeLayout>
 
 </LinearLayout>
