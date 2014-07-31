@@ -1,10 +1,10 @@
 package com.quasol.geoaseo;
 
-import java.util.Calendar;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.quasol.recursos.Utilities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -64,8 +64,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 			try {
 				if(this.selectRoute.getString("estado").equals("inactiva")){
 					this.selectRoute.put("estado", "iniciada");
-					this.selectRoute.put("fecha", this.getDate());
-					this.selectRoute.put("hora_inicio", this.getHour());
+					this.selectRoute.put("fecha", Utilities.getDate());
 					this.plannedRoutes.put(this.routePosition, this.selectRoute);
 					SharedPreferences.Editor editor = this.sharedpreferences.edit();
 					editor.putString("PLANNED_ROUTES", this.plannedRoutes.toString());
@@ -104,23 +103,6 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 			}
 		} catch (JSONException e) {
 		}	
-	}
-	
-	private String getHour(){
-		Calendar c = Calendar.getInstance(); 
-		int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
-		int min = c.get(Calendar.MINUTE);
-		String hour = ""+hourOfDay+":"+min;
-		return hour;
-	}
-	
-	private String getDate(){
-		Calendar c = Calendar.getInstance(); 
-		int day = c.get(Calendar.DAY_OF_MONTH);
-		int month = c.get(Calendar.MONTH);
-		int year = c.get(Calendar.YEAR);
-		String date = ""+day+"/"+month+"/"+year;
-		return date;
 	}
 	
 	private  void identifyElements(){

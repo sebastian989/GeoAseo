@@ -1,7 +1,6 @@
 package com.quasol.geoaseo;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -107,7 +106,7 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 	public void changeOperator(JSONObject operator, final int position){
 		if(this.savedOperators != null){
 			try {
-				savedOperators.getJSONObject(position).put("hora_fin", getHour());
+				savedOperators.getJSONObject(position).put("hora_fin", Utilities.getDate());
 			} catch (JSONException e) {
 			}
 			SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -171,7 +170,7 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 	}
 	
 	private void saveSelectedOperators(){
-		String hour = this.getHour();
+		String hour = Utilities.getDate();
 		for(int i=0; i<jsonSelectedOperators.length(); i++){
 			try {
 				jsonSelectedOperators.getJSONObject(i).put("hora_inicio", hour);
@@ -189,14 +188,6 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		btnInit.setEnabled(false);
 		lstAllOperators.setEnabled(false);
 		txtSearch.setEnabled(false);
-	}
-	
-	private String getHour(){
-		Calendar c = Calendar.getInstance(); 
-		int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
-		int min = c.get(Calendar.MINUTE);
-		String hour = ""+hourOfDay+":"+min;
-		return hour;
 	}
 	
 	@Override
