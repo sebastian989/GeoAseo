@@ -46,7 +46,7 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/logout_conten_description"
             android:onClick="logOut"
-            android:src="@drawable/logout"/>
+            android:src="@drawable/btn_logout"/>
     </RelativeLayout>
 
 <LinearLayout 
