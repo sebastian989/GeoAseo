@@ -25,7 +25,7 @@
             android:textColor="@color/white"
             android:textColorLink="@color/white"
             android:textSize="25sp"/>
-
+        
         <DigitalClock
             android:id="@+id/digitalClock1"
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
             android:padding="10dp"
             android:textColor="@color/white"
             android:textSize="25sp"/>
-
+        
         <ImageButton
             android:id="@+id/btn_Logout"
             android:layout_width="80dp"
@@ -46,14 +46,102 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/logout_conten_description"
             android:onClick="logOut"
-            android:src="@drawable/logout"/>
+            android:src="@drawable/btn_logout"/>
     </RelativeLayout>
-    
-   <TextView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:gravity="center_vertical|center_horizontal"
-       android:text="Menu ciclo"
-       android:textSize="@dimen/Large_more" />
+   
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <ImageButton
+            android:id="@+id/btn_base_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="exit base button"
+            android:padding="20dp"
+            android:src="@drawable/btn_base_exit" />
+
+        <ImageButton
+            android:id="@+id/btn_start_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="start collection"
+            android:padding="20dp"
+            android:src="@drawable/btn_start_collection" />
+
+        <ImageButton
+            android:id="@+id/btn_compactation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="compactation"
+            android:padding="20dp"
+            android:src="@drawable/btn_compaction" />
+
+        <ImageButton
+            android:id="@+id/btn_collection_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="collection finish"
+            android:padding="20dp"
+            android:src="@drawable/btn_collection_finish" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_arrive_final_disposition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="arrive final disposition"
+            android:padding="20dp"
+            android:src="@drawable/btn_arrive_final_disposition" />
+
+        <ImageButton
+            android:id="@+id/btn_come_back_ti_base"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="come back to base"
+            android:padding="20dp"
+            android:src="@drawable/btn_come_back_to_base"
+            android:onClick="startDay"/>
+
+        <ImageButton
+            android:id="@+id/btn_special_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="Special service"
+            android:padding="20dp"
+            android:src="@drawable/btn_special_service" />
+
+        <ImageButton
+            android:id="@+id/btn_inoperability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="Inoperability"
+            android:padding="20dp"
+            android:src="@drawable/btn_inoperability" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        
+        
+    </RelativeLayout>
 
 </LinearLayout>
