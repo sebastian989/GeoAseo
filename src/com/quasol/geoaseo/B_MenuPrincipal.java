@@ -31,17 +31,6 @@ public class B_MenuPrincipal extends Activity {
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
 		initialize_visual_controls();
 		this.dc=(DigitalClock)findViewById(R.id.clock1);
-//		Calendar c = Calendar.getInstance();
-//		System.out.println("Current time => " + c.getTime());
-//		SimpleDateFormat df1 = new SimpleDateFormat("dd-MMM-yyyy");
-//		String formattedDate1 = df1.format(c.getTime());
-//		SimpleDateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
-//		String formattedDate2 = df2.format(c.getTime());
-//		SimpleDateFormat df3 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
-//		String formattedDate3 = df3.format(c.getTime());
-//		System.out.println("=========> Date 1 => "+formattedDate1);
-//		System.out.println("=========> Date 2 => "+formattedDate2);
-//		System.out.println("=========> Date 3 => "+formattedDate3.split(" ")[1]);
 	}
 
 	/**

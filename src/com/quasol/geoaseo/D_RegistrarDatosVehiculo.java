@@ -4,9 +4,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +33,15 @@ public class D_RegistrarDatosVehiculo extends Activity {
 	
 	public void Save_truck_information(View v){
 		
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		adb.setPositiveButton(
+				"OK",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
 		if(this.hourmeter.getText().equals("")||this.odometer.getText().equals("") ){
 			Toast.makeText(this, "Complete los campos", Toast.LENGTH_LONG).show();
 		}
@@ -49,11 +61,15 @@ public class D_RegistrarDatosVehiculo extends Activity {
 						finish();
 						
 					}else{
-						Toast.makeText(this, "El odometro debe ser mayor o igual a "+truckInformation.getJSONObject(0).getInt("odometro"), Toast.LENGTH_LONG).show();
+						adb.setTitle("El SEGUNDO CAMPO ODOMETRO DEBE SER MAYOR O IGUAL A "+truckInformation.getJSONObject(0).getInt("odometro"));
+						adb.show();
+//						Toast.makeText(this, "El odometro debe ser mayor o igual a "+truckInformation.getJSONObject(0).getInt("odometro"), Toast.LENGTH_LONG).show();
 					}
 				}
 				else{
-						Toast.makeText(this, "El horometro debe ser mayor o igual a "+truckInformation.getJSONObject(0).getInt("horometro"), Toast.LENGTH_LONG).show();
+					adb.setTitle("El PRIMER CAMPO HOROMETRO DEBE SER MAYOR O IGUAL A "+truckInformation.getJSONObject(0).getInt("horometro"));
+					adb.show();
+//						Toast.makeText(this, "El horometro debe ser mayor o igual a "+truckInformation.getJSONObject(0).getInt("horometro"), Toast.LENGTH_LONG).show();
 				}
 				
 			} catch (Exception e) {
