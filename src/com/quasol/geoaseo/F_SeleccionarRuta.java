@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -72,6 +73,10 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 					editor.putString("POS_CURRENT_ROUTE", String.valueOf(this.routePosition));
 					editor.commit();
 					Toast.makeText(this, getResources().getString(R.string.toastRouteStarted), Toast.LENGTH_SHORT).show();
+					//
+					Intent intent = new Intent();
+					setResult(20, intent);
+					//
 					this.finish();
 				}
 			} catch (JSONException e) {
