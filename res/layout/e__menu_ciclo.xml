@@ -72,7 +72,8 @@
             android:background="@android:color/transparent"
             android:contentDescription="start collection"
             android:padding="20dp"
-            android:src="@drawable/btn_start_collection" />
+            android:src="@drawable/btn_start_collection" 
+            android:onClick="start_collection"/>
 
         <ImageButton
             android:id="@+id/btn_compactation"

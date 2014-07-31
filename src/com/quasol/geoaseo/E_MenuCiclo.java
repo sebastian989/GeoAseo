@@ -5,8 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 public class E_MenuCiclo extends Activity {
@@ -32,6 +31,13 @@ public class E_MenuCiclo extends Activity {
 		}
 		
 		super.onResume();
+	}
+	
+	public void start_collection(View v){
+		
+		Intent intent = new Intent(this, F_SeleccionarRuta.class);
+		startActivity(intent);
+		
 	}
 	
 }
