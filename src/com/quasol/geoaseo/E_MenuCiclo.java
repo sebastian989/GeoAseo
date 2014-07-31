@@ -14,8 +14,6 @@ import android.widget.Toast;
 public class E_MenuCiclo extends Activity {
 
 	private SharedPreferences sharedpreferences;
-	static final int REQUEST_DESCRIPTION = 1;
-	static final int REQUEST_DESCRIPTION2 = 2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +48,12 @@ public class E_MenuCiclo extends Activity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == REQUEST_DESCRIPTION ) {
-			if (resultCode == 10) {
-				Intent intent = getIntent();
-			    startActivity(intent);
-			    finish();
+		if (requestCode == RESULT_OK){
+			if (resultCode == 2) {
+				
+				
 			}
 		}
-		if (requestCode == REQUEST_DESCRIPTION2) {		
-			  if (resultCode == 20) {
-				Intent intent = getIntent();
-			    startActivity(intent);
-			    finish();
-			}
-			}
 	}
 	
 	
@@ -74,7 +64,13 @@ public class E_MenuCiclo extends Activity {
 	
 	public void start_collection(View v){
 		Intent intent = new Intent(this, F_SeleccionarRuta.class);
-		startActivityForResult(intent, REQUEST_DESCRIPTION2);
+		startActivityForResult(intent, RESULT_OK);
+	}
+	 
+	public void exit_base(View v){
+		
+		
+		
 	}
 	
 }
