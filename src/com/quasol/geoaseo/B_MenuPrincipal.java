@@ -62,7 +62,7 @@ public class B_MenuPrincipal extends Activity {
 				});
 		adb.show();
 	}
-
+	
 	public void setOperators(View v) {
 		Intent intent = new Intent(this, C_GrupoTrabajo.class);
 		startActivity(intent);

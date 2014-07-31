@@ -63,21 +63,21 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 	public void startRoute(View v){
 		if(this.selectRoute != null){
 			try {
+				SharedPreferences.Editor editor = this.sharedpreferences.edit();
 				if(this.selectRoute.getString("estado").equals("inactiva")){
 					this.selectRoute.put("estado", "iniciada");
 					this.selectRoute.put("fecha", Utilities.getDate());
 					this.plannedRoutes.put(this.routePosition, this.selectRoute);
-					SharedPreferences.Editor editor = this.sharedpreferences.edit();
 					editor.putString("PLANNED_ROUTES", this.plannedRoutes.toString());
 					editor.putString("POS_CURRENT_ROUTE", String.valueOf(this.routePosition));
 					editor.commit();
-					Toast.makeText(this, getResources().getString(R.string.toastRouteStarted), Toast.LENGTH_SHORT).show();
-					//
-					Intent intent = new Intent();
-					setResult(20, intent);
-					//
-					this.finish();
 				}
+				editor.putString("POS_CURRENT_ROUTE", String.valueOf(this.routePosition));
+				editor.commit();
+				Toast.makeText(this, getResources().getString(R.string.toastRouteStarted), Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent();
+				setResult(2, intent);
+				this.finish();
 			} catch (JSONException e) {
 			}
 		}

@@ -6,6 +6,13 @@ import java.util.Calendar;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences.Editor;
+import android.view.View;
+
+import com.quasol.geoaseo.R;
+
 public class Utilities {
 	
 	public static JSONArray delete(JSONArray json, int pos){
@@ -27,5 +34,4 @@ public class Utilities {
 		String currentTime = dateFormat.format(c.getTime());
 		return currentTime;
 	}
-
 }
