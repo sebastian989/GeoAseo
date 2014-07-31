@@ -48,7 +48,6 @@
     <!-- C Grupo de trabajo -->
     <string name="selectedOperaors">Operarios seleccionados:</string>
     <string name="searchOperator">Buscar operario</string>
-    <string name="startTimeOperators">Iniciar</string>
     <string name="title_activity_c__item_selected_operator">C_ItemSelectedOperator</string>
     <string name="confirmSelectedOperators">¿Realmente desea iniciar con los operarios seleccionados?</string>
     <string name="confirmEndJourney">¿Realmente desea terminar la jornada de este operador?</string>
@@ -56,5 +55,17 @@
     <!-- D Matos del vehiculo -->
     <string name="truck_dates_hour_meter">Horometro</string>
     <string name="truck_dates_odometer">Odometro</string>
+    
+    <!-- F Seleccionar ruta -->
+    <string name="lblSelectedRoute">Ruta seleccionada:</string>
+    <string name="lblSheetNumber">Número de hoja:</string>
+    <string name="routeState">Estado de la ruta:</string>
+    <string name="toastLoadRoutes">Error al cargar las rutas</string>
+    <string name="toastNotSelectedRoute">No se ha seleccionado ninguna ruta</string>
+    <string name="toastRouteStarted">La ruta ha sido iniciada satisfactoriamente</string>
+    <string name="lblBotomBar">Grupo de trabajo</string>
+    <string name="btnContinueRoute">Continuar</string>
+    <string name="btnStartRoute">Iniciar</string>
+    <string name="startRoute">Iniciar</string>
  
 </resources>

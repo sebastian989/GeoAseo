@@ -125,8 +125,8 @@ public class A_LogIn extends Activity {
 				JSONArray truckInformation = this.answer.getJSONObject(0).getJSONArray("informacion_vehiculo");
 				
 				for(int i=0; i<plannedRoutes.length(); i++){
-					plannedRoutes.getJSONObject(i).put("state", "inactive");
-					plannedRoutes.getJSONObject(i).put("compaction", 0);
+					plannedRoutes.getJSONObject(i).put("estado", "inactiva");
+					plannedRoutes.getJSONObject(i).put("compactaciones", 0);
 					plannedRoutes.getJSONObject(i).put("tickets", new JSONArray());
 				}
 				

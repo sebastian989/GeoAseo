@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="20dp"
-        android:layout_weight="80"
+        android:layout_weight="70"
         android:baselineAligned="false" >
 
         <LinearLayout
@@ -77,9 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp" >
-
             </ListView>
-
         </LinearLayout>
 
         <LinearLayout
@@ -94,11 +92,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:inputType="text"
                 android:ems="10"
                 android:hint="@string/searchOperator"
+                android:inputType="text"
                 android:textSize="25sp" >
-
             </EditText>
 
             <ListView
@@ -106,28 +103,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" >
-
             </ListView>
-
         </LinearLayout>
-
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_height="wrap_content"
+        android:background="@drawable/c_work_group_bottom_bar"
+        android:gravity="center_vertical"
         android:orientation="vertical" >
-        
+
         <Button
             android:id="@+id/btnInit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/c_btn_save"
             android:onClick="start"
-            android:text="@string/startTimeOperators"
             android:textSize="25sp" />
-        
-    </LinearLayout>
-    
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btnInit"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="150dp"
+            android:gravity="center_vertical"
+            android:text="@string/lblBotomBar"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
+
+    </RelativeLayout>
+
 </LinearLayout>
