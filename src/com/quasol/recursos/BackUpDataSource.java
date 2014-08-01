@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class BackUpDataSource {
-	private SQLiteDatabase db;
+	private SQLiteDatabase  db;
 	private MySQLiteOpenHelper dbHelper;
 	private String[] columnas = { TableBackUp.COLUMN_ID,TableBackUp.COLUMN_TOKEN,TableBackUp.COLUMN_DATETIME,TableBackUp.COLUMN_EVENT,TableBackUp.COLUMN_JSON};
 
