@@ -94,7 +94,8 @@
             android:background="@android:color/transparent"
             android:contentDescription="collection finish"
             android:padding="20dp"
-            android:src="@drawable/btn_collection_finish_two" />
+            android:src="@drawable/btn_collection_finish_two"
+            android:onClick="finish_collection" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -109,7 +110,8 @@
             android:background="@android:color/transparent"
             android:contentDescription="arrive final disposition"
             android:padding="20dp"
-            android:src="@drawable/btn_arrive_final_disposition_two" />
+            android:src="@drawable/btn_arrive_final_disposition_two" 
+            android:onClick="arrive_final_disposition"/>
 
         <ImageButton
             android:id="@+id/btn_come_back_to_base"
@@ -119,7 +121,7 @@
             android:contentDescription="come back to base"
             android:padding="20dp"
             android:src="@drawable/btn_come_back_to_base_two"
-            android:onClick="startDay"/>
+            android:onClick="come_back_to_base"/>
 
         <ImageButton
             android:id="@+id/btn_special_service"
@@ -165,12 +167,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
             android:layout_marginLeft="100dp"
-            android:layout_marginBottom="7dp"
             android:text="Menu ciclo"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/white"
-            android:textSize="35sp" />
+            android:textSize="25sp" />
+
     </RelativeLayout>
 
 </LinearLayout>
