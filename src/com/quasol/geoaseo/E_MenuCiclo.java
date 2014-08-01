@@ -30,6 +30,9 @@ public class E_MenuCiclo extends Activity {
 			if(current_state==1){
 				buttons_exit_base();
 			}
+			else if(current_state==2){
+				buttons_start_collection();
+			}
 		}
 	}
 	
@@ -57,8 +60,7 @@ public class E_MenuCiclo extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == RESULT_OK){
 			if (resultCode == 2) {
-				
-				
+				buttons_start_collection();
 			}
 		}
 	}
@@ -78,7 +80,7 @@ public class E_MenuCiclo extends Activity {
 		this.adb.setTitle("ESTA SEGURO QUE VA A SALIR DE LA BASE ");
 		this.adb.setPositiveButton(
 				"SI",
-				new DialogInterface.OnClickListener() {
+				new DialogInterface.OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						buttons_exit_base();
@@ -115,6 +117,21 @@ public class E_MenuCiclo extends Activity {
 		
 		this.btn_special_service.setImageDrawable(this.d_special_service);
 		this.btn_special_service.setEnabled(true);
+	}
+	
+public void buttons_start_collection(){
+	
+		this.btn_start_collection.setImageDrawable(this.d_start_collection_two);
+		this.btn_start_collection.setEnabled(false);
+	
+		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
+		this.btn_base_exit.setEnabled(false);
+		
+		this.btn_compactation.setImageDrawable(this.d_compactation_two);
+		this.btn_compactation.setEnabled(true);
+		
+		this.btn_special_service.setImageDrawable(this.d_special_service_two);
+		this.btn_special_service.setEnabled(false);
 	}
 	
 	
