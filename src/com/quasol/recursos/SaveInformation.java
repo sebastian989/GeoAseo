@@ -68,7 +68,7 @@ public class SaveInformation extends AsyncTask<String, Void, Void> {
 	}
 	
 	private void saveInDataBase(String token, String date, String event, String json){
-		this.dataBase.insertRow(token, date, event, json);
+		this.dataBase.CreateRoute(token, date, event, json);
 	}
 	
 	private boolean thereIsInternet() {
