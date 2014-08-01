@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClickListener{
 	
@@ -34,7 +35,6 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 	private EditText txtSearch;
 	private Button btnInit;
 	private SharedPreferences sharedpreferences;
-	private JSONArray jsonSelectedOperators;
 	private JSONArray savedOperators;
 	private JSONArray jsonAllOperators;
 	private JSONArray displayedListOperators;
@@ -45,13 +45,13 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.c__grupo_trabajo);
-		
-		this.jsonSelectedOperators = new JSONArray();
 		this.textChange = false;
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		this.identifyElements();
 		this.txtSearch.addTextChangedListener(this);
 		this.lstAllOperators.setOnItemClickListener(this);
+		this.adapter = new C_ItemSelectedOperator(this, new JSONArray());
+		this.lstSelectedOperators.setAdapter(adapter);
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
 		String selectedOperators = sharedpreferences.getString("SELECTED_OPERATORS", null);
 		if(selectedOperators != null){
@@ -59,11 +59,11 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 				this.savedOperators = new JSONArray(selectedOperators);
 				for(int i=0; i<savedOperators.length(); i++){
 					if(savedOperators.getJSONObject(i).getString("hora_fin").equals("")){
-						jsonSelectedOperators.put(savedOperators.getJSONObject(i));
+						this.adapter.addOperator(savedOperators.getJSONObject(i));
 					}
 				}
 				this.blockElements();
-				this.displayListSelectedOperators();
+				this.adapter.notifyDataSetChanged();
 			} catch (JSONException e) {}
 		}
 		else{
@@ -91,11 +91,6 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.lstAllOperators.setAdapter(adapter);
 	}
 	
-	private void displayListSelectedOperators(){
-		this.adapter = new C_ItemSelectedOperator(this, this.jsonSelectedOperators);
-		this.lstSelectedOperators.setAdapter(adapter);
-	}
-	
 	private  void identifyElements(){
 		this.lstAllOperators = (ListView) findViewById(R.id.lstAllOperators);
 		this.lstSelectedOperators = (ListView) findViewById(R.id.lstSelectedOperators);
@@ -103,15 +98,24 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.btnInit = (Button) findViewById(R.id.btnInit);
 	}
 	
-	public void changeOperator(JSONObject operator, final int position){
+	public void changeOperator(JSONObject operator){
 		if(this.savedOperators != null){
 			try {
-				savedOperators.getJSONObject(position).put("hora_fin", Utilities.getDate());
+				int i=0;
+				while(i<this.savedOperators.length() && 
+						!this.savedOperators.getJSONObject(i).getString("cedula").equals(operator.getString("cedula")))
+				{
+					i++;
+				}
+				if(i<this.savedOperators.length()){
+					savedOperators.getJSONObject(i).put("hora_fin", Utilities.getDate());
+					Toast.makeText(this, savedOperators.getJSONObject(i).toString(), Toast.LENGTH_LONG).show();
+				}
+				SharedPreferences.Editor editor = sharedpreferences.edit();
+				editor.putString("SELECTED_OPERATORS", savedOperators.toString());
+				editor.commit();
 			} catch (JSONException e) {
 			}
-			SharedPreferences.Editor editor = sharedpreferences.edit();
-			editor.putString("SELECTED_OPERATORS", savedOperators.toString());
-			editor.commit();
 		}
 		else{
 			this.jsonAllOperators.put(operator);
@@ -120,14 +124,13 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 			}
 			this.diaplayListAllOperators();
 		}
-		this.jsonSelectedOperators = Utilities.delete(this.jsonSelectedOperators, position);
 		this.adapter.notifyDataSetChanged();
 	}
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		try {
-			this.jsonSelectedOperators.put(this.displayedListOperators.getJSONObject(position));
+			this.adapter.addOperator(this.displayedListOperators.getJSONObject(position));
 			int i=0;
 			while(i<this.jsonAllOperators.length() && 
 					this.jsonAllOperators.getJSONObject(i).getInt("cedula") != 
@@ -141,53 +144,60 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 			this.diaplayListAllOperators();
 		} catch (JSONException e) {
 		}
-		this.displayListSelectedOperators();
+		this.adapter.notifyDataSetChanged();
 	}
 	
 	public void start(View v){
-		AlertDialog.Builder adb = new AlertDialog.Builder(this);
-		adb.setTitle(getResources().getString(R.string.confirmSelectedOperators));
-		adb.setPositiveButton(
-				getResources().getString(R.string.confirm_button_1),
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						saveSelectedOperators();
-						blockElements();
-						finish();
-					}
-				});
-		adb.setNegativeButton(
-				getResources().getString(R.string.confirm_button_2),
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						dialog.dismiss();
-					}
-				});
-		adb.show();
+		if(this.adapter.getCurrentSelected().length()>0){
+			AlertDialog.Builder adb = new AlertDialog.Builder(this);
+			adb.setTitle(getResources().getString(R.string.confirmSelectedOperators));
+			adb.setPositiveButton(
+					getResources().getString(R.string.confirm_button_1),
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							saveSelectedOperators();
+							blockElements();
+							finish();
+						}
+					});
+			adb.setNegativeButton(
+					getResources().getString(R.string.confirm_button_2),
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							dialog.dismiss();
+						}
+					});
+			adb.show();
+		}
+		else{
+			Utilities.showAlert(this, getResources().getString(R.string.alertVoidListOperators));
+		}
+		
 	}
 	
 	private void saveSelectedOperators(){
 		String hour = Utilities.getDate();
-		for(int i=0; i<jsonSelectedOperators.length(); i++){
+		for(int i=0; i<this.adapter.getCurrentSelected().length(); i++){
 			try {
-				jsonSelectedOperators.getJSONObject(i).put("hora_inicio", hour);
-				jsonSelectedOperators.getJSONObject(i).put("hora_fin", "");
+				this.adapter.getCurrentSelected().getJSONObject(i).put("hora_inicio", hour);
+				this.adapter.getCurrentSelected().getJSONObject(i).put("hora_fin", "");
 			} catch (JSONException e) {
 			}
 		}
 		
 		SharedPreferences.Editor editor = sharedpreferences.edit();
-		editor.putString("SELECTED_OPERATORS", jsonSelectedOperators.toString());
+		editor.putString("SELECTED_OPERATORS", this.adapter.getCurrentSelected().toString());
 		editor.commit();
 	}
 	
 	private void blockElements(){
-		btnInit.setEnabled(false);
-		lstAllOperators.setEnabled(false);
-		txtSearch.setEnabled(false);
+		this.btnInit.setBackgroundResource(R.drawable.c_btn_save);
+		this.btnInit.setEnabled(false);
+		this.lstAllOperators.setEnabled(false);
+		this.txtSearch.setEnabled(false);
 	}
 	
 	@Override

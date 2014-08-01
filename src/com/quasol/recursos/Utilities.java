@@ -6,6 +6,7 @@ import java.util.Calendar;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences.Editor;
@@ -33,5 +34,19 @@ public class Utilities {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
 		String currentTime = dateFormat.format(c.getTime());
 		return currentTime;
+	}
+	
+	public static void showAlert(Activity activity, String message){
+		AlertDialog.Builder adb = new AlertDialog.Builder(activity);
+		adb.setTitle(message);
+		adb.setPositiveButton(
+				activity.getResources().getString(R.string.accept_button),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+		adb.show();
 	}
 }

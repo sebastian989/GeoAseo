@@ -7,7 +7,9 @@ import org.json.JSONObject;
 import com.quasol.recursos.Utilities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -74,15 +76,25 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 				}
 				editor.putString("POS_CURRENT_ROUTE", String.valueOf(this.routePosition));
 				editor.commit();
-				Toast.makeText(this, getResources().getString(R.string.toastRouteStarted), Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent();
-				setResult(2, intent);
-				this.finish();
+				AlertDialog.Builder adb = new AlertDialog.Builder(this);
+				adb.setTitle(getResources().getString(R.string.toastRouteStarted));
+				adb.setPositiveButton(
+						getResources().getString(R.string.accept_button),
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+								Intent intent = new Intent();
+								setResult(2, intent);
+								finish();
+							}
+						});
+				adb.show();
 			} catch (JSONException e) {
 			}
 		}
 		else{
-			Toast.makeText(this, getResources().getString(R.string.toastNotSelectedRoute), Toast.LENGTH_SHORT).show();
+			Utilities.showAlert(this, getResources().getString(R.string.toastNotSelectedRoute));
 		}
 	}
 

@@ -123,7 +123,7 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="40dp"
-            android:background="@drawable/c_btn_save"
+            android:background="@drawable/btn_save_two"
             android:onClick="start"
             android:textSize="25sp" />
 
