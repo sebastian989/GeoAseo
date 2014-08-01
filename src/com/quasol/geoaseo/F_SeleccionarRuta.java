@@ -72,7 +72,6 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 					this.selectRoute.put("fecha", Utilities.getDate());
 					this.plannedRoutes.put(this.routePosition, this.selectRoute);
 					editor.putString("PLANNED_ROUTES", this.plannedRoutes.toString());
-					editor.putString("POS_CURRENT_ROUTE", String.valueOf(this.routePosition));
 					editor.commit();
 					adb.setTitle("DESEA INICIAR LA RUTA "+ this.selectRoute.getString("nombre"));
 				}

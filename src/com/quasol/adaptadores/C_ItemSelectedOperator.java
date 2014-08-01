@@ -73,8 +73,8 @@ public class C_ItemSelectedOperator extends BaseAdapter {
 				public void onClick(View v) {
 					try {
 						if (jsonSelected.getJSONObject(pos).getString("hora_fin").equals("")) {
-							String posCurrentRout = sharedpreferences.getString("POS_CURRENT_ROUTE", null);
-							if (posCurrentRout != null) {
+							int posCurrentRout = sharedpreferences.getInt("POS_CURRENT_ROUTE", -1);
+							if (posCurrentRout >= 0) {
 								AlertDialog.Builder adb = new AlertDialog.Builder(activity);
 								adb.setTitle(activity.getResources().getString(R.string.confirmEndJourney));
 								adb.setPositiveButton(activity.getResources()

@@ -26,7 +26,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClickListener{
 	
@@ -108,8 +107,8 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 					i++;
 				}
 				if(i<this.savedOperators.length()){
-					savedOperators.getJSONObject(i).put("hora_fin", Utilities.getDate());
-					Toast.makeText(this, savedOperators.getJSONObject(i).toString(), Toast.LENGTH_LONG).show();
+					this.savedOperators = Utilities.delete(this.savedOperators, i);
+					operator.put("hora_fin", Utilities.getDate());	
 				}
 				SharedPreferences.Editor editor = sharedpreferences.edit();
 				editor.putString("SELECTED_OPERATORS", savedOperators.toString());

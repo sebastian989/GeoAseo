@@ -9,8 +9,6 @@ import org.json.JSONException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences.Editor;
-import android.view.View;
 
 import com.quasol.geoaseo.R;
 
