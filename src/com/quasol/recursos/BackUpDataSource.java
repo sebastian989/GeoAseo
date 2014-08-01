@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class BackUpDataSource {
 	private SQLiteDatabase db;
 	private MySQLiteOpenHelper dbHelper;
-	private String[] columnas = { TableBackUp.COLUMN_ID,TableBackUp.COLUMN_SHEET_ROUTE,TableBackUp.COLUMN_DATETIME,TableBackUp.COLUMN_EVENT,TableBackUp.COLUMN_JSON};
+	private String[] columnas = { TableBackUp.COLUMN_ID,TableBackUp.COLUMN_TOKEN,TableBackUp.COLUMN_DATETIME,TableBackUp.COLUMN_EVENT,TableBackUp.COLUMN_JSON};
 
 	public BackUpDataSource(Context context) {
 		dbHelper = MySQLiteOpenHelper.getInstance(context);
@@ -27,7 +27,7 @@ public class BackUpDataSource {
 
 	public boolean insertRow(String sheet,String date_time, String event, String json){
 		ContentValues values = new ContentValues();
-		values.put(TableBackUp.COLUMN_SHEET_ROUTE, sheet);
+		values.put(TableBackUp.COLUMN_TOKEN, sheet);
 		values.put(TableBackUp.COLUMN_DATETIME, date_time);
 		values.put(TableBackUp.COLUMN_EVENT, event);
 		values.put(TableBackUp.COLUMN_JSON, json);

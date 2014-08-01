@@ -82,7 +82,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 				editor.putInt("CURRENT_STATE", 2);
 				editor.commit();
 				adb.setPositiveButton(
-						getResources().getString(R.string.accept_button),
+						getResources().getString(R.string.confirm_button_1),
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
@@ -90,6 +90,14 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 								Intent intent = new Intent();
 								setResult(2, intent);
 								finish();
+							}
+						});
+				adb.setNegativeButton(
+						getResources().getString(R.string.confirm_button_2),
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
 							}
 						});
 				adb.show();
