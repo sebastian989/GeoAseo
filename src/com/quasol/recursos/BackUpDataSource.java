@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class BackUpDataSource {
 	private SQLiteDatabase db;
 	private MySQLiteOpenHelper dbHelper;
-	private String[] columnas = { TableBackUp.COLUMN_ID,TableBackUp.COLUMN_SHEET_ROUTE,TableBackUp.COLUMN_DATETIME,TableBackUp.COLUMN_EVENT,TableBackUp.COLUMN_JSON};
+	private String[] columnas = { TableBackUp.COLUMN_ID,TableBackUp.COLUMN_TOKEN,TableBackUp.COLUMN_DATETIME,TableBackUp.COLUMN_EVENT,TableBackUp.COLUMN_JSON};
 
 	public BackUpDataSource(Context context) {
 		dbHelper = MySQLiteOpenHelper.getInstance(context);
@@ -25,9 +25,9 @@ public class BackUpDataSource {
 		dbHelper.close();
 	}
 
-	public boolean CreateRoute(String sheet,String date_time, String event, String json){
+	public boolean CreateRoute(String token,String date_time, String event, String json){
 		ContentValues values = new ContentValues();
-		values.put(TableBackUp.COLUMN_SHEET_ROUTE, sheet);
+		values.put(TableBackUp.COLUMN_TOKEN, token);
 		values.put(TableBackUp.COLUMN_DATETIME, date_time);
 		values.put(TableBackUp.COLUMN_EVENT, event);
 		values.put(TableBackUp.COLUMN_JSON, json);
@@ -43,8 +43,7 @@ public class BackUpDataSource {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast()) {
 				JSONObject auxRoute=new JSONObject();
-				auxRoute.put("id_route", cursor.getInt(0));
-				auxRoute.put("sheet_route", cursor.getString(1));
+				auxRoute.put("token", cursor.getString(1));
 				auxRoute.put("date_time", cursor.getString(2));
 				auxRoute.put("event", cursor.getString(3));
 				auxRoute.put("info_json", cursor.getString(4));

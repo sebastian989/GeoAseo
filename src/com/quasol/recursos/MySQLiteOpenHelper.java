@@ -14,7 +14,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 	public static class TableBackUp{
 		public static String TABLE_BACKUP = "backup";
 		public static String COLUMN_ID = "id";
-		public static String COLUMN_SHEET_ROUTE = "id_sheet";
+		public static String COLUMN_TOKEN = "token";
 		public static String COLUMN_DATETIME = "date_time";
 		public static String COLUMN_EVENT = "event";
 		public static String COLUMN_JSON = "info_json";
@@ -23,7 +23,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_CREATE = "create table "
 			+ TableBackUp.TABLE_BACKUP + "(" + TableBackUp.COLUMN_ID
-			+ " integer primary key autoincrement, " + TableBackUp.COLUMN_SHEET_ROUTE
+			+ " integer primary key autoincrement, " + TableBackUp.COLUMN_TOKEN
 			+ " text not null, " + TableBackUp.COLUMN_DATETIME
 			+ " text not null, " + TableBackUp.COLUMN_EVENT
 			+ " text not null, " + TableBackUp.COLUMN_JSON
