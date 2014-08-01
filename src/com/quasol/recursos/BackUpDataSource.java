@@ -25,7 +25,7 @@ public class BackUpDataSource {
 		dbHelper.close();
 	}
 
-	public boolean CreateRoute(String sheet,String date_time, String event, String json){
+	public boolean insertRow(String sheet,String date_time, String event, String json){
 		ContentValues values = new ContentValues();
 		values.put(TableBackUp.COLUMN_SHEET_ROUTE, sheet);
 		values.put(TableBackUp.COLUMN_DATETIME, date_time);

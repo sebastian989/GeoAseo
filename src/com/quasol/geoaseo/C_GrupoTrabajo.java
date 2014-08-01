@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.quasol.adaptadores.C_ItemSelectedOperator;
+import com.quasol.recursos.SaveInformation;
 import com.quasol.recursos.Utilities;
 
 import android.app.Activity;
@@ -107,8 +108,17 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 					i++;
 				}
 				if(i<this.savedOperators.length()){
+					int posCurrentRout = this.sharedpreferences.getInt("POS_CURRENT_ROUTE", -1);
+					JSONArray plannedRoutes = new JSONArray(this.sharedpreferences.getString("PLANNED_ROUTES", null));
 					this.savedOperators = Utilities.delete(this.savedOperators, i);
-					operator.put("hora_fin", Utilities.getDate());	
+					operator.put("hora_fin", Utilities.getDate());
+					JSONArray data = new JSONArray();
+					data.put(plannedRoutes.getJSONObject(posCurrentRout));
+					data.put(operator);
+					new SaveInformation(this).execute("http://pruebasgeoaseo.tk/controller/Fachada.php",
+							"test",
+							"fin_jornada",
+							data.toString());
 				}
 				SharedPreferences.Editor editor = sharedpreferences.edit();
 				editor.putString("SELECTED_OPERATORS", savedOperators.toString());

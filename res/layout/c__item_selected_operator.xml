@@ -11,14 +11,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="80"
+        android:paddingRight="5dp"
         android:text="@string/hello_world"
-        android:textSize="20sp" />
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnDelete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_weight="20"
-        android:text="X" />
+        android:background="@color/blue1"
+        android:text="X"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

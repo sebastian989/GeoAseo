@@ -3,6 +3,7 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
 
@@ -20,8 +21,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@color/blue1"
-            android:hint="@string/date_example"
             android:padding="10dp"
+            android:text="@string/date_example"
             android:textColor="@color/white"
             android:textColorLink="@color/white"
             android:textSize="25sp" />
@@ -51,9 +52,44 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:paddingLeft="15dp"
+            android:text="@string/selectedOperaors"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/txtSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="50"
+            android:ems="10"
+            android:hint="@string/searchOperator"
+            android:inputType="text"
+            android:textSize="25sp" >
+
+            <requestFocus />
+        </EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
         android:layout_marginBottom="20dp"
-        android:layout_weight="70"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/c_background_lists"
         android:baselineAligned="false" >
 
         <LinearLayout
@@ -63,20 +99,12 @@
             android:layout_weight="50"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="@string/selectedOperaors"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="25sp" />
-
             <ListView
                 android:id="@+id/lstSelectedOperators"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp" >
+                android:layout_margin="20dp" >
+
             </ListView>
         </LinearLayout>
 
@@ -87,58 +115,60 @@
             android:layout_weight="50"
             android:orientation="vertical" >
 
-            <EditText
-                android:id="@+id/txtSearch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="@string/searchOperator"
-                android:inputType="text"
-                android:textSize="25sp" >
-            </EditText>
-
             <ListView
                 android:id="@+id/lstAllOperators"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" >
+                android:layout_margin="20dp" >
+
             </ListView>
         </LinearLayout>
     </LinearLayout>
-
+    
     <RelativeLayout
-        android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/c_work_group_bottom_bar"
-        android:gravity="center_vertical"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="@color/blue1"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bar_bottom" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnInit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="right|center_vertical"
+            android:layout_marginBottom="6dp"
             android:layout_marginRight="40dp"
             android:background="@drawable/btn_save_two"
             android:onClick="start"
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/btnInit"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="150dp"
-            android:gravity="center_vertical"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="96dp"
             android:text="@string/lblBotomBar"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
 
     </RelativeLayout>
 
