@@ -77,7 +77,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 				editor.putString("POS_CURRENT_ROUTE", String.valueOf(this.routePosition));
 				editor.commit();
 				AlertDialog.Builder adb = new AlertDialog.Builder(this);
-				adb.setTitle(getResources().getString(R.string.toastRouteStarted));
+				adb.setTitle(getResources().getString(R.string.alertRouteStarted));
 				adb.setPositiveButton(
 						getResources().getString(R.string.accept_button),
 						new DialogInterface.OnClickListener() {
@@ -94,7 +94,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 			}
 		}
 		else{
-			Utilities.showAlert(this, getResources().getString(R.string.toastNotSelectedRoute));
+			Utilities.showAlert(this, getResources().getString(R.string.alertNotSelectedRoute));
 		}
 	}
 

@@ -64,8 +64,8 @@
     <string name="lblSheetNumber">Número de hoja:</string>
     <string name="routeState">Estado de la ruta:</string>
     <string name="toastLoadRoutes">Error al cargar las rutas</string>
-    <string name="toastNotSelectedRoute">NO SE HA SELECCIONADO NINGUNA RUTA.</string>
-    <string name="toastRouteStarted">LA RUTA HA SIDO INICIADA SATISFACTORIAMENTE.</string>
+    <string name="alertNotSelectedRoute">NO SE HA SELECCIONADO NINGUNA RUTA.</string>
+    <string name="alertRouteStarted">LA RUTA HA SIDO INICIADA SATISFACTORIAMENTE.</string>
     <string name="lblBotomBar">Grupo de trabajo</string>
     <string name="btnContinueRoute">Continuar</string>
     <string name="btnStartRoute">Iniciar</string>
