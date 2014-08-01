@@ -84,7 +84,8 @@
             android:background="@android:color/transparent"
             android:contentDescription="compactation"
             android:padding="20dp"
-            android:src="@drawable/btn_compaction_two" />
+            android:src="@drawable/btn_compaction_two"
+            android:onClick="compactation" />
 
         <ImageButton
             android:id="@+id/btn_collection_finish"

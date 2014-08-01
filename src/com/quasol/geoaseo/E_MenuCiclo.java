@@ -1,5 +1,8 @@
 package com.quasol.geoaseo;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -40,7 +43,7 @@ public class E_MenuCiclo extends Activity {
 	protected void onResume() {
 		this.adb.setTitle("DEBE AGREGAR UN GRUPO DE OPERARIOS");
 		this.adb.setPositiveButton(
-				"OK",
+				"ACEPTAR",
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -58,7 +61,7 @@ public class E_MenuCiclo extends Activity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == RESULT_OK){
+		if (requestCode == 10){
 			if (resultCode == 2) {
 				buttons_start_collection();
 			}
@@ -73,7 +76,7 @@ public class E_MenuCiclo extends Activity {
 	
 	public void start_collection(View v){
 		Intent intent = new Intent(this, F_SeleccionarRuta.class);
-		startActivityForResult(intent, RESULT_OK);
+		startActivityForResult(intent, 10);
 	}
 	 
 	public void exit_base(View v){
@@ -121,19 +124,64 @@ public class E_MenuCiclo extends Activity {
 	
 public void buttons_start_collection(){
 	
+		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
+		this.btn_base_exit.setEnabled(false);
+	
 		this.btn_start_collection.setImageDrawable(this.d_start_collection_two);
 		this.btn_start_collection.setEnabled(false);
 	
-		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
-		this.btn_base_exit.setEnabled(false);
-		
-		this.btn_compactation.setImageDrawable(this.d_compactation_two);
+		this.btn_compactation.setImageDrawable(this.d_compactation);
 		this.btn_compactation.setEnabled(true);
 		
 		this.btn_special_service.setImageDrawable(this.d_special_service_two);
 		this.btn_special_service.setEnabled(false);
+		
+		this.btn_collection_finish.setImageDrawable(this.d_collection_finish);
+		this.btn_collection_finish.setEnabled(true);
+		
+		this.btn_inoperability.setImageDrawable(this.d_inoperability);
+		this.btn_inoperability.setEnabled(true);
 	}
 	
+	public void compactation(View v){
+		
+		this.adb.setTitle("SEGURO QUE DESEA REALIZAR UNA COMPACTACIÓN");
+		this.adb.setPositiveButton(
+				getResources().getString(R.string.confirm_button_1),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						try {
+							
+							JSONArray plannedRoutes = new JSONArray((String)sharedpreferences.getString("PLANNED_ROUTES", null)); 
+							int position = (int)sharedpreferences.getInt("POS_CURRENT_ROUTE",7000);
+							JSONObject select_route = plannedRoutes.getJSONObject(position);
+							int compactations = select_route.getInt("compactaciones");
+							compactations=compactations+1;
+							select_route.put("compactaciones",compactations);
+							SharedPreferences.Editor editor = sharedpreferences.edit();
+							editor.putString("PLANNED_ROUTES", plannedRoutes.toString());
+							editor.commit();
+							
+							
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+						
+						
+						
+					}
+				});
+		this.adb.setNegativeButton(getResources().getString(R.string.confirm_button_2),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+		this.adb.show();
+	}
 	
 	/**
 	 * 

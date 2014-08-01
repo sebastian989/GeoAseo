@@ -63,6 +63,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 	}
 	
 	public void startRoute(View v){
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
 		if(this.selectRoute != null){
 			try {
 				SharedPreferences.Editor editor = this.sharedpreferences.edit();
@@ -73,11 +74,14 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 					editor.putString("PLANNED_ROUTES", this.plannedRoutes.toString());
 					editor.putString("POS_CURRENT_ROUTE", String.valueOf(this.routePosition));
 					editor.commit();
+					adb.setTitle("DESEA INICIAR LA RUTA "+ this.selectRoute.getString("nombre"));
 				}
-				editor.putString("POS_CURRENT_ROUTE", String.valueOf(this.routePosition));
+				else{
+					adb.setTitle("DESEA CONTINUAR LA RUTA "+ this.selectRoute.getString("nombre"));
+				}
+				editor.putInt("POS_CURRENT_ROUTE", this.routePosition);
+				editor.putInt("CURRENT_STATE", 2);
 				editor.commit();
-				AlertDialog.Builder adb = new AlertDialog.Builder(this);
-				adb.setTitle(getResources().getString(R.string.alertRouteStarted));
 				adb.setPositiveButton(
 						getResources().getString(R.string.accept_button),
 						new DialogInterface.OnClickListener() {
