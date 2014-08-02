@@ -25,7 +25,6 @@ public class A_LogIn extends Activity {
 	private String user;
 	private TextView txtUser;
 	private TextView txtPassword;
-	//comment
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

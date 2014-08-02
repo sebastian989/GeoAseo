@@ -170,6 +170,22 @@
             android:textColor="@color/white"
             android:textSize="25sp" />
 
+        <Button
+            android:id="@+id/btnFinishAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="21dp"
+            android:layout_toLeftOf="@+id/btnInit"
+            android:background="@android:color/white"
+            android:enabled="false"
+            android:onClick="finishAllOperators"
+            android:padding="7dp"
+            android:text="@string/btnFinishAll"
+            android:textColor="@color/blue1"
+            android:textSize="25sp" />
+
     </RelativeLayout>
 
 </LinearLayout>

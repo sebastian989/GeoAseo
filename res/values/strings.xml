@@ -52,8 +52,11 @@
     <string name="title_activity_c__item_selected_operator">C_ItemSelectedOperator</string>
     <string name="alertVoidListOperators">SELECCIONE LOS OPERARIOS PARA INICIAR EL DIA.</string>
     <string name="alertFinishJourneyWithoutRouteInit">NO SE PUEDE TERMINAR LA JORNADA SIN ANTES HABER INICIADO UNA RUTA.</string>
+    <string name="alertFinishJourneyAllWithoutOperators">TODOS LOS OPERARIOS HAN TERMINADO SUS JORNADAS.</string>
+    <string name="confirmFinishAllOperators">¿REALMENTE DESEA FINALIZAR LA JORNADA DE TODOS LOS OPERARIOS?</string>
     <string name="confirmSelectedOperators">¿REALMENTE DESEA INICIAR CON LOS OPERARIOS SELECCIONADOS?</string>
     <string name="confirmEndJourney">¿REALMENTE DESEA TERMINAR LA JORNADA DE ESTE OPERARIO?</string>
+    <string name="btnFinishAll">Finalizar todos</string>
     
     <!-- D Matos del vehiculo -->
     <string name="truck_dates_hour_meter">Horometro</string>
