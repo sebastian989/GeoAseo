@@ -89,6 +89,9 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 								dialog.dismiss();
 								Intent intent = new Intent();
 								setResult(2, intent);
+								
+								//Enviar al web service a guardar
+								
 								finish();
 							}
 						});
