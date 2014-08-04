@@ -4,8 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.quasol.recursos.Utilities;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -22,6 +20,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.quasol.recursos.SaveInformation;
+import com.quasol.recursos.Utilities;
+
 public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 	
 	private SharedPreferences sharedpreferences;
@@ -33,6 +34,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 	private JSONArray plannedRoutes;
 	private JSONObject selectRoute;
 	private int routePosition;
+	private String method;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +71,16 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 				SharedPreferences.Editor editor = this.sharedpreferences.edit();
 				if(this.selectRoute.getString("estado").equals("inactiva")){
 					this.selectRoute.put("estado", "iniciada");
-					this.selectRoute.put("fecha", Utilities.getDate());
+					this.selectRoute.put("fecha_inicio", Utilities.getDate());
 					this.plannedRoutes.put(this.routePosition, this.selectRoute);
 					editor.putString("PLANNED_ROUTES", this.plannedRoutes.toString());
 					editor.commit();
 					adb.setTitle("DESEA INICIAR LA RUTA "+ this.selectRoute.getString("nombre"));
+					this.method = "iniciar_porte";
 				}
 				else{
 					adb.setTitle("DESEA CONTINUAR LA RUTA "+ this.selectRoute.getString("nombre"));
+					this.method = "continuar_porte";
 				}
 				editor.putInt("POS_CURRENT_ROUTE", this.routePosition);
 				editor.putInt("CURRENT_STATE", 2);
@@ -89,9 +93,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 								dialog.dismiss();
 								Intent intent = new Intent();
 								setResult(2, intent);
-								
-								//Enviar al web service a guardar
-								
+								send_information();
 								finish();
 							}
 						});
@@ -136,6 +138,27 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 		}	
 	}
 	
+	public void send_information(){
+		JSONArray data = new JSONArray();
+		JSONArray auxjson = new JSONArray();
+		JSONObject auxobject = new JSONObject();
+		try {
+			data.put(this.plannedRoutes.getJSONObject(this.routePosition));
+			auxjson = new JSONArray(this.sharedpreferences.getString("SELECTED_OPERATORS", null));
+			auxobject.put("operators_select", auxjson);
+			data.put(auxobject);
+			auxjson =  new JSONArray(this.sharedpreferences.getString("TRUCK_INFO",null));
+			data.put(auxjson.get(0));
+
+			new SaveInformation(this).execute("http://pruebasgeoaseo.tk/controller/Fachada.php",
+					"test",
+					this.method,
+					data.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
 	private  void identifyElements(){
 		this.lblSelectedRoute = (TextView) findViewById(R.id.lblSelectedRoute);
 		this.lblRouteSheet = (TextView) findViewById(R.id.lblSelectedSheet);
@@ -143,4 +166,5 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 		this.lstRoutes = (ListView) findViewById(R.id.lstRoutes);
 		this.btnIniciar = (Button) findViewById(R.id.btnIniciar);
 	}
+	
 }

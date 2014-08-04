@@ -38,6 +38,7 @@ public class BackUpDataSource {
 
 	public JSONArray getAllRoutes() {
 		JSONArray JSONRoutes = new JSONArray();
+		JSONArray auxjson;
 		try {
 			Cursor cursor = db.query(TableBackUp.TABLE_BACKUP, columnas, null, null,null, null, null);
 			cursor.moveToFirst();
@@ -46,7 +47,8 @@ public class BackUpDataSource {
 				auxRoute.put("token", cursor.getString(1));
 				auxRoute.put("date_time", cursor.getString(2));
 				auxRoute.put("event", cursor.getString(3));
-				auxRoute.put("info_json", cursor.getString(4));
+				auxjson= new JSONArray(cursor.getString(4));
+				auxRoute.put("info_json", auxjson);
 				JSONRoutes.put(auxRoute);
 				cursor.moveToNext();
 			}

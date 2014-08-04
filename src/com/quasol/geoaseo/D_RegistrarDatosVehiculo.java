@@ -63,13 +63,11 @@ public class D_RegistrarDatosVehiculo extends Activity {
 					}else{
 						adb.setTitle("El SEGUNDO CAMPO ODOMETRO DEBE SER MAYOR O IGUAL A "+truckInformation.getJSONObject(0).getInt("odometro"));
 						adb.show();
-//						Toast.makeText(this, "El odometro debe ser mayor o igual a "+truckInformation.getJSONObject(0).getInt("odometro"), Toast.LENGTH_LONG).show();
 					}
 				}
 				else{
 					adb.setTitle("El PRIMER CAMPO HOROMETRO DEBE SER MAYOR O IGUAL A "+truckInformation.getJSONObject(0).getInt("horometro"));
 					adb.show();
-//						Toast.makeText(this, "El horometro debe ser mayor o igual a "+truckInformation.getJSONObject(0).getInt("horometro"), Toast.LENGTH_LONG).show();
 				}
 				
 			} catch (Exception e) {

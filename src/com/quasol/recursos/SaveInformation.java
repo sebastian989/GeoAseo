@@ -37,7 +37,7 @@ public class SaveInformation extends AsyncTask<String, Void, Void> {
 			JSONArray stored = this.dataBase.getAllRoutes();
 			if(stored.length()>0){
 				this.connection.setUrl("http://pruebasgeoaseo.tk/controller/Fachada.php");//url
-				String [] parameters = {"testOld",stored.toString()};//method,oldJSON
+				String [] parameters = {"testOld", token, Utilities.getDate(),"backup",stored.toString()};//method,oldJSON
 				answer = this.connection.conectar(parameters);
 				try {
 					if(answer.getJSONObject(0).getInt("respuesta")==1){

@@ -3,6 +3,8 @@ package com.quasol.geoaseo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.quasol.recursos.SaveInformation;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -28,6 +30,8 @@ public class E_MenuCiclo extends Activity {
 			d_arrive_final_disposition, d_arrive_final_disposition_two,
 			d_come_back_to_base, d_come_back_to_base_two, d_special_service,
 			d_special_service_two, d_inoperability, d_inoperability_two;
+	private JSONArray send_data_json;
+	private String method;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,7 @@ public class E_MenuCiclo extends Activity {
 		}
 	}
 
-	public void exit_base(View v) {
+	public void base_out(View v) {
 
 		this.adb.setTitle("DEBE AGREGAR UN GRUPO DE OPERARIOS");
 		this.adb.setPositiveButton("ACEPTAR",
@@ -69,8 +73,7 @@ public class E_MenuCiclo extends Activity {
 						dialog.dismiss();
 					}
 				});
-		String selectedOperators = sharedpreferences.getString(
-				"SELECTED_OPERATORS", null);
+		String selectedOperators = sharedpreferences.getString("SELECTED_OPERATORS", null);
 		if (selectedOperators == null || selectedOperators.length() <= 2) {
 			this.adb.show();
 		} else {
@@ -80,6 +83,8 @@ public class E_MenuCiclo extends Activity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							buttons_exit_base();
+							method="salida_base";
+							send_information();
 						}
 					});
 			this.adb.setNegativeButton("NO",
@@ -148,12 +153,19 @@ public class E_MenuCiclo extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						SharedPreferences.Editor editor = sharedpreferences
-								.edit();
+						SharedPreferences.Editor editor = sharedpreferences.edit();
 						editor.putInt("CURRENT_STATE", 4);
 						editor.commit();
+						try {
+							JSONArray auxRutes = new JSONArray(sharedpreferences.getString("PLANNED_ROUTES", null));
+							int position = sharedpreferences.getInt("POS_CURRENT_ROUTE", 0);
+							send_data_json = new JSONArray();
+							send_data_json.put((JSONObject)auxRutes.getJSONObject(position));
+							method="fin_porte";
+							send_information();
+						} catch (Exception e) {
+						}
 						buttons_finish_collection();
-						// Envia a guardar al webservice
 					}
 				});
 		this.adb.setNegativeButton(
@@ -169,12 +181,36 @@ public class E_MenuCiclo extends Activity {
 	}
 
 	public void arrive_final_disposition(View v){
-		
-		
-		
+		Intent intent = new Intent(this, G_formulario_Relleno.class);
+		startActivity(intent);
+	}
+	
+	public void come_back_to_base(View v){
+		Intent intent = new Intent(this, G_formulario_Relleno.class);
+		startActivity(intent);
+	}
+	
+	public void special_service(View v){
+		Intent intent = new Intent(this, G_formulario_Relleno.class);
+		startActivity(intent);
+	}
+	
+	public void inoperability(View v){
+		Intent intent = new Intent(this, H_RegistrarInoperatividad.class);
+		startActivity(intent);
 	}
 	
 	//Configurations methods
+	
+	public void send_information(){
+		try {
+			new SaveInformation(this).execute("http://pruebasgeoaseo.tk/controller/Fachada.php",
+					"test",
+					this.method,
+					this.send_data_json.toString());
+		} catch (Exception e) {
+		}
+	}
 	
 	public void start_team_of_work() {
 		Intent intent = new Intent(this, C_GrupoTrabajo.class);
@@ -234,7 +270,7 @@ public class E_MenuCiclo extends Activity {
 		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base);
 		this.btn_come_back_to_base.setEnabled(true);
 	}
-
+	
 
 
 	/**
@@ -320,6 +356,8 @@ public class E_MenuCiclo extends Activity {
 				R.drawable.btn_inoperability);
 		this.d_inoperability_two = this.getResources().getDrawable(
 				R.drawable.btn_inoperability_two);
+		
+		this.send_data_json= new JSONArray();
 
 	}
 
