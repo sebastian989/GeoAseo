@@ -134,7 +134,8 @@
         android:ems="10"
         android:gravity="top"
         android:hint="@string/hntTxtInoperativityDescription"
-        android:inputType="textMultiLine"
+        android:inputType="text"
+        android:maxLines="2"
         android:textSize="25sp" >
         
     </EditText>

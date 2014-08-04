@@ -90,5 +90,18 @@
     <string name="confirmStartInoperability">¿REALMENTE DESEA INICIAR INOPERATIVIDAD?</string>
     <string name="confirmFinishInoperability">¿REALMENTE DESEA TERMINAR INOPERATIVIDAD?</string>
     <string name="alertVoidDetail">DEBE AGREGAR UNA OBSERVACION DE INOPERATIVIDAD</string>
+    
+    <!-- I CREAR RUTA -->
+    <string name="lblBottomCrateRoute">Crear ruta</string>
+    <string name="lblSelectTheRoute">Seleccione la ruta</string>
+    <string name="lblSelectTypeOfRoute">Seleccione el tipo de ruta</string>
+    <string name="hntSearchRoute">Buscar ruta por nombre</string>
+    <string name="btnSupport">Apoyo</string>
+    <string name="btnRegularCollection">Recoleccion de ordinarios</string>
+    <string name="btnSweepCollection">Recoleccion de barrido</string>
+    <string name="btnTransport">Transporte</string>
+    <string name="btnDebris">Escombros</string>
+    <string name="btnSludge">Lodos</string>
+    <string name="btnSave">Guardar</string>
  	
 </resources>
