@@ -63,7 +63,7 @@
             android:padding="20dp"
             android:src="@drawable/btn_in_filler" 
             android:background="@android:color/transparent"
-            android:onClick="in_filler"/>
+            android:onClick="inFiller"/>
 
         <ImageButton
             android:id="@+id/out_filler"
@@ -73,7 +73,7 @@
             android:layout_marginLeft="40dp"
             android:src="@drawable/btn_out_filler_two" 
             android:background="@android:color/transparent"
-            android:onClick="out_filler"/>
+            android:onClick="outFiller"/>
 
     </LinearLayout>
     

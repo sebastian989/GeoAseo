@@ -15,6 +15,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class E_MenuCiclo extends Activity {
@@ -39,15 +40,18 @@ public class E_MenuCiclo extends Activity {
 		setContentView(R.layout.e__menu_ciclo);
 		this.sharedpreferences = getSharedPreferences("MyPreferences",
 				Context.MODE_PRIVATE);
-		this.initialize_components();
+		this.initializeComponents();
 		int current_state = sharedpreferences.getInt("CURRENT_STATE", 0);
+		boolean inoperability = sharedpreferences.getBoolean("CURRENT_STATE", false);
 		if (current_state != 0) {
-			if (current_state == 1) {
-				buttons_exit_base();
+			if (inoperability) {
+				buttonsInoperability();
+			} else if (current_state == 1) {
+				buttonsExitBase();
 			} else if (current_state == 2) {
-				buttons_start_collection();
+				buttonsStartCollection();
 			} else if (current_state == 4) {
-				buttons_finish_collection();
+				buttonsFinishCollection();
 			}
 		}
 	}
@@ -56,7 +60,7 @@ public class E_MenuCiclo extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 10) {
 			if (resultCode == 2) {
-				buttons_start_collection();
+				buttonsStartCollection();
 			}
 		}
 	}
@@ -68,7 +72,7 @@ public class E_MenuCiclo extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						start_team_of_work();
+						startTeamOfWork();
 						finish();
 						dialog.dismiss();
 					}
@@ -82,9 +86,9 @@ public class E_MenuCiclo extends Activity {
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							buttons_exit_base();
+							buttonsExitBase();
 							method="salida_base";
-							send_information();
+							sendInformation();
 						}
 					});
 			this.adb.setNegativeButton("NO",
@@ -162,10 +166,10 @@ public class E_MenuCiclo extends Activity {
 							send_data_json = new JSONArray();
 							send_data_json.put((JSONObject)auxRutes.getJSONObject(position));
 							method="fin_porte";
-							send_information();
+							sendInformation();
 						} catch (Exception e) {
 						}
-						buttons_finish_collection();
+						buttonsFinishCollection();
 					}
 				});
 		this.adb.setNegativeButton(
@@ -202,7 +206,7 @@ public class E_MenuCiclo extends Activity {
 	
 	//Configurations methods
 	
-	public void send_information(){
+	public void sendInformation(){
 		try {
 			new SaveInformation(this).execute("http://pruebasgeoaseo.tk/controller/Fachada.php",
 					"test",
@@ -212,12 +216,12 @@ public class E_MenuCiclo extends Activity {
 		}
 	}
 	
-	public void start_team_of_work() {
+	public void startTeamOfWork() {
 		Intent intent = new Intent(this, C_GrupoTrabajo.class);
 		startActivity(intent);
 	}
 	
-	public void buttons_exit_base() {
+	public void buttonsExitBase() {
 
 		SharedPreferences.Editor editor = sharedpreferences.edit();
 		int current_state = sharedpreferences.getInt("CURRENT_STATE", 0);
@@ -235,7 +239,7 @@ public class E_MenuCiclo extends Activity {
 		this.btn_special_service.setEnabled(true);
 	}
 
-	public void buttons_start_collection() {
+	public void buttonsStartCollection() {
 		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
 		this.btn_base_exit.setEnabled(false);
 		this.btn_start_collection.setImageDrawable(this.d_start_collection_two);
@@ -250,7 +254,7 @@ public class E_MenuCiclo extends Activity {
 		this.btn_inoperability.setEnabled(true);
 	}
 
-	public void buttons_finish_collection() {
+	public void buttonsFinishCollection() {
 		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
 		this.btn_base_exit.setEnabled(false);
 		this.btn_start_collection.setImageDrawable(this.d_start_collection);
@@ -271,6 +275,32 @@ public class E_MenuCiclo extends Activity {
 		this.btn_come_back_to_base.setEnabled(true);
 	}
 	
+	public void buttonsInoperability(){
+		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
+		this.btn_base_exit.setEnabled(false);
+		
+		
+		this.btn_start_collection.setEnabled(false);
+		this.btn_start_collection.setImageDrawable(this.d_base_exit_two);
+		
+		this.btn_compactation.setImageDrawable(this.d_compactation_two);
+		this.btn_compactation.setEnabled(false);
+		
+		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
+		this.btn_collection_finish.setEnabled(false);
+		
+		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition_two);
+		this.btn_arrive_final_disposition.setEnabled(false);
+		
+		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base_two);
+		this.btn_come_back_to_base.setEnabled(false);
+		
+		this.btn_special_service.setImageDrawable(this.d_special_service_two);
+		this.btn_special_service.setEnabled(false);
+		
+		this.btn_inoperability.setImageDrawable(this.d_inoperability);
+		this.btn_inoperability.setEnabled(true);
+	}
 
 
 	/**
@@ -303,7 +333,7 @@ public class E_MenuCiclo extends Activity {
 		adb.show();
 	}
 
-	public void initialize_components() {
+	public void initializeComponents() {
 
 		// Initialize controls
 		this.adb = new AlertDialog.Builder(this);
