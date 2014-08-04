@@ -61,7 +61,7 @@ public class E_MenuCiclo extends Activity {
 		}
 	}
 
-	public void base_out(View v) {
+	public void baseOut(View v) {
 
 		this.adb.setTitle("DEBE AGREGAR UN GRUPO DE OPERARIOS");
 		this.adb.setPositiveButton("ACEPTAR",
@@ -98,14 +98,14 @@ public class E_MenuCiclo extends Activity {
 		}
 	}
 
-	public void start_collection(View v) {
+	public void startCollection(View v) {
 		Intent intent = new Intent(this, F_SeleccionarRuta.class);
 		startActivityForResult(intent, 10);
 	}
 
 	public void compactation(View v) {
 
-		this.adb.setTitle("SEGURO QUE DESEA REALIZAR UNA COMPACTACIÓN");
+		this.adb.setTitle("SEGURO QUE DESEA REALIZAR UNA COMPACTACIï¿½N");
 		this.adb.setPositiveButton(
 				getResources().getString(R.string.confirm_button_1),
 				new DialogInterface.OnClickListener() {
@@ -145,7 +145,7 @@ public class E_MenuCiclo extends Activity {
 		this.adb.show();
 	}
 	
-	public void finish_collection(View v) {
+	public void finishCollection(View v) {
 
 		this.adb.setTitle("DESEA FINALIZAR EL PORTE");
 		this.adb.setPositiveButton(
@@ -180,17 +180,17 @@ public class E_MenuCiclo extends Activity {
 		this.adb.show();
 	}
 
-	public void arrive_final_disposition(View v){
+	public void arriveFinalDisposition(View v){
 		Intent intent = new Intent(this, G_formulario_Relleno.class);
 		startActivity(intent);
 	}
 	
-	public void come_back_to_base(View v){
+	public void comeBackToBase(View v){
 		Intent intent = new Intent(this, G_formulario_Relleno.class);
 		startActivity(intent);
 	}
 	
-	public void special_service(View v){
+	public void specialService(View v){
 		Intent intent = new Intent(this, G_formulario_Relleno.class);
 		startActivity(intent);
 	}

@@ -93,7 +93,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 								dialog.dismiss();
 								Intent intent = new Intent();
 								setResult(2, intent);
-								send_information();
+								sendInformation();
 								finish();
 							}
 						});
@@ -138,7 +138,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 		}	
 	}
 	
-	public void send_information(){
+	public void sendInformation(){
 		JSONArray data = new JSONArray();
 		JSONArray auxjson = new JSONArray();
 		JSONObject auxobject = new JSONObject();

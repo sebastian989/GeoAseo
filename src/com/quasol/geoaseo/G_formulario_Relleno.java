@@ -26,7 +26,7 @@ public class G_formulario_Relleno extends Activity {
 
 	}
 
-	public void in_filler(View v) {
+	public void inFiller(View v) {
 
 		this.in_filler.setEnabled(false);
 		this.in_filler.setImageDrawable(this.d_in_filler_two);
@@ -37,7 +37,7 @@ public class G_formulario_Relleno extends Activity {
 
 	}
 
-	public void out_filler(View v) {
+	public void outFiller(View v) {
 
 	}
 
