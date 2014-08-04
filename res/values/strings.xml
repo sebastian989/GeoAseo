@@ -73,5 +73,21 @@
     <string name="btnContinueRoute">Continuar</string>
     <string name="btnStartRoute">Iniciar</string>
     <string name="startRoute">Iniciar</string>
+    
+    <!-- H Registrar inoperatividad -->
+    <string name="lblInoperativityReason">Motivo:</string>
+    <string name="hntTxtInoperativityDescription">Observación</string>
+    <string name="btnInoperativityStart">Iniciar</string>
+    <string name="btnInoperativityTerminar">Terminar</string>
+    <string name="rdoAccident">Accidente</string>
+    <string name="btnStrandedVehicle">Vehículo varado</string>
+    <string name="btnTraffic">Tráfico</string>
+    <string name="btnDamageAnotherCar">Daño otro vehículo</string>
+    <string name="btnDamageAProperty">Daño otro inmueble</string>
+    <string name="btnPublicOrder">Orden público</string>
+    <string name="lblBottomInoperativity">Inoperatividad</string>
+    <string name="confirmStartInoperability">¿REALMENTE DESEA INICIAR INOPERATIVIDAD?</string>
+    <string name="confirmFinishInoperability">¿REALMENTE DESEA TERMINAR INOPERATIVIDAD?</string>
+    <string name="alertVoidDetail">DEBE AGREGAR UNA DESCRIPCION DE INOPERATIVIDAD</string>
  
 </resources>
