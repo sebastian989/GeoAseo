@@ -15,7 +15,6 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 public class E_MenuCiclo extends Activity {
@@ -42,28 +41,34 @@ public class E_MenuCiclo extends Activity {
 				Context.MODE_PRIVATE);
 		this.initializeComponents();
 		int current_state = sharedpreferences.getInt("CURRENT_STATE", 0);
-		boolean inoperability = sharedpreferences.getBoolean("CURRENT_STATE", false);
-		if (current_state != 0) {
-			if (inoperability) {
-				buttonsInoperability();
-			} else if (current_state == 1) {
+		
+		if (current_state != 0) 
+		{
+			
+			if (sharedpreferences.getBoolean("INOPERABILITY", false)) {
+				buttonsInoperabilityOrFiller(1);
+			} 
+			else if (sharedpreferences.getBoolean("IN_FILLER",false))
+			{
+				buttonsInoperabilityOrFiller(2);
+			}
+			else if (current_state == 1) 
+			{
 				buttonsExitBase();
-			} else if (current_state == 2) {
+			}
+			else if (current_state == 2) 
+			{
 				buttonsStartCollection();
-			} else if (current_state == 4) {
+			} 
+			else if (current_state == 4) 
+			{
 				buttonsFinishCollection();
 			}
+			
 		}
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == 10) {
-			if (resultCode == 2) {
-				buttonsStartCollection();
-			}
-		}
-	}
+	
 
 	public void baseOut(View v) {
 
@@ -206,6 +211,27 @@ public class E_MenuCiclo extends Activity {
 	
 	//Configurations methods
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 10) {
+			if (resultCode == 2) {
+				buttonsStartCollection();
+			}
+		}
+	}
+	
+	@Override
+	protected void onResume() {
+		if (sharedpreferences.getBoolean("INOPERABILITY", false)) {
+			buttonsInoperabilityOrFiller(1);
+		} 
+		else if (sharedpreferences.getBoolean("IN_FILLER",false))
+		{
+			buttonsInoperabilityOrFiller(2);
+		}
+		super.onResume();
+	}
+	
 	public void sendInformation(){
 		try {
 			new SaveInformation(this).execute("http://pruebasgeoaseo.tk/controller/Fachada.php",
@@ -263,43 +289,53 @@ public class E_MenuCiclo extends Activity {
 		this.btn_compactation.setEnabled(false);
 		this.btn_special_service.setImageDrawable(this.d_special_service_two);
 		this.btn_special_service.setEnabled(false);
-		this.btn_collection_finish
-				.setImageDrawable(this.d_collection_finish_two);
+		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
 		this.btn_collection_finish.setEnabled(false);
 		this.btn_inoperability.setImageDrawable(this.d_inoperability);
 		this.btn_inoperability.setEnabled(true);
-		this.btn_arrive_final_disposition
-				.setImageDrawable(this.d_arrive_final_disposition);
+		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition);
 		this.btn_arrive_final_disposition.setEnabled(true);
 		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base);
 		this.btn_come_back_to_base.setEnabled(true);
 	}
 	
-	public void buttonsInoperability(){
+	/**
+	 * 
+	 * @param type
+	 */
+	public void buttonsInoperabilityOrFiller(int type){
 		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
 		this.btn_base_exit.setEnabled(false);
-		
-		
 		this.btn_start_collection.setEnabled(false);
 		this.btn_start_collection.setImageDrawable(this.d_base_exit_two);
-		
 		this.btn_compactation.setImageDrawable(this.d_compactation_two);
 		this.btn_compactation.setEnabled(false);
-		
 		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
 		this.btn_collection_finish.setEnabled(false);
-		
-		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition_two);
-		this.btn_arrive_final_disposition.setEnabled(false);
-		
 		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base_two);
 		this.btn_come_back_to_base.setEnabled(false);
-		
 		this.btn_special_service.setImageDrawable(this.d_special_service_two);
 		this.btn_special_service.setEnabled(false);
 		
-		this.btn_inoperability.setImageDrawable(this.d_inoperability);
-		this.btn_inoperability.setEnabled(true);
+		if(type == 1)
+		{
+		
+			this.btn_inoperability.setImageDrawable(this.d_inoperability);
+			this.btn_inoperability.setEnabled(true);
+			this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition_two);
+			this.btn_arrive_final_disposition.setEnabled(false);
+		
+		}
+		else if (type == 2)
+		{
+			
+			this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition);
+			this.btn_arrive_final_disposition.setEnabled(true);
+			this.btn_inoperability.setImageDrawable(this.d_inoperability_two);
+			this.btn_inoperability.setEnabled(false);
+		
+		}
+		
 	}
 
 

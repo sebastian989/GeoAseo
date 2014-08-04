@@ -87,6 +87,11 @@ public class B_MenuPrincipal extends Activity {
 				startActivity(intent);
 			}
 	}
+	
+	public void createRoute(View v) {
+		Intent intent = new Intent(this, I_CrearRuta.class);
+		startActivity(intent);
+	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
