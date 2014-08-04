@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -31,6 +32,7 @@ public class H_RegistrarInoperatividad extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.h__registrar_inoperatividad);
 		
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		this.identifyElements();
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
 		if(this.sharedpreferences.getBoolean("INOPERABILITY", false)){

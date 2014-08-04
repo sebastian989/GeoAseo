@@ -89,6 +89,6 @@
     <string name="lblBottomInoperativity">Inoperatividad</string>
     <string name="confirmStartInoperability">¿REALMENTE DESEA INICIAR INOPERATIVIDAD?</string>
     <string name="confirmFinishInoperability">¿REALMENTE DESEA TERMINAR INOPERATIVIDAD?</string>
-    <string name="alertVoidDetail">DEBE AGREGAR UNA DESCRIPCION DE INOPERATIVIDAD</string>
+    <string name="alertVoidDetail">DEBE AGREGAR UNA OBSERVACION DE INOPERATIVIDAD</string>
  	
 </resources>
