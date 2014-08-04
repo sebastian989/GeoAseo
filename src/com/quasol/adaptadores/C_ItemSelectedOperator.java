@@ -130,4 +130,10 @@ public class C_ItemSelectedOperator extends BaseAdapter {
 	public void addOperator(JSONObject operator){
 		this.jsonSelected.put(operator);
 	}
+	
+	public void removeAll(){
+		while(this.jsonSelected.length()>0){
+			this.jsonSelected = Utilities.delete(this.jsonSelected, 0);
+		}
+	}
 }

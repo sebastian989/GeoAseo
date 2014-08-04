@@ -34,6 +34,7 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 	private ListView lstSelectedOperators;
 	private EditText txtSearch;
 	private Button btnInit;
+	private Button btnFinishAll;
 	private SharedPreferences sharedpreferences;
 	private JSONArray savedOperators;
 	private JSONArray jsonAllOperators;
@@ -56,6 +57,7 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		String selectedOperators = sharedpreferences.getString("SELECTED_OPERATORS", null);
 		if(selectedOperators != null){
 			try {
+				this.btnFinishAll.setEnabled(true);
 				this.savedOperators = new JSONArray(selectedOperators);
 				for(int i=0; i<savedOperators.length(); i++){
 					if(savedOperators.getJSONObject(i).getString("hora_fin").equals("")){
@@ -91,13 +93,10 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.lstAllOperators.setAdapter(adapter);
 	}
 	
-	private  void identifyElements(){
-		this.lstAllOperators = (ListView) findViewById(R.id.lstAllOperators);
-		this.lstSelectedOperators = (ListView) findViewById(R.id.lstSelectedOperators);
-		this.txtSearch = (EditText) findViewById(R.id.txtSearch);
-		this.btnInit = (Button) findViewById(R.id.btnInit);
-	}
-	
+	/**
+	 * Method to change of list the operators or finish the journey of someone
+	 * @param operator
+	 */
 	public void changeOperator(JSONObject operator){
 		if(this.savedOperators != null){
 			try {
@@ -136,6 +135,71 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.adapter.notifyDataSetChanged();
 	}
 	
+	/**
+	 * Method to ask if really want to finish the journey of all operators in the left list.
+	 * if the answer is positive call the next method (removeAllOperators)
+	 */
+	public void finishAllOperators(View v){
+		if (this.savedOperators.length() > 0) {
+			final int posCurrentRout = sharedpreferences.getInt("POS_CURRENT_ROUTE", -1);
+			if (posCurrentRout >= 0) {
+				AlertDialog.Builder adb = new AlertDialog.Builder(this);
+				adb.setTitle(getResources().getString(R.string.confirmFinishAllOperators));
+				adb.setPositiveButton(
+						getResources().getString(R.string.confirm_button_1),
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								removeAllOperators(posCurrentRout);
+							}
+						});
+				adb.setNegativeButton(getResources().getString(R.string.confirm_button_2),
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+							}
+						});
+				adb.show();
+			}
+			else{
+				Utilities.showAlert(this,getResources().getString(R.string.alertFinishJourneyWithoutRouteInit));
+			}
+		}	
+		else{
+			Utilities.showAlert(this,getResources().getString(R.string.alertFinishJourneyAllWithoutOperators));
+		}
+	}
+	
+	//Method to finish the journey of all operators
+	private void removeAllOperators(int posCurrentRout){
+		JSONArray data = new JSONArray();
+		JSONArray plannedRoutes;
+		try {
+			plannedRoutes = new JSONArray(this.sharedpreferences.getString("PLANNED_ROUTES", null));
+			data.put(plannedRoutes.getJSONObject(posCurrentRout));
+			while(this.savedOperators.length()>0){
+				JSONObject operator = this.savedOperators.getJSONObject(0);
+				operator.put("hora_fin", Utilities.getDate());
+				data.put(operator);
+				this.savedOperators = Utilities.delete(this.savedOperators, 0);
+			}
+			new SaveInformation(this).execute("http://pruebasgeoaseo.tk/controller/Fachada.php",
+					"test",
+					"fin_jornada",
+					data.toString());
+			SharedPreferences.Editor editor = sharedpreferences.edit();
+			editor.putString("SELECTED_OPERATORS", this.savedOperators.toString());
+			editor.commit();
+		} catch (JSONException e) {
+		}	
+		this.adapter.removeAll();
+		this.adapter.notifyDataSetChanged();
+	}
+	
+	/**
+	 * Method to change operators from allOperators list To selectedOperators list
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		try {
@@ -156,6 +220,11 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.adapter.notifyDataSetChanged();
 	}
 	
+	/**
+	 * Method for ask about if really want to save the selected operators, if the answer
+	 * is positive call the next method to save the selected operators
+	 * @param v
+	 */
 	public void start(View v){
 		if(this.adapter.getCurrentSelected().length()>0){
 			AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -167,6 +236,7 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 						public void onClick(DialogInterface dialog, int which) {
 							saveSelectedOperators();
 							blockElements();
+							btnFinishAll.setEnabled(true);
 							finish();
 						}
 					});
@@ -202,13 +272,6 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		editor.commit();
 	}
 	
-	private void blockElements(){
-		this.btnInit.setBackgroundResource(R.drawable.c_btn_save);
-		this.btnInit.setEnabled(false);
-		this.lstAllOperators.setEnabled(false);
-		this.txtSearch.setEnabled(false);
-	}
-	
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		if(s.length()>0){
@@ -227,6 +290,21 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 			}
 		}
 		this.diaplayListAllOperators();
+	}
+	
+	private  void identifyElements(){
+		this.lstAllOperators = (ListView) findViewById(R.id.lstAllOperators);
+		this.lstSelectedOperators = (ListView) findViewById(R.id.lstSelectedOperators);
+		this.txtSearch = (EditText) findViewById(R.id.txtSearch);
+		this.btnInit = (Button) findViewById(R.id.btnInit);
+		this.btnFinishAll = (Button) findViewById(R.id.btnFinishAll);
+	}
+	
+	private void blockElements(){
+		this.btnInit.setBackgroundResource(R.drawable.c_btn_save);
+		this.btnInit.setEnabled(false);
+		this.lstAllOperators.setEnabled(false);
+		this.txtSearch.setEnabled(false);
 	}
 
 	@Override
