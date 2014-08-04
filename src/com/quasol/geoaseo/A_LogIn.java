@@ -137,7 +137,7 @@ public class A_LogIn extends Activity {
 				editor.putString("PLANNED_ROUTES", plannedRoutes.toString());
 				editor.putString("ALTERNATE_ROUTES", alternateRoutes.toString());
 				editor.putString("TRUCK_INFO", truckInformation.toString());
-				editor.putBoolean("INOPERABILITY", false);
+				editor.putBoolean("INOPERABILITY", false); 
 				editor.commit();
 				return true;
 			} catch (JSONException e) {
