@@ -73,6 +73,7 @@
     <string name="btnContinueRoute">Continuar</string>
     <string name="btnStartRoute">Iniciar</string>
     <string name="startRoute">Iniciar</string>
+    <string name="title_activity_g_form_tiket_exit">G_form_tiket_exit</string>
     
     <!-- H Registrar inoperatividad -->
     <string name="lblInoperativityReason">Motivo:</string>
@@ -89,5 +90,5 @@
     <string name="confirmStartInoperability">¿REALMENTE DESEA INICIAR INOPERATIVIDAD?</string>
     <string name="confirmFinishInoperability">¿REALMENTE DESEA TERMINAR INOPERATIVIDAD?</string>
     <string name="alertVoidDetail">DEBE AGREGAR UNA DESCRIPCION DE INOPERATIVIDAD</string>
- 
+ 	
 </resources>

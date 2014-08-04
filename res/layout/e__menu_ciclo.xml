@@ -65,7 +65,7 @@
             android:contentDescription="exit base button"
             android:padding="20dp"
             android:src="@drawable/btn_base_exit"
-            android:onClick="exit_base"/>
+            android:onClick="base_out"/>
 
         <ImageButton
             android:id="@+id/btn_start_collection"
@@ -167,7 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="13dp"
             android:layout_marginLeft="100dp"
             android:text="Menu ciclo"
             android:textAppearance="?android:attr/textAppearanceMedium"
