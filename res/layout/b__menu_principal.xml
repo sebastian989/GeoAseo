@@ -94,7 +94,8 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/Close_route_description"
             android:padding="20dp"
-            android:src="@drawable/btn_close_route" />
+            android:src="@drawable/btn_close_route"
+            android:onClick="closeRoute" />
     </LinearLayout>
 
     <RelativeLayout

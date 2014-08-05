@@ -70,7 +70,7 @@
                 android:textSize="35sp" />
 
             <TextView
-                android:id="@+id/TextView04"
+                android:id="@+id/lblNameRoute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -89,7 +89,7 @@
                 android:textSize="35sp" />
 
             <TextView
-                android:id="@+id/TextView02"
+                android:id="@+id/lblSheetSelect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -98,7 +98,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/btnCloseRoute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -107,7 +107,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/listView1"
+            android:id="@+id/listActiveRoutes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
