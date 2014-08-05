@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.quasol.recursos.SaveInformation;
 import com.quasol.recursos.Utilities;
 
 import android.app.Activity;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class I_CrearRuta extends Activity implements OnItemClickListener, TextWatcher{
 	
@@ -36,7 +38,8 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 	private JSONArray allAlternativeRoutes;
 	private ArrayList<String> lstRouteNames;
 	private int selectedPosition;
-	private Boolean searching;
+	private boolean searching;
+	private boolean blockTextThread;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 		this.lstRoutes.setOnItemClickListener(this);
 		this.search.addTextChangedListener(this);
 		this.searching = false;
+		this.blockTextThread = false;
 		this.selectedPosition=-1;
 	}
 	
@@ -116,14 +120,18 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 			JSONObject selectedRoute = this.allAlternativeRoutes.getJSONObject(this.selectedPosition);
 			selectedRoute.put("tipo", type);
 			selectedRoute.put("estado", "inactiva");
+			selectedRoute.put("compactaciones", 0);
+			selectedRoute.put("tickets", new JSONArray());
 			plannedRoutes.put(selectedRoute);
 			this.allAlternativeRoutes = Utilities.delete(this.allAlternativeRoutes, this.selectedPosition);
 			SharedPreferences.Editor editor = sharedpreferences.edit();
 			editor.putString("ALTERNATE_ROUTES", this.allAlternativeRoutes.toString());
 			editor.putString("PLANNED_ROUTES", plannedRoutes.toString());
 			editor.commit();
-			Utilities.showAlert(this, getResources().getString(R.string.alertSuccessCreateRoute));
 			this.selectedPosition = -1;
+			new SaveInformation(this).execute("http://pruebasgeoaseo.tk/controller/Fachada.php",
+					"test", "nueva ruta", new JSONArray().put(selectedRoute).toString());
+			Utilities.showAlert(this, getResources().getString(R.string.alertSuccessCreateRoute));
 		} catch (JSONException e) {
 		}
 	}
@@ -137,6 +145,7 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		this.selectedPosition = position;
+		this.searching = false;
 	}
 
 	@Override
@@ -148,12 +157,20 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 			this.searching = false;
 		}
 		this.adapter.getFilter().filter(s.toString());
-		this.selectedPosition = -1;
+		if(searching){
+			this.selectedPosition = -1;
+		}	
 	}
 	
 	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		this.selectedPosition = -1;
+	}
 
 	@Override
 	public void afterTextChanged(Editable s) {}
+	
+	public void desactivePosition(View v){
+		this.selectedPosition = -1;
+	}
 }
