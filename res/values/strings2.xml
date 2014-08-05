@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- I CREAR RUTA -->
+    <string name="confirmSaveSelectedRoute">¿REALMENTE DESEA CREAR LA RUTA SELECCIONADA?</string>
+    <string name="alertSuccessCreateRoute">LA RUTA HA SIDO CREADA SATISFACTORIAMENTE.</string>
+    <string name="alertNotSelectedNewRoute">DEBE SELECCIONAR UNA RUTA PARA CREARLA.</string>
+    
+</resources>

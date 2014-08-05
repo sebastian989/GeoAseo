@@ -127,6 +127,7 @@ public class A_LogIn extends Activity {
 				for(int i=0; i<plannedRoutes.length(); i++){
 					plannedRoutes.getJSONObject(i).put("estado", "inactiva");
 					plannedRoutes.getJSONObject(i).put("compactaciones", 0);
+					plannedRoutes.getJSONObject(i).put("tipo", "planeada");
 					plannedRoutes.getJSONObject(i).put("tickets", new JSONArray());
 				}
 				

@@ -22,7 +22,7 @@ import android.widget.RadioGroup;
 public class H_RegistrarInoperatividad extends Activity {
 	
 	private SharedPreferences sharedpreferences;
-	private RadioGroup radoGroup;
+	private RadioGroup radioGroup;
 	private EditText txtDetail;
 	private Button btnStart;
 	private Button btnFinish;
@@ -42,36 +42,12 @@ public class H_RegistrarInoperatividad extends Activity {
 	}
 	
 	public void start(View v){
-		String inoperabilityCase="";
 		final String detail = this.txtDetail.getText().toString();
 		if(detail.equals("")){
 			Utilities.showAlert(this, getResources().getString(R.string.alertVoidDetail));
 		}
 		else{
-			int checked = this.radoGroup.getCheckedRadioButtonId();
-			switch (checked) {
-			case R.id.btnAccident:
-				inoperabilityCase = (String) ((Button)findViewById(R.id.btnAccident)).getText();
-				break;
-			case R.id.btnVarado:
-				inoperabilityCase = (String) ((Button)findViewById(R.id.btnVarado)).getText();
-				break;
-			case R.id.btnTrafico:
-				inoperabilityCase = (String) ((Button)findViewById(R.id.btnTrafico)).getText();
-				break;
-			case R.id.btnDanoVehiculo:
-				inoperabilityCase = (String) ((Button)findViewById(R.id.btnDanoVehiculo)).getText();
-				break;
-			case R.id.btnDanoInmueble:
-				inoperabilityCase = (String) ((Button)findViewById(R.id.btnDanoInmueble)).getText();
-				break;
-			case R.id.btnOrdenPublico:
-				inoperabilityCase = (String) ((Button)findViewById(R.id.btnOrdenPublico)).getText();
-				break;
-			default:
-				break;
-			}
-			final String caseInop = inoperabilityCase;
+			final String inoperabilityCase = (String)((Button)findViewById(this.radioGroup.getCheckedRadioButtonId())).getText().toString();
 			AlertDialog.Builder adb = new AlertDialog.Builder(this);
 			adb.setTitle(getResources().getString(R.string.confirmStartInoperability));
 			adb.setPositiveButton(
@@ -84,7 +60,7 @@ public class H_RegistrarInoperatividad extends Activity {
 							SharedPreferences.Editor editor = sharedpreferences.edit();
 							editor.putBoolean("INOPERABILITY", true);
 							editor.commit();
-							sendInformation(caseInop, detail,
+							sendInformation(inoperabilityCase, detail,
 									"http://pruebasgeoaseo.tk/controller/Fachada.php", "test", "inoperatividad");
 						}
 					});
@@ -151,7 +127,7 @@ public class H_RegistrarInoperatividad extends Activity {
 	}
 	
 	private void identifyElements(){
-		this.radoGroup = (RadioGroup) findViewById(R.id.radioGroup);
+		this.radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 		this.txtDetail = (EditText) findViewById(R.id.txtDetail);
 		this.btnStart = (Button) findViewById(R.id.btnStart);
 		this.btnFinish = (Button) findViewById(R.id.btnFinish);
@@ -160,6 +136,6 @@ public class H_RegistrarInoperatividad extends Activity {
 	private void blockElements(){
 		this.btnStart.setEnabled(false);
 		this.txtDetail.setEnabled(false);
-		this.radoGroup.setEnabled(false);
+		this.radioGroup.setEnabled(false);
 	}
 }
