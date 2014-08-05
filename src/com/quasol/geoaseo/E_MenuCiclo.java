@@ -1,9 +1,11 @@
 package com.quasol.geoaseo;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.quasol.recursos.SaveInformation;
+import com.quasol.recursos.Utilities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -54,7 +56,7 @@ public class E_MenuCiclo extends Activity {
 			}
 			else if (current_state == 1) 
 			{
-				buttonsExitBase();
+				buttonsOutBase();
 			}
 			else if (current_state == 2) 
 			{
@@ -62,7 +64,14 @@ public class E_MenuCiclo extends Activity {
 			} 
 			else if (current_state == 4) 
 			{
-				buttonsFinishCollection();
+				buttonsFinishCollectionOrFinishFiller(1);
+			}
+			else if (current_state == 5){
+				
+				buttonsFinishCollectionOrFinishFiller(2);
+			}
+			else if (current_state == 6){
+				buttonsInBase();
 			}
 			
 		}
@@ -91,7 +100,7 @@ public class E_MenuCiclo extends Activity {
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							buttonsExitBase();
+							buttonsOutBase();
 							method="salida_base";
 							sendInformation();
 						}
@@ -114,7 +123,7 @@ public class E_MenuCiclo extends Activity {
 
 	public void compactation(View v) {
 
-		this.adb.setTitle("SEGURO QUE DESEA REALIZAR UNA COMPACTACI�N");
+		this.adb.setTitle("SEGURO QUE DESEA REALIZAR UNA COMPACTACIÓN");
 		this.adb.setPositiveButton(
 				getResources().getString(R.string.confirm_button_1),
 				new DialogInterface.OnClickListener() {
@@ -174,7 +183,7 @@ public class E_MenuCiclo extends Activity {
 							sendInformation();
 						} catch (Exception e) {
 						}
-						buttonsFinishCollection();
+						buttonsFinishCollectionOrFinishFiller(1);
 					}
 				});
 		this.adb.setNegativeButton(
@@ -195,13 +204,40 @@ public class E_MenuCiclo extends Activity {
 	}
 	
 	public void comeBackToBase(View v){
-		Intent intent = new Intent(this, G_formulario_Relleno.class);
-		startActivity(intent);
+		
+			this.adb.setTitle("ESTA SEGURO QUE LLEGO A LA BASE ");
+			this.adb.setPositiveButton("SI",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							buttonsInBase();
+							JSONArray auxRutes;
+							try {
+								send_data_json = new JSONArray(sharedpreferences.getString("PLANNED_ROUTES", null));
+								method="regreso_base";
+								sendInformation();
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					});
+			this.adb.setNegativeButton("NO",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					});
+			this.adb.show();
+		
+		
 	}
 	
 	public void specialService(View v){
-		Intent intent = new Intent(this, G_formulario_Relleno.class);
-		startActivity(intent);
+		
+		
+		
 	}
 	
 	public void inoperability(View v){
@@ -229,6 +265,9 @@ public class E_MenuCiclo extends Activity {
 		{
 			buttonsInoperabilityOrFiller(2);
 		}
+		else if(sharedpreferences.getInt("CURRENT_STATE", 0)==5){
+			buttonsFinishCollectionOrFinishFiller(2);
+		}
 		super.onResume();
 	}
 	
@@ -247,7 +286,7 @@ public class E_MenuCiclo extends Activity {
 		startActivity(intent);
 	}
 	
-	public void buttonsExitBase() {
+	public void buttonsOutBase() {
 
 		SharedPreferences.Editor editor = sharedpreferences.edit();
 		int current_state = sharedpreferences.getInt("CURRENT_STATE", 0);
@@ -263,9 +302,18 @@ public class E_MenuCiclo extends Activity {
 		this.btn_inoperability.setEnabled(true);
 		this.btn_special_service.setImageDrawable(this.d_special_service);
 		this.btn_special_service.setEnabled(true);
+	
+	}
+	
+	public void buttonsInBase() {
+		SharedPreferences.Editor editor = sharedpreferences.edit();
+		editor.putInt("CURRENT_STATE", 6);
+		editor.commit();
+		buttonsInoperabilityOrFiller(1);
 	}
 
 	public void buttonsStartCollection() {
+		
 		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
 		this.btn_base_exit.setEnabled(false);
 		this.btn_start_collection.setImageDrawable(this.d_start_collection_two);
@@ -274,13 +322,19 @@ public class E_MenuCiclo extends Activity {
 		this.btn_compactation.setEnabled(true);
 		this.btn_special_service.setImageDrawable(this.d_special_service_two);
 		this.btn_special_service.setEnabled(false);
-		this.btn_collection_finish.setImageDrawable(this.d_collection_finish);
-		this.btn_collection_finish.setEnabled(true);
 		this.btn_inoperability.setImageDrawable(this.d_inoperability);
 		this.btn_inoperability.setEnabled(true);
+		this.btn_collection_finish.setImageDrawable(this.d_collection_finish);
+		this.btn_collection_finish.setEnabled(true);
+		
+	
 	}
 
-	public void buttonsFinishCollection() {
+	public void buttonsFinishCollectionOrFinishFiller(int type) {
+		
+		
+		
+		
 		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
 		this.btn_base_exit.setEnabled(false);
 		this.btn_start_collection.setImageDrawable(this.d_start_collection);
@@ -293,10 +347,22 @@ public class E_MenuCiclo extends Activity {
 		this.btn_collection_finish.setEnabled(false);
 		this.btn_inoperability.setImageDrawable(this.d_inoperability);
 		this.btn_inoperability.setEnabled(true);
-		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition);
-		this.btn_arrive_final_disposition.setEnabled(true);
 		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base);
 		this.btn_come_back_to_base.setEnabled(true);
+		
+		if (type==1){
+			
+			this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition);
+			this.btn_arrive_final_disposition.setEnabled(true);
+			
+		}
+		else if (type == 2){
+			
+			this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition_two);
+			this.btn_arrive_final_disposition.setEnabled(false);
+			
+		}
+		
 	}
 	
 	/**
@@ -337,6 +403,27 @@ public class E_MenuCiclo extends Activity {
 		}
 		
 	}
+	
+	public void buttonsExitFiller(){
+		
+		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
+		this.btn_base_exit.setEnabled(false);
+		this.btn_start_collection.setImageDrawable(this.d_start_collection);
+		this.btn_start_collection.setEnabled(true);
+		this.btn_compactation.setImageDrawable(this.d_compactation_two);
+		this.btn_compactation.setEnabled(false);
+		this.btn_special_service.setImageDrawable(this.d_special_service_two);
+		this.btn_special_service.setEnabled(false);
+		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
+		this.btn_collection_finish.setEnabled(false);
+		this.btn_inoperability.setImageDrawable(this.d_inoperability);
+		this.btn_inoperability.setEnabled(true);
+		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition);
+		this.btn_arrive_final_disposition.setEnabled(true);
+		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base);
+		this.btn_come_back_to_base.setEnabled(true);
+		
+	}
 
 
 	/**
@@ -354,7 +441,9 @@ public class E_MenuCiclo extends Activity {
 						Editor editor = sharedpreferences.edit();
 						editor.clear();
 						editor.commit();
-						finish();
+						Intent intent = new Intent(getApplicationContext(), A_LogIn.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent);
 					}
 				});
 		adb.setNegativeButton(

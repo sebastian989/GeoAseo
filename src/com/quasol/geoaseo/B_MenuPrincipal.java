@@ -48,7 +48,9 @@ public class B_MenuPrincipal extends Activity {
 						Editor editor = sharedpreferences.edit();
 						editor.clear();
 						editor.commit();
-						finish();
+						Intent intent = new Intent(getApplicationContext(), A_LogIn.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent);
 					}
 				});
 		adb.setNegativeButton(
@@ -93,6 +95,11 @@ public class B_MenuPrincipal extends Activity {
 		startActivity(intent);
 	}
 
+	public void closeRoute(View v) {
+		Intent intent = new Intent(this, J_CerrarRuta.class);
+		startActivity(intent);
+	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		moveTaskToBack(true);

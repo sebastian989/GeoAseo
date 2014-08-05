@@ -55,9 +55,7 @@ public class G_formulario_Relleno extends Activity {
 						dialog.dismiss();
 					}
 				});
-		
-		
-
+		this.adb.show();
 	}
 
 	public void outFiller(View v) {
@@ -70,7 +68,7 @@ public class G_formulario_Relleno extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 10) {
 			if (resultCode == 2) {
-				
+				finish();
 			}
 		}
 	}
@@ -83,6 +81,8 @@ public class G_formulario_Relleno extends Activity {
 	}
 	
 	public void initializeComponents() {
+		
+		this.adb = new AlertDialog.Builder(this);
 		this.in_filler = (ImageButton) findViewById(R.id.in_filler);
 		this.out_filler = (ImageButton) findViewById(R.id.out_filler);
 		this.d_in_filler = this.getResources().getDrawable(
@@ -94,5 +94,6 @@ public class G_formulario_Relleno extends Activity {
 		this.d_out_filler_two = this.getResources().getDrawable(
 				R.drawable.btn_out_filler_two);
 		this.out_filler.setEnabled(false);
+	
 	}
 }
