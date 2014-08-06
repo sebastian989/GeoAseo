@@ -8,7 +8,10 @@ import com.quasol.recursos.SaveInformation;
 import com.quasol.recursos.Utilities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,28 +46,58 @@ public class K_RegistrarCombustible extends Activity {
     }
 	
 	public void save(View v){
-		String ticket = this.txtTicket.getText().toString();
-		String gallons = this.txtGallons.getText().toString();
-		String provider = this.txtProvider.getText().toString();
-		String cost = this.txtCost.getText().toString();
-		String gasKind = (String)((Button)findViewById(this.radioGroup.getCheckedRadioButtonId())).getText().toString();
+		final String ticket = this.txtTicket.getText().toString();
+		final String gallons = this.txtGallons.getText().toString();
+		final String provider = this.txtProvider.getText().toString();
+		final String cost = this.txtCost.getText().toString();
+		final String gasKind = (String)((Button)findViewById(this.radioGroup.getCheckedRadioButtonId())).getText().toString();
 		
 		if(ticket.equals("") || gallons.equals("") || cost.equals("")){
 			Utilities.showAlert(this, getResources().getString(R.string.alertEditTextEmpty));
 		}
 		else{
-			JSONObject information = new JSONObject();
-			try {
-				information.put("ticket", ticket);
-				information.put("galones", gallons);
-				information.put("proveedor", provider);
-				information.put("tipo", gasKind);
-				information.put("valor", cost);
-				new SaveInformation(this).execute("http://pruebasgeoaseo.tk/controller/Fachada.php",
-						"test", "combustible", new JSONArray().put(information).toString());
-			} catch (JSONException e) {
-			}
+			AlertDialog.Builder adb = new AlertDialog.Builder(this);
+			adb.setTitle(getResources().getString(R.string.confirmSaveInformation));
+			adb.setPositiveButton(
+					getResources().getString(R.string.confirm_button_1),
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							sendInformation(ticket, gallons, provider, gasKind, cost);
+							finish();
+						}
+					});
+			adb.setNegativeButton(getResources().getString(R.string.confirm_button_2),
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					});
+			adb.show();
 		}
+	}
+	
+	private void sendInformation(String ticket, String gallons, String provider, String gasKind, String cost){
+		JSONObject information = new JSONObject();
+		try {
+			information.put("ticket", ticket);
+			information.put("galones", gallons);
+			information.put("proveedor", provider);
+			information.put("tipo_combustible", gasKind);
+			information.put("valor", cost);
+			new SaveInformation(this).execute("http://pruebasgeoaseo.tk/controller/Fachada.php",
+					"test", "combustible", new JSONArray().put(information).toString());
+			this.clearFields();
+		} catch (JSONException e) {
+		}
+	}
+	
+	private void clearFields(){
+		this.txtTicket.setText("");
+		this.txtGallons.setText("");
+		this.txtProvider.setText("");
+		this.txtCost.setText("");
 	}
 	
 	private void identifyElements(){

@@ -18,5 +18,6 @@
     <string name="btnGas">Gas</string>
     <string name="btnSaveGasTicket">Guardar</string>
     <string name="lblBottomGasStation">Combustible</string>
+    <string name="confirmSaveInformation">¿REALMENTE DESEA ALMACENAR LA INFORMACIÓN SUMINISTRADA?</string>
     
 </resources>
