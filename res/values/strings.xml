@@ -101,6 +101,8 @@
         <item>Escombros</item>
         <item>Podas</item>
     </string-array>
+    <string name="alertTicketEmpty"> DEBE COMPLETAR LOS CAMPOS NUMERO Y PESO DEL TIKET</string>
+   
     
     <!-- I CREAR RUTA -->
     <string name="lblBottomCrateRoute">Crear ruta</string>

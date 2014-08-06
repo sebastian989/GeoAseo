@@ -35,14 +35,13 @@ public class E_MenuCiclo extends Activity {
 			d_special_service_two, d_inoperability, d_inoperability_two;
 	private JSONArray send_data_json;
 	private String method;
-	private TextView numberOfCompatations;
+	private TextView numberOfCompatations,nameRoute;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.e__menu_ciclo);
-		this.sharedpreferences = getSharedPreferences("MyPreferences",
-				Context.MODE_PRIVATE);
+		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
 		this.initializeComponents();
 		currentState();
 	}
@@ -114,6 +113,7 @@ public class E_MenuCiclo extends Activity {
 							editor.putString("PLANNED_ROUTES",
 									plannedRoutes.toString());
 							editor.commit();
+							setCompactationsAndSheet();
 						} catch (Exception e) {
 							// TODO: handle exception
 						}
@@ -226,6 +226,7 @@ public class E_MenuCiclo extends Activity {
 	
 	@Override
 	protected void onResume() {
+		setCompactationsAndSheet();
 		if (sharedpreferences.getBoolean("INOPERABILITY", false)) {
 			buttonsInoperabilityOrFiller(1);
 		} 
@@ -466,7 +467,7 @@ public class E_MenuCiclo extends Activity {
 				});
 		adb.setNegativeButton(
 				getResources().getString(R.string.confirm_button_2),
-				new DialogInterface.OnClickListener() {
+				new DialogInterface.OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
@@ -529,10 +530,10 @@ public class E_MenuCiclo extends Activity {
 				R.drawable.btn_inoperability);
 		this.d_inoperability_two = this.getResources().getDrawable(
 				R.drawable.btn_inoperability_two);
-		
-//		this.send_data_json= new JSONArray();
-//		this.numberOfCompatations = (TextView) 
-
+		this.send_data_json= new JSONArray();
+		this.numberOfCompatations = (TextView) findViewById(R.id.numberOfCompatations); 
+		this.nameRoute=(TextView) findViewById(R.id.nameRoute); 
+		setCompactationsAndSheet();
 	}
 	
 	public void currentState(){
@@ -551,6 +552,22 @@ public class E_MenuCiclo extends Activity {
 				buttonsStartCollection();
 			} else if (current_state == 4) {
 				buttonsFinishCollectionOrFinishFiller(1);
+			}
+		}
+		
+	}
+	
+	public void setCompactationsAndSheet(){
+		
+		int position = sharedpreferences.getInt("POS_CURRENT_ROUTE", -1);
+		if(position!=-1){
+			try {
+				JSONArray auxRoutes = new JSONArray(sharedpreferences.getString("PLANNED_ROUTES", null)); 
+				JSONObject auxRoute = auxRoutes.getJSONObject(position);
+				this.numberOfCompatations.setText(auxRoute.getString("compactaciones"));
+				this.nameRoute.setText(auxRoute.getString("Hoja"));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		

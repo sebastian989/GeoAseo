@@ -13,9 +13,11 @@ import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -66,7 +68,6 @@ public class D_RegistrarDatosVehiculo extends Activity {
 						Intent intent = new Intent(this, E_MenuCiclo.class);
 						startActivity(intent);
 						finish();
-
 					} else {
 						Utilities.showAlert(
 								this,
@@ -86,12 +87,18 @@ public class D_RegistrarDatosVehiculo extends Activity {
 									+ getResources().getString(
 											R.string.alertAux));
 				}
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		}
-
 	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+		return true;
+	}
+
 }

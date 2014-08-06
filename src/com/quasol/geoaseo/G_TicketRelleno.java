@@ -13,7 +13,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -81,13 +83,10 @@ public class G_TicketRelleno extends Activity {
 				}
 			}
 			else{
-				Utilities.showAlert(this,"DEBE COMPLETAR LOS CAMPOS NUMERO Y PESO DEL TIKET");
+				Utilities.showAlert(this,getResources().getString(R.string.alertTicketEmpty));
 			}
 		
 	}
-	
-	
-	
 	
 	public void inicializeComponents(){
 	
@@ -97,6 +96,13 @@ public class G_TicketRelleno extends Activity {
 		this.kindOfRecidue = (Spinner) findViewById(R.id.kindOfResidue);
 		
 	}
+	
+	@Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
+    }
 	
 	
 	

@@ -122,4 +122,5 @@ public class B_MenuPrincipal extends Activity {
 		this.create_route=(ImageButton)findViewById(R.id.btn_create_route);
 		this.close_route=(ImageButton)findViewById(R.id.btn_close_route);
 	}
+	
 }
