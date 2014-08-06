@@ -13,7 +13,10 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,7 @@ public class A_LogIn extends Activity {
 		this.progress = new ProgressDialog(this); 
 		this.conection = new WebService();
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}
 	
 	@Override
@@ -77,6 +81,13 @@ public class A_LogIn extends Activity {
 			return false;
 		}
 	}
+	
+	@Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
+    }
 	
 	public class Login extends AsyncTask<String, Void, Boolean> {
 		

@@ -12,9 +12,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -22,6 +25,7 @@ import android.widget.RadioGroup;
 public class H_RegistrarInoperatividad extends Activity {
 	
 	private SharedPreferences sharedpreferences;
+	private SharedPreferences privatePreferences;
 	private RadioGroup radioGroup;
 	private EditText txtDetail;
 	private Button btnStart;
@@ -35,9 +39,14 @@ public class H_RegistrarInoperatividad extends Activity {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		this.identifyElements();
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
+		this.privatePreferences = getSharedPreferences("InoperabilityPreferences",Context.MODE_PRIVATE);
 		if(this.sharedpreferences.getBoolean("INOPERABILITY", false)){
 			btnFinish.setEnabled(true);
 			this.blockElements();
+			String detail = this.privatePreferences.getString("DETAIL", null);
+			int checked = this.privatePreferences.getInt("CHECKED", -1);
+			this.radioGroup.check(checked);
+			this.txtDetail.setText(detail);
 		}
 	}
 	
@@ -62,6 +71,7 @@ public class H_RegistrarInoperatividad extends Activity {
 							editor.commit();
 							sendInformation(inoperabilityCase, detail,
 									"http://pruebasgeoaseo.tk/controller/Fachada.php", "test", "inoperatividad");
+							saveInformation();
 						}
 					});
 			adb.setNegativeButton(getResources().getString(R.string.confirm_button_2),
@@ -88,6 +98,7 @@ public class H_RegistrarInoperatividad extends Activity {
 						editor.commit();
 						sendInformation("fin_inoperatividad", "El usuario acaba de terminar la inoperatividad",
 								"http://pruebasgeoaseo.tk/controller/Fachada.php", "test", "fin_inoperatividad");
+						deleteInformation();
 						finish();
 					}
 				});
@@ -126,6 +137,19 @@ public class H_RegistrarInoperatividad extends Activity {
 		}	
 	}
 	
+	private void saveInformation(){
+		SharedPreferences.Editor editor = this.privatePreferences.edit();
+		editor.putString("DETAIL", this.txtDetail.getText().toString());
+		editor.putInt("CHECKED", this.radioGroup.getCheckedRadioButtonId());
+		editor.commit();
+	}
+	
+	private void deleteInformation(){
+		Editor editor = this.privatePreferences.edit();
+		editor.clear();
+		editor.commit();
+	}
+	
 	private void identifyElements(){
 		this.radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 		this.txtDetail = (EditText) findViewById(R.id.txtDetail);
@@ -138,4 +162,11 @@ public class H_RegistrarInoperatividad extends Activity {
 		this.txtDetail.setEnabled(false);
 		this.radioGroup.setEnabled(false);
 	}
+	
+	@Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
+    }
 }

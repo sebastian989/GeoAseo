@@ -6,4 +6,17 @@
     <string name="alertSuccessCreateRoute">LA RUTA HA SIDO CREADA SATISFACTORIAMENTE.</string>
     <string name="alertNotSelectedNewRoute">DEBE SELECCIONAR UNA RUTA PARA CREARLA.</string>
     
+    <!-- K REGISTRAR COMBUSTIBLE -->
+    <string name="hntTicket">Ticket combustible</string>
+    <string name="hntGallons">Galones</string>
+    <string name="hntProvaider">Proveedor</string>
+    <string name="hntCost">Valor</string>
+    <string name="lblGasKind">Tipo de combustible:</string>
+    <string name="btnDiesel">Diesel</string>
+    <string name="btnCorriente">Corriente</string>
+    <string name="btnExtra">Extra</string>
+    <string name="btnGas">Gas</string>
+    <string name="btnSaveGasTicket">Guardar</string>
+    <string name="lblBottomGasStation">Combustible</string>
+    
 </resources>

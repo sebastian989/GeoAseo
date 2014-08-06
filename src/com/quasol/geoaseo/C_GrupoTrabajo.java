@@ -19,8 +19,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -306,6 +308,13 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.lstAllOperators.setEnabled(false);
 		this.txtSearch.setEnabled(false);
 	}
+	
+	@Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
+    }
 
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
