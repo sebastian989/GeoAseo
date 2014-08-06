@@ -130,7 +130,8 @@
             android:layout_marginRight="32dp"
             android:layout_toLeftOf="@+id/btn_toll"
             android:background="@android:color/transparent"
-            android:src="@drawable/btn_gas" />
+            android:src="@drawable/btn_gas" 
+            android:onClick="registerGas"/>
 
         <ImageButton
             android:id="@+id/btn_maps"

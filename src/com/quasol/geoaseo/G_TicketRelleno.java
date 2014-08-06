@@ -21,7 +21,7 @@ import android.widget.Spinner;
 public class G_TicketRelleno extends Activity {
 	
 	private SharedPreferences sharedpreferences;
-	private EditText numberTiket,weightTiket;
+	private EditText numberTicket,weightTicket;
 	private Spinner kindOfRecidue;
 	private AlertDialog.Builder adb;
 
@@ -35,17 +35,17 @@ public class G_TicketRelleno extends Activity {
 	
 	public void setTiket(View v){
 		
-		String numberTiket = this.numberTiket.getText().toString();
+		String numberTiket = this.numberTicket.getText().toString();
 		
-			if(!this.numberTiket.getText().toString().equals("") && !this.weightTiket.getText().toString().equals("")){
+			if(!this.numberTicket.getText().toString().equals("") && !this.weightTicket.getText().toString().equals("")){
 				
 				try {
 					JSONArray plannedRoutes = new JSONArray(sharedpreferences.getString("PLANNED_ROUTES",""));
 					JSONArray tikets=new JSONArray();
 					JSONObject auxRoute;
 					JSONObject auxTiket=new JSONObject();
-					auxTiket.put("tiket", this.numberTiket.getText());
-					auxTiket.put("peso_tiket", this.weightTiket.getText());
+					auxTiket.put("tiket", this.numberTicket.getText());
+					auxTiket.put("peso_ticket", this.weightTicket.getText());
 					auxTiket.put("tipo_reciduo", this.kindOfRecidue.getSelectedItem());
 					auxTiket.put("fecha_hora_entrada", sharedpreferences.getString("TIME_START_IN_FILLER",""));
 					auxTiket.put("fecha_hora_dalida", Utilities.getDate());
@@ -93,8 +93,8 @@ public class G_TicketRelleno extends Activity {
 	public void inicializeComponents(){
 	
 		this.adb = new AlertDialog.Builder(this);
-		this.numberTiket = (EditText)findViewById(R.id.tiketNumber);
-		this.weightTiket = (EditText)findViewById(R.id.weightTiket);
+		this.numberTicket = (EditText)findViewById(R.id.tiketNumber);
+		this.weightTicket = (EditText)findViewById(R.id.weightTiket);
 		this.kindOfRecidue = (Spinner) findViewById(R.id.kindOfResidue);
 		
 	}
