@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
 
@@ -21,7 +21,7 @@
             android:padding="10dp"
             android:text="@string/truckInformation"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="35sp" />
 
     </LinearLayout>
     
@@ -70,54 +70,55 @@
 
 <LinearLayout
     android:layout_width="fill_parent"
-    android:layout_height="414dp"
-    android:gravity="center_vertical|center_horizontal"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical" >
     
     <LinearLayout
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:gravity="center_vertical|center_horizontal"
-         android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal" >
 
          <EditText
              android:id="@+id/editText_hourmeter"
-             android:layout_width="wrap_content"
+             android:layout_width="350dp"
              android:layout_height="wrap_content"
-             android:layout_marginBottom="20dp"
+             android:layout_margin="10dp"
              android:ems="10"
              android:hint="Horometro"
-             android:textSize="25sp" 
-             android:inputType="number">
+             android:inputType="number"
+             android:textSize="35sp" >
 
          </EditText>
 
          <EditText
              android:id="@+id/editText_odometer"
-             android:layout_width="wrap_content"
+             android:layout_width="350dp"
              android:layout_height="wrap_content"
-             android:layout_marginBottom="20dp"
+             android:layout_margin="10dp"
              android:ems="10"
              android:hint="Odometro"
-             android:textSize="25sp"
              android:inputType="number"
-             />
-
-         <Button
-             android:id="@+id/button1"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_gravity="center"
-             android:background="@color/blue1"
-             android:ems="13"
-             android:gravity="center_vertical|center_horizontal|center"
-             android:onClick="Save_truck_information"
-             android:padding="10dp"
-             android:text="Guardar"
-             android:textColor="@android:color/white"
-             android:textColorLink="@android:color/white" />
+             android:textSize="35sp" />
 
      </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/blue1"
+        android:ems="13"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:onClick="Save_truck_information"
+        android:padding="10dp"
+        android:text="Guardar"
+        android:textColor="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textSize="35sp" />
     
 </LinearLayout>     
 <!--      <RelativeLayout

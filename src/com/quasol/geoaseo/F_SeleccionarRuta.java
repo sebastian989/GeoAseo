@@ -1,5 +1,7 @@
 package com.quasol.geoaseo;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,10 +55,12 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 	}
 	
 	private void displayRoutes(JSONArray routes){
-		String [] listRouteNames = new String [routes.length()] ;
+		ArrayList<String> listRouteNames = new ArrayList<>();
 		for(int i=0; i<routes.length(); i++){
 			try {
-				listRouteNames[i] = routes.getJSONObject(i).getString("nombre");
+				if(routes.getJSONObject(i).getString("estado").equals("inactiva")||routes.getJSONObject(i).getString("estado").equals("iniciada")){
+					listRouteNames.add(routes.getJSONObject(i).getString("nombre"));
+				}
 			} catch (JSONException e) {
 			}
 		}

@@ -60,7 +60,6 @@ public class G_TicketRelleno extends Activity {
 					SharedPreferences.Editor editor = sharedpreferences.edit();
 					editor.putString("PLANNED_ROUTES",plannedRoutes.toString());
 					editor.putBoolean("IN_FILLER", false);
-					editor.putInt("CURRENT_STATE", 5);
 					editor.commit();
 					this.adb.setTitle("TIKET ALMACENADO CON EXITO");
 					this.adb.setPositiveButton(getResources().getString(R.string.accept_button),

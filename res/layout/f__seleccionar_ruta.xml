@@ -118,18 +118,16 @@
             
         <Button
             android:id="@+id/btnIniciar"
+            android:layout_width="406dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/blue1"
+            android:ems="13"
+            android:gravity="center_vertical|center_horizontal|center"
             android:onClick="startRoute"
-             android:layout_width="406dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@color/blue1"
-        android:ems="13"
-        android:gravity="center_vertical|center_horizontal|center"
-        android:padding="10dp"
-        android:text="@string/startRoute"
-        android:textColor="@android:color/white"
-        android:textColorLink="@android:color/white" />
+            android:text="@string/startRoute"
+            android:textColor="@android:color/white"
+            android:textColorLink="@android:color/white" />
 
         </LinearLayout>
 

@@ -4,9 +4,9 @@
     <string name="app_name">GeoAseo</string>
     <string name="hello_world">Hello world!</string>
     <string name="Button_save">Guardar</string>
-    <string name="accept_button">Aceptar</string>
-    <string name="confirm_button_1">Si</string>
-    <string name="confirm_button_2">No</string>
+    <string name="accept_button">ACEPTAR</string>
+    <string name="confirm_button_1">SI</string>
+    <string name="confirm_button_2">NO</string>
     
     <string name="title_activity_b__menu_principal">B_MenuPrincipal</string>
     <string name="title_activity_c__grupo_trabajo">C_GrupoTrabajo</string>
@@ -58,9 +58,13 @@
     <string name="confirmEndJourney">¿REALMENTE DESEA TERMINAR LA JORNADA DE ESTE OPERARIO?</string>
     <string name="btnFinishAll">Finalizar todos</string>
     
-    <!-- D Matos del vehiculo -->
-    <string name="truck_dates_hour_meter">Horometro</string>
-    <string name="truck_dates_odometer">Odometro</string>
+    <!-- D Datos del vehiculo -->
+    <string name="truck_dates_hour_meter">HOROMETRO</string>
+    <string name="truck_dates_odometer">ODOMETRO</string>
+    <string name="alertEditTextEmpty">COMPLETE LOS CAMPOS PARA PODER CONTINUAR</string>
+    <string name="alertOdometer">EL VALOR DE SU ODOMETRO DEL DIA ANTERIOR ES:</string>
+    <string name="alertHourMeter">EL VALOR DE SU HOROMETRO DEL DIA ANTERIOR ES:</string>
+    <string name="alertAux">, EL NUEVO VALOR NO PUEDE SER MENOR.</string>
     
     <!-- F Seleccionar ruta -->
     <string name="lblSelectedRoute">Ruta seleccionada:</string>
@@ -120,5 +124,7 @@
     <string name="registerToll">Registrar Peaje</string>
     <string name="numberToll"># Ticket</string>
     <string name="truckInformation">Datos del vehículo</string>
+    <string name="alertEmptyToll">INTRODUCE EL NUEMRO DE TICKET Y SELECCIONA UN TIPO DE PEAJE PARA CONTINUAR</string>
+    <string name="alertPayToll">SEGURO QUE PAGO UN PEAJE TIPO</string>
     
 </resources>

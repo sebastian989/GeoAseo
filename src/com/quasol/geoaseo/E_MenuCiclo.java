@@ -18,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class E_MenuCiclo extends Activity {
 
@@ -34,6 +35,7 @@ public class E_MenuCiclo extends Activity {
 			d_special_service_two, d_inoperability, d_inoperability_two;
 	private JSONArray send_data_json;
 	private String method;
+	private TextView numberOfCompatations;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -231,10 +233,6 @@ public class E_MenuCiclo extends Activity {
 		{
 			buttonsInoperabilityOrFiller(2);
 		}
-		else if(sharedpreferences.getInt("CURRENT_STATE", 0)==5){
-			buttonsFinishCollectionOrFinishFiller(2);
-		}
-		
 		else{
 			currentState();
 		}
@@ -257,68 +255,97 @@ public class E_MenuCiclo extends Activity {
 	}
 	
 	public void buttonsOutBase() {
-
+		
 		SharedPreferences.Editor editor = sharedpreferences.edit();
 		int current_state = sharedpreferences.getInt("CURRENT_STATE", 0);
+		
 		if (current_state == 0) {
 			editor.putInt("CURRENT_STATE", 1);
 			editor.commit();
 		}
+		
 		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
 		this.btn_base_exit.setEnabled(false);
+		
 		this.btn_start_collection.setImageDrawable(this.d_start_collection);
 		this.btn_start_collection.setEnabled(true);
-		this.btn_inoperability.setImageDrawable(this.d_inoperability);
-		this.btn_inoperability.setEnabled(true);
+		
+		this.btn_compactation.setImageDrawable(this.d_compactation_two);
+		this.btn_compactation.setEnabled(false);
+		
+		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
+		this.btn_collection_finish.setEnabled(false);
+		
+		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition_two);
+		this.btn_arrive_final_disposition.setEnabled(false);
+		
+		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base_two);
+		this.btn_come_back_to_base.setEnabled(false);
+	
 		this.btn_special_service.setImageDrawable(this.d_special_service);
 		this.btn_special_service.setEnabled(true);
-	
+		
+		this.btn_inoperability.setImageDrawable(this.d_inoperability);
+		this.btn_inoperability.setEnabled(true);
 	}
 	
 	public void buttonsInBase() {
 		SharedPreferences.Editor editor = sharedpreferences.edit();
-		editor.putInt("CURRENT_STATE", 6);
+		editor.putInt("CURRENT_STATE", 1);
 		editor.commit();
-		buttonsInoperabilityOrFiller(1);
+		buttonsOutBase();
 	}
+	
 
+	/**
+	 * @category Configuration
+	 *  
+	 */
 	public void buttonsStartCollection() {
 		
 		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
 		this.btn_base_exit.setEnabled(false);
+		
 		this.btn_start_collection.setImageDrawable(this.d_start_collection_two);
 		this.btn_start_collection.setEnabled(false);
+		
 		this.btn_compactation.setImageDrawable(this.d_compactation);
 		this.btn_compactation.setEnabled(true);
-		this.btn_special_service.setImageDrawable(this.d_special_service_two);
-		this.btn_special_service.setEnabled(false);
-		this.btn_inoperability.setImageDrawable(this.d_inoperability);
-		this.btn_inoperability.setEnabled(true);
+		
 		this.btn_collection_finish.setImageDrawable(this.d_collection_finish);
 		this.btn_collection_finish.setEnabled(true);
 		
+		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition_two);
+		this.btn_arrive_final_disposition.setEnabled(false);
+		
+		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base_two);
+		this.btn_come_back_to_base.setEnabled(false);
 	
-	}
-
-	public void buttonsFinishCollectionOrFinishFiller(int type) {
-		
-		
-		
-		
-		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
-		this.btn_base_exit.setEnabled(false);
-		this.btn_start_collection.setImageDrawable(this.d_start_collection);
-		this.btn_start_collection.setEnabled(true);
-		this.btn_compactation.setImageDrawable(this.d_compactation_two);
-		this.btn_compactation.setEnabled(false);
 		this.btn_special_service.setImageDrawable(this.d_special_service_two);
 		this.btn_special_service.setEnabled(false);
-		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
-		this.btn_collection_finish.setEnabled(false);
+		
 		this.btn_inoperability.setImageDrawable(this.d_inoperability);
 		this.btn_inoperability.setEnabled(true);
-		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base);
-		this.btn_come_back_to_base.setEnabled(true);
+		
+	}
+
+	/**
+	 * 
+	 * @param type
+	 */
+	public void buttonsFinishCollectionOrFinishFiller(int type) {
+
+		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
+		this.btn_base_exit.setEnabled(false);
+		
+		this.btn_start_collection.setImageDrawable(this.d_start_collection);
+		this.btn_start_collection.setEnabled(true);
+		
+		this.btn_compactation.setImageDrawable(this.d_compactation_two);
+		this.btn_compactation.setEnabled(false);
+		
+		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
+		this.btn_collection_finish.setEnabled(false);
 		
 		if (type==1){
 			
@@ -333,6 +360,14 @@ public class E_MenuCiclo extends Activity {
 			
 		}
 		
+		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base);
+		this.btn_come_back_to_base.setEnabled(true);
+		
+		this.btn_special_service.setImageDrawable(this.d_special_service_two);
+		this.btn_special_service.setEnabled(false);
+		
+		this.btn_inoperability.setImageDrawable(this.d_inoperability);
+		this.btn_inoperability.setEnabled(true);
 	}
 	
 	/**
@@ -342,14 +377,19 @@ public class E_MenuCiclo extends Activity {
 	public void buttonsInoperabilityOrFiller(int type){
 		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
 		this.btn_base_exit.setEnabled(false);
+		
 		this.btn_start_collection.setEnabled(false);
 		this.btn_start_collection.setImageDrawable(this.d_base_exit_two);
+		
 		this.btn_compactation.setImageDrawable(this.d_compactation_two);
 		this.btn_compactation.setEnabled(false);
+		
 		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
 		this.btn_collection_finish.setEnabled(false);
+		
 		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base_two);
 		this.btn_come_back_to_base.setEnabled(false);
+		
 		this.btn_special_service.setImageDrawable(this.d_special_service_two);
 		this.btn_special_service.setEnabled(false);
 		
@@ -358,6 +398,7 @@ public class E_MenuCiclo extends Activity {
 		
 			this.btn_inoperability.setImageDrawable(this.d_inoperability);
 			this.btn_inoperability.setEnabled(true);
+			
 			this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition_two);
 			this.btn_arrive_final_disposition.setEnabled(false);
 		
@@ -367,6 +408,7 @@ public class E_MenuCiclo extends Activity {
 			
 			this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition);
 			this.btn_arrive_final_disposition.setEnabled(true);
+			
 			this.btn_inoperability.setImageDrawable(this.d_inoperability_two);
 			this.btn_inoperability.setEnabled(false);
 		
@@ -374,26 +416,32 @@ public class E_MenuCiclo extends Activity {
 		
 	}
 	
-	public void buttonsExitFiller(){
-		
-		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
-		this.btn_base_exit.setEnabled(false);
-		this.btn_start_collection.setImageDrawable(this.d_start_collection);
-		this.btn_start_collection.setEnabled(true);
-		this.btn_compactation.setImageDrawable(this.d_compactation_two);
-		this.btn_compactation.setEnabled(false);
-		this.btn_special_service.setImageDrawable(this.d_special_service_two);
-		this.btn_special_service.setEnabled(false);
-		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
-		this.btn_collection_finish.setEnabled(false);
-		this.btn_inoperability.setImageDrawable(this.d_inoperability);
-		this.btn_inoperability.setEnabled(true);
-		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition);
-		this.btn_arrive_final_disposition.setEnabled(true);
-		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base);
-		this.btn_come_back_to_base.setEnabled(true);
-		
-	}
+//	public void buttonsExitFiller(){
+//		
+//		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
+//		this.btn_base_exit.setEnabled(false);
+//		
+//		this.btn_start_collection.setImageDrawable(this.d_start_collection);
+//		this.btn_start_collection.setEnabled(true);
+//		
+//		this.btn_compactation.setImageDrawable(this.d_compactation_two);
+//		this.btn_compactation.setEnabled(false);
+//		
+//		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
+//		this.btn_collection_finish.setEnabled(false);
+//		
+//		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition);
+//		this.btn_arrive_final_disposition.setEnabled(true);
+//		
+//		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base);
+//		this.btn_come_back_to_base.setEnabled(true);
+//		
+//		this.btn_special_service.setImageDrawable(this.d_special_service_two);
+//		this.btn_special_service.setEnabled(false);
+//		
+//		this.btn_inoperability.setImageDrawable(this.d_inoperability);
+//		this.btn_inoperability.setEnabled(true);
+//	}
 
 
 	/**
@@ -482,7 +530,8 @@ public class E_MenuCiclo extends Activity {
 		this.d_inoperability_two = this.getResources().getDrawable(
 				R.drawable.btn_inoperability_two);
 		
-		this.send_data_json= new JSONArray();
+//		this.send_data_json= new JSONArray();
+//		this.numberOfCompatations = (TextView) 
 
 	}
 	
@@ -502,11 +551,6 @@ public class E_MenuCiclo extends Activity {
 				buttonsStartCollection();
 			} else if (current_state == 4) {
 				buttonsFinishCollectionOrFinishFiller(1);
-			} else if (current_state == 5) {
-
-				buttonsFinishCollectionOrFinishFiller(2);
-			} else if (current_state == 6) {
-				buttonsInBase();
 			}
 		}
 		

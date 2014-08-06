@@ -81,8 +81,7 @@
         <activity
             android:name=".L_RegistrarPeaje"
             android:label="@string/title_activity_l__registrar_peaje"
-            android:screenOrientation="landscape" 
-            android:theme="@android:style/Theme.Dialog">
+            android:screenOrientation="landscape">
         </activity>
         <activity
             android:name=".M_VisualizarMapa"
