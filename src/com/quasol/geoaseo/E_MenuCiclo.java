@@ -42,42 +42,8 @@ public class E_MenuCiclo extends Activity {
 		this.sharedpreferences = getSharedPreferences("MyPreferences",
 				Context.MODE_PRIVATE);
 		this.initializeComponents();
-		int current_state = sharedpreferences.getInt("CURRENT_STATE", 0);
-		
-		if (current_state != 0) 
-		{
-			
-			if (sharedpreferences.getBoolean("INOPERABILITY", false)) {
-				buttonsInoperabilityOrFiller(1);
-			} 
-			else if (sharedpreferences.getBoolean("IN_FILLER",false))
-			{
-				buttonsInoperabilityOrFiller(2);
-			}
-			else if (current_state == 1) 
-			{
-				buttonsOutBase();
-			}
-			else if (current_state == 2) 
-			{
-				buttonsStartCollection();
-			} 
-			else if (current_state == 4) 
-			{
-				buttonsFinishCollectionOrFinishFiller(1);
-			}
-			else if (current_state == 5){
-				
-				buttonsFinishCollectionOrFinishFiller(2);
-			}
-			else if (current_state == 6){
-				buttonsInBase();
-			}
-			
-		}
+		currentState();
 	}
-
-	
 
 	public void baseOut(View v) {
 
@@ -267,6 +233,10 @@ public class E_MenuCiclo extends Activity {
 		}
 		else if(sharedpreferences.getInt("CURRENT_STATE", 0)==5){
 			buttonsFinishCollectionOrFinishFiller(2);
+		}
+		
+		else{
+			currentState();
 		}
 		super.onResume();
 	}
@@ -514,6 +484,32 @@ public class E_MenuCiclo extends Activity {
 		
 		this.send_data_json= new JSONArray();
 
+	}
+	
+	public void currentState(){
+		
+		int current_state = sharedpreferences.getInt("CURRENT_STATE", 0);
+
+		if (current_state != 0) {
+
+			if (sharedpreferences.getBoolean("INOPERABILITY", false)) {
+				buttonsInoperabilityOrFiller(1);
+			} else if (sharedpreferences.getBoolean("IN_FILLER", false)) {
+				buttonsInoperabilityOrFiller(2);
+			} else if (current_state == 1) {
+				buttonsOutBase();
+			} else if (current_state == 2) {
+				buttonsStartCollection();
+			} else if (current_state == 4) {
+				buttonsFinishCollectionOrFinishFiller(1);
+			} else if (current_state == 5) {
+
+				buttonsFinishCollectionOrFinishFiller(2);
+			} else if (current_state == 6) {
+				buttonsInBase();
+			}
+		}
+		
 	}
 
 }

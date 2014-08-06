@@ -3,12 +3,83 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="${packageName}.${activityClass}" >
+    tools:context="${packageName}.${activityClass}">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue2"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="@string/newTicketToll"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+        
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etTicket"
+        android:layout_width="277dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:ems="10"
+        android:hint="@string/numberToll"
+        android:padding="10dp" 
+        android:inputType="number">
+    </EditText>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_gravity="center_horizontal">
+
+        <ImageButton
+            android:id="@+id/btnTollA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:src="@drawable/btn_toll_a"/>
+
+        <ImageButton
+            android:id="@+id/btnTollB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:src="@drawable/btn_toll_b"/>
+
+        <ImageButton
+            android:id="@+id/btnTollC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:src="@drawable/btn_toll_c"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnPayToll"
+        android:layout_width="406dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/blue1"
+        android:ems="13"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:padding="10dp"
+        android:text="Pagar peaje"
+        android:textColor="@android:color/white"
+        android:textColorLink="@android:color/white" />
 
 </LinearLayout>

@@ -3,10 +3,29 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
 
-     <RelativeLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue2"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="@string/truckInformation"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+    
+     <!-- <RelativeLayout
         android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +66,7 @@
             android:contentDescription="@string/logout_conten_description"
             android:onClick="logOut"
             android:src="@drawable/btn_logout"/>
-    </RelativeLayout>
+    </RelativeLayout> -->
 
 <LinearLayout
     android:layout_width="fill_parent"
@@ -86,21 +105,22 @@
 
          <Button
              android:id="@+id/button1"
-             android:layout_width="wrap_content"
+             android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_gravity="center"
              android:background="@color/blue1"
              android:ems="13"
              android:gravity="center_vertical|center_horizontal|center"
+             android:onClick="Save_truck_information"
              android:padding="10dp"
              android:text="Guardar"
              android:textColor="@android:color/white"
-             android:textColorLink="@android:color/white" 
-             android:onClick="Save_truck_information"/>
+             android:textColorLink="@android:color/white" />
+
      </LinearLayout>
     
 </LinearLayout>     
-     <RelativeLayout
+<!--      <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
@@ -131,6 +151,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/white"
             android:textSize="35sp" />
-    </RelativeLayout>
+    </RelativeLayout> -->
     
 </LinearLayout>

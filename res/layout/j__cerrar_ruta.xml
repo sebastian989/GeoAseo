@@ -99,11 +99,18 @@
 
             <Button
                 android:id="@+id/btnCloseRoute"
-                android:layout_width="wrap_content"
+                android:layout_width="333dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/lblButtonCloseRoute" 
-                android:onClick="closeRoute"/>
+                android:layout_marginTop="10dp"
+                android:background="@color/blue1"
+                android:ems="13"
+                android:gravity="center_vertical|center_horizontal|center"
+                android:onClick="closeRoute"
+                android:padding="10dp"
+                android:text="@string/lblButtonCloseRoute"
+                android:textColor="@android:color/white"
+                android:textColorLink="@android:color/white" />
 
         </LinearLayout>
 

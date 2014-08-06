@@ -40,7 +40,8 @@
         <activity
             android:name=".D_RegistrarDatosVehiculo"
             android:label="@string/title_activity_d__iniciar_dia"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape" 
+            android:theme="@android:style/Theme.Dialog">
         </activity>
         <activity
             android:name=".E_MenuCiclo"
@@ -80,7 +81,8 @@
         <activity
             android:name=".L_RegistrarPeaje"
             android:label="@string/title_activity_l__registrar_peaje"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape" 
+            android:theme="@android:style/Theme.Dialog">
         </activity>
         <activity
             android:name=".M_VisualizarMapa"

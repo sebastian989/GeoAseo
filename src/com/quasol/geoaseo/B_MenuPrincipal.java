@@ -105,6 +105,11 @@ public class B_MenuPrincipal extends Activity {
 		startActivity(intent);
 	}
 	
+	public void registerToll(View v) {
+		Intent intent = new Intent(this, L_RegistrarPeaje.class);
+		startActivity(intent);
+	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		moveTaskToBack(true);

@@ -120,7 +120,8 @@
             android:layout_alignTop="@+id/btn_gas"
             android:layout_marginRight="151dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/btn_toll" />
+            android:src="@drawable/btn_toll" 
+            android:onClick="registerToll"/>
 
         <ImageButton
             android:id="@+id/btn_gas"

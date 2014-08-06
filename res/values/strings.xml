@@ -115,4 +115,10 @@
     <string name="lblNotSelection">No hay nada seleccionado</string>
     <string name="lblButtonCloseRoute">Cerrar ruta</string>
     
+    <!-- L REGISTRAR PEAJE -->
+    <string name="newTicketToll">Numero del Ticket del peaje</string>
+    <string name="registerToll">Registrar Peaje</string>
+    <string name="numberToll"># Ticket</string>
+    <string name="truckInformation">Datos del vehículo</string>
+    
 </resources>
