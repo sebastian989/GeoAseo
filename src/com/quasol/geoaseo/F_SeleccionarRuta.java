@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,6 +37,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 	private Button btnIniciar;
 	private ListView lstRoutes;
 	private JSONArray plannedRoutes;
+	//private JSONArray plannedRoutesActive;
 	private JSONObject selectRoute;
 	private int routePosition;
 	private String method;
@@ -58,11 +60,22 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 	
 	private void displayRoutes(JSONArray routes){
 		ArrayList<String> listRouteNames = new ArrayList<>();
+		//this.plannedRoutesActive = new JSONArray();
 		for(int i=0; i<routes.length(); i++){
 			try {
-				if(routes.getJSONObject(i).getString("estado").equals("inactiva")||routes.getJSONObject(i).getString("estado").equals("iniciada")){
+//				if(routes.getJSONObject(i).getString("estado").equals("inactiva")||routes.getJSONObject(i).getString("estado").equals("iniciada")){
+//					listRouteNames.add(routes.getJSONObject(i).getString("nombre"));
+//					//this.plannedRoutesActive.put(routes.getJSONObject(i));
+//				}
+//				
+				if(routes.getJSONObject(i).getString("estado").equals("terminada")){
+					listRouteNames.add(routes.getJSONObject(i).getString("nombre")+ " ----- TERMINADA");
+					//this.plannedRoutesActive.put(routes.getJSONObject(i));
+				}
+				else{
 					listRouteNames.add(routes.getJSONObject(i).getString("nombre"));
 				}
+				
 			} catch (JSONException e) {
 			}
 		}
@@ -129,16 +142,25 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 			this.lblSelectedRoute.setText(this.selectRoute.getString("nombre"));
 			this.lblRouteSheet.setText(this.selectRoute.getString("Hoja"));
 			this.lblRouteState.setText(this.selectRoute.getString("estado"));
+			
 			if(this.selectRoute.getString("estado").equals("terminada")){
-				this.btnIniciar.setEnabled(false);
+			
+				this.btnIniciar.setVisibility(View.INVISIBLE);
+				//this.setTitle("Inactivo");
 			}
+			
 			else if(this.selectRoute.getString("estado").equals("iniciada")){
+			
 				this.btnIniciar.setEnabled(true);
 				this.btnIniciar.setText(getResources().getString(R.string.btnContinueRoute));
+				this.btnIniciar.setVisibility(View.VISIBLE);
 			}
-			else{
+			
+			else if(this.selectRoute.getString("estado").equals("inactiva")) {
+			
 				this.btnIniciar.setEnabled(true);
 				this.btnIniciar.setText(getResources().getString(R.string.btnStartRoute));
+				this.btnIniciar.setVisibility(View.VISIBLE);
 			}
 		} catch (JSONException e) {
 		}	
@@ -171,6 +193,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 		this.lblRouteState = (TextView) findViewById(R.id.lblRouteState);
 		this.lstRoutes = (ListView) findViewById(R.id.lstRoutes);
 		this.btnIniciar = (Button) findViewById(R.id.btnIniciar);
+		this.btnIniciar.setVisibility(View.INVISIBLE);
 	}
 	
 	@Override
@@ -179,5 +202,37 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         return true;
     }
+	
+	/**
+	 * 
+	 * @param v
+	 */
+	public void logOut(View v) {
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		adb.setTitle(getResources().getString(R.string.logout_confirm));
+		adb.setPositiveButton(
+				getResources().getString(R.string.confirm_button_1),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Editor editor = sharedpreferences.edit();
+						editor.clear();
+						editor.commit();
+						Intent intent = new Intent(getApplicationContext(), A_LogIn.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent);
+					}
+				});
+		adb.setNegativeButton(
+				getResources().getString(R.string.confirm_button_2),
+				new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
+		adb.show();
+	}
 	
 }

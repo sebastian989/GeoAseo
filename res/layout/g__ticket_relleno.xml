@@ -52,54 +52,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_marginTop="27dp"
-        android:orientation="horizontal"
-        android:padding="80dp" >
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal" >
         
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2.00"
+            android:orientation="vertical"
+            android:padding="20dp" >
+            
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:padding="10dp"
-                android:text="Numero del tiket"
-                android:textSize="25sp" />
+                android:padding="20dp"
+                android:text="Datos del ticket"
+                android:textSize="35sp" />
 
             <EditText
                 android:id="@+id/tiketNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:padding="10dp"
-                android:inputType="number">
+                android:hint="Número del tiket"
+                android:inputType="number"
+                android:padding="20dp"
+                android:textSize="35sp" >
 
             </EditText>
-            
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:padding="10dp"
-                android:text="Peso del tiket"
-                android:textSize="25sp" />
 
             <EditText
                 android:id="@+id/weightTiket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:padding="10dp" 
-                android:inputType="number">
-
+                android:hint="Peso del tiket"
+                android:inputType="number"
+                android:padding="20dp"
+                android:textSize="35sp" >
+                
             </EditText>
             
         </LinearLayout>
@@ -107,33 +101,41 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" 
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="20dp" >
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:padding="10dp"
-                android:text="Seleccione el tipo de material"
-                android:textSize="25sp" />
+                android:padding="20dp"
+                android:text="Tipo de material"
+                android:textSize="35sp" />
 
             <Spinner
                 android:id="@+id/kindOfResidue"
                 android:layout_width="389dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:padding="20dp" 
-                android:entries="@array/kindOfRecidue"/>
+                android:entries="@array/kindOfRecidue"
+                android:padding="20dp"/>
             
             <Button
                 android:id="@+id/saveTiket"
-        		android:layout_width="wrap_content"
-        		android:layout_height="wrap_content"
-        		android:layout_gravity="center_vertical|center_horizontal"
-        		android:text="Guardar" 
-        		android:onClick="setTiket"/>
+                android:layout_width="402dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:background="@color/blue1"
+                android:ems="13"
+                android:onClick="setTiket"
+                android:padding="10dp"
+                android:text="Guardar"
+                android:textColor="@android:color/white"
+                android:textColorLink="@android:color/white"
+                android:textSize="35sp" />
 
         </LinearLayout>
         

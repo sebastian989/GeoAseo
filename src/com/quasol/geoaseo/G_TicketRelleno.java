@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.quasol.recursos.SaveInformation;
 import com.quasol.recursos.Utilities;
 
 import android.app.Activity;
@@ -15,6 +16,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,12 +34,13 @@ public class G_TicketRelleno extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.g__ticket_relleno);
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		inicializeComponents();
 	}
 	
 	public void setTiket(View v){
 		
-		String numberTiket = this.numberTicket.getText().toString();
+//		String numberTiket = this.numberTicket.getText().toString();
 		
 			if(!this.numberTicket.getText().toString().equals("") && !this.weightTicket.getText().toString().equals("")){
 				
@@ -57,12 +60,18 @@ public class G_TicketRelleno extends Activity {
 							tikets=auxRoute.getJSONArray("tickets");
 							tikets.put(auxTiket);
 						}
+						else if(auxRoute.getString("estado").equals("terminada")&& auxRoute.getBoolean("ticket_pendiente")){
+							tikets=auxRoute.getJSONArray("tickets");
+							tikets.put(auxTiket);
+							auxRoute.put("ticket_pendiente", false);
+						}
 					}
 					
 					SharedPreferences.Editor editor = sharedpreferences.edit();
 					editor.putString("PLANNED_ROUTES",plannedRoutes.toString());
 					editor.putBoolean("IN_FILLER", false);
 					editor.commit();
+					sendInformation();
 					this.adb.setTitle("TIKET ALMACENADO CON EXITO");
 					this.adb.setPositiveButton(getResources().getString(R.string.accept_button),
 							new DialogInterface.OnClickListener() {
@@ -85,7 +94,6 @@ public class G_TicketRelleno extends Activity {
 			else{
 				Utilities.showAlert(this,getResources().getString(R.string.alertTicketEmpty));
 			}
-		
 	}
 	
 	public void inicializeComponents(){
@@ -97,12 +105,24 @@ public class G_TicketRelleno extends Activity {
 		
 	}
 	
+	public void sendInformation() {
+		try {
+			JSONArray auxJson = new JSONArray(this.sharedpreferences.getString("PLANNED_ROUTES", ""));
+			
+			new SaveInformation(this).execute(
+					"http://pruebasgeoaseo.tk/controller/Fachada.php", "test",
+					"ticket_relleno", auxJson.toString());
+		} catch (Exception e) {
+		}
+	}
+	
 	@Override
     public boolean onTouchEvent(MotionEvent event) {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         return true;
     }
+	
 	
 	
 	

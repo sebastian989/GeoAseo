@@ -143,13 +143,50 @@ public class E_MenuCiclo extends Activity {
 						editor.putInt("CURRENT_STATE", 4);
 						editor.commit();
 						try {
-							JSONArray auxRutes = new JSONArray(sharedpreferences.getString("PLANNED_ROUTES", null));
-							int position = sharedpreferences.getInt("POS_CURRENT_ROUTE", 0);
-							send_data_json = new JSONArray();
-							send_data_json.put((JSONObject)auxRutes.getJSONObject(position));
-							method="fin_porte";
-							sendInformation();
+							adb.setTitle("HA FINALIZADO EL PORTE EN LA RUTA " + nameRoute.getText() +" ¿HA TERMINADO DE LIMPIARLA?");
+							adb.setPositiveButton(
+									getResources().getString(R.string.confirm_button_1),
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											
+											JSONArray auxRutes;
+											JSONObject auxRoute;
+											try {
+												auxRutes = new JSONArray(sharedpreferences.getString("PLANNED_ROUTES", null));
+												int position = sharedpreferences.getInt("POS_CURRENT_ROUTE", -1);
+												auxRoute = (JSONObject)auxRutes.getJSONObject(position);
+												auxRoute.put("ticket_pendiente", true);
+												auxRoute.put("estado", "terminada");
+												SharedPreferences.Editor editor = sharedpreferences.edit();
+												editor.putString("PLANNED_ROUTES",auxRutes.toString());
+												editor.commit();
+												send_data_json = new JSONArray();
+												send_data_json.put((JSONObject)auxRutes.getJSONObject(position));
+												method="fin_porte";
+												clearText();
+												sendInformation();
+												
+											} catch (JSONException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+										}
+									});
+							adb.setNegativeButton(
+									getResources().getString(R.string.confirm_button_2),
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											clearText();
+											dialog.dismiss();
+										}
+									});
+							adb.setCancelable(false);
+							adb.show();
+
 						} catch (Exception e) {
+							e.printStackTrace();
 						}
 						buttonsFinishCollectionOrFinishFiller(1);
 					}
@@ -376,11 +413,12 @@ public class E_MenuCiclo extends Activity {
 	 * @param type
 	 */
 	public void buttonsInoperabilityOrFiller(int type){
+		
 		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
 		this.btn_base_exit.setEnabled(false);
 		
 		this.btn_start_collection.setEnabled(false);
-		this.btn_start_collection.setImageDrawable(this.d_base_exit_two);
+		this.btn_start_collection.setImageDrawable(this.d_start_collection_two);
 		
 		this.btn_compactation.setImageDrawable(this.d_compactation_two);
 		this.btn_compactation.setEnabled(false);
@@ -416,34 +454,6 @@ public class E_MenuCiclo extends Activity {
 		}
 		
 	}
-	
-//	public void buttonsExitFiller(){
-//		
-//		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
-//		this.btn_base_exit.setEnabled(false);
-//		
-//		this.btn_start_collection.setImageDrawable(this.d_start_collection);
-//		this.btn_start_collection.setEnabled(true);
-//		
-//		this.btn_compactation.setImageDrawable(this.d_compactation_two);
-//		this.btn_compactation.setEnabled(false);
-//		
-//		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
-//		this.btn_collection_finish.setEnabled(false);
-//		
-//		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition);
-//		this.btn_arrive_final_disposition.setEnabled(true);
-//		
-//		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base);
-//		this.btn_come_back_to_base.setEnabled(true);
-//		
-//		this.btn_special_service.setImageDrawable(this.d_special_service_two);
-//		this.btn_special_service.setEnabled(false);
-//		
-//		this.btn_inoperability.setImageDrawable(this.d_inoperability);
-//		this.btn_inoperability.setEnabled(true);
-//	}
-
 
 	/**
 	 * 
@@ -571,6 +581,11 @@ public class E_MenuCiclo extends Activity {
 			}
 		}
 		
+	}
+	
+	public void clearText(){
+		this.numberOfCompatations.setText("");
+		this.nameRoute.setText("");
 	}
 
 }
