@@ -58,6 +58,10 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 		}
 	}
 	
+	/**
+	 * Method to save the name of the planned routes in arrayList and display this in the listView
+	 * @param routes
+	 */
 	private void displayRoutes(JSONArray routes){
 		ArrayList<String> listRouteNames = new ArrayList<>();
 		//this.plannedRoutesActive = new JSONArray();
@@ -83,6 +87,49 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 		this.lstRoutes.setAdapter(adapter);
 	}
 	
+	/**
+	 * This method is called when the user select some route, the function of this is display
+	 * information as state, sheet , etc of the selected route
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	
+		try {
+			this.routePosition = position;
+			this.selectRoute = this.plannedRoutes.getJSONObject(position);
+			this.lblSelectedRoute.setText(this.selectRoute.getString("nombre"));
+			this.lblRouteSheet.setText(this.selectRoute.getString("Hoja"));
+			this.lblRouteState.setText(this.selectRoute.getString("estado"));
+			
+			if(this.selectRoute.getString("estado").equals("terminada")){
+			
+				this.btnIniciar.setVisibility(View.INVISIBLE);
+				//this.setTitle("Inactivo");
+			}
+			
+			else if(this.selectRoute.getString("estado").equals("iniciada")){
+			
+				this.btnIniciar.setEnabled(true);
+				this.btnIniciar.setText(getResources().getString(R.string.btnContinueRoute));
+				this.btnIniciar.setVisibility(View.VISIBLE);
+			}
+			
+			else if(this.selectRoute.getString("estado").equals("inactiva")) {
+			
+				this.btnIniciar.setEnabled(true);
+				this.btnIniciar.setText(getResources().getString(R.string.btnStartRoute));
+				this.btnIniciar.setVisibility(View.VISIBLE);
+			}
+		} catch (JSONException e) {
+		}	
+	}
+	
+	/**
+	 * Method to configure and save essential information in preferences 
+	 * and ask user if really wants to start or continue the selected route, if the answer is "yes"
+	 * the next method is called (sendInformation) for send or save the information to server
+	 * @param v
+	 */
 	public void startRoute(View v){
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
 		if(this.selectRoute != null){
@@ -132,40 +179,10 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 			Utilities.showAlert(this, getResources().getString(R.string.alertNotSelectedRoute));
 		}
 	}
-
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	
-		try {
-			this.routePosition = position;
-			this.selectRoute = this.plannedRoutes.getJSONObject(position);
-			this.lblSelectedRoute.setText(this.selectRoute.getString("nombre"));
-			this.lblRouteSheet.setText(this.selectRoute.getString("Hoja"));
-			this.lblRouteState.setText(this.selectRoute.getString("estado"));
-			
-			if(this.selectRoute.getString("estado").equals("terminada")){
-			
-				this.btnIniciar.setVisibility(View.INVISIBLE);
-				//this.setTitle("Inactivo");
-			}
-			
-			else if(this.selectRoute.getString("estado").equals("iniciada")){
-			
-				this.btnIniciar.setEnabled(true);
-				this.btnIniciar.setText(getResources().getString(R.string.btnContinueRoute));
-				this.btnIniciar.setVisibility(View.VISIBLE);
-			}
-			
-			else if(this.selectRoute.getString("estado").equals("inactiva")) {
-			
-				this.btnIniciar.setEnabled(true);
-				this.btnIniciar.setText(getResources().getString(R.string.btnStartRoute));
-				this.btnIniciar.setVisibility(View.VISIBLE);
-			}
-		} catch (JSONException e) {
-		}	
-	}
-	
+	/**
+	 * Method to create a new json to save the information and send it to server
+	 */
 	public void sendInformation(){
 		JSONArray data = new JSONArray();
 		JSONArray auxjson = new JSONArray();
@@ -187,6 +204,9 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 		}
 	}
 	
+	/**
+	 * Method for load all necessary elements in the view
+	 */
 	private  void identifyElements(){
 		this.lblSelectedRoute = (TextView) findViewById(R.id.lblSelectedRoute);
 		this.lblRouteSheet = (TextView) findViewById(R.id.lblSelectedSheet);
@@ -196,6 +216,9 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 		this.btnIniciar.setVisibility(View.INVISIBLE);
 	}
 	
+	/**
+	 * Override method to hide the keyboard when the user touch outside of an element
+	 */
 	@Override
     public boolean onTouchEvent(MotionEvent event) {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -204,7 +227,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
     }
 	
 	/**
-	 * 
+	 * Method to close the session
 	 * @param v
 	 */
 	public void logOut(View v) {
