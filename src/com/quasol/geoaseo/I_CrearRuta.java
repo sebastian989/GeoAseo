@@ -26,7 +26,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 public class I_CrearRuta extends Activity implements OnItemClickListener, TextWatcher{
 	
@@ -39,7 +38,6 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 	private ArrayList<String> lstRouteNames;
 	private int selectedPosition;
 	private boolean searching;
-	private boolean blockTextThread;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +51,12 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 		this.lstRoutes.setOnItemClickListener(this);
 		this.search.addTextChangedListener(this);
 		this.searching = false;
-		this.blockTextThread = false;
 		this.selectedPosition=-1;
 	}
 	
+	/**
+	 * Method for display all alternative routes returned by the server
+	 */
 	private void displayAllRoutes(){
 		String strAllRoutes = this.sharedpreferences.getString("ALTERNATE_ROUTES", null);
 		try {
@@ -71,6 +71,11 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 		}
 	}
 	
+	/**
+	 * This method ask user if really wants to save a new route, if the answer is "yes" then call the next 
+	 * method (createRoute).
+	 * @param v
+	 */
 	public void save(View v){
 		if(this.selectedPosition>=0){
 			AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -97,6 +102,9 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 		}
 	}
 	
+	/**
+	 * Method for add information to planned routes json and send this to server
+	 */
 	private void createRoute(){
 		if(searching){
 			int i = 0;
@@ -136,18 +144,28 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 		}
 	}
 	
+	/**
+	 * Method for load all necessary elements in the view
+	 */
 	private void identifyElements(){
 		this.search = (EditText) findViewById(R.id.txtSearch);
 		this.lstRoutes = (ListView) findViewById(R.id.lstAllRoutes);
 		this.radioGroup = (RadioGroup) findViewById(R.id.radioGroupTypeRoute);
 	}
 
+	/**
+	 * method to identify what route was selected
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		this.selectedPosition = position;
 		this.searching = false;
 	}
 
+	/**
+	 * Method to filter the routes list when the user type something in the text field
+	 * and the user can find the route easiest
+	 */
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		if(s.length()>0){

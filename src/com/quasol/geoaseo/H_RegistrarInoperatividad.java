@@ -50,6 +50,11 @@ public class H_RegistrarInoperatividad extends Activity {
 		}
 	}
 	
+	/**
+	 * Method called when the user pressed the start button, this method asks the user if really wants start
+	 * inoperability, if the answer is "yes" the method sendInformation() is called.
+	 * @param v
+	 */
 	public void start(View v){
 		final String detail = this.txtDetail.getText().toString();
 		if(detail.equals("")){
@@ -85,6 +90,11 @@ public class H_RegistrarInoperatividad extends Activity {
 		}
 	}
 	
+	/**
+	 * Method called when the user pressed the finish button, this method asks the user if really wants finish
+	 * inoperability, if the answer is "yes" the method sendInformation() is called for send the information to server.
+	 * @param v
+	 */
 	public void finish(View v){
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
 		adb.setTitle(getResources().getString(R.string.confirmFinishInoperability));
@@ -112,6 +122,15 @@ public class H_RegistrarInoperatividad extends Activity {
 		adb.show();
 	}
 	
+	/**
+	 * This method saves the user, case and detail of the start and the finish of the inoperability 
+	 * and sends it to server
+	 * @param inoperabilityCase
+	 * @param detail
+	 * @param url
+	 * @param method
+	 * @param event
+	 */
 	private void sendInformation(String inoperabilityCase, String detail, String url, String method, 
 			String event)
 	{
@@ -137,6 +156,9 @@ public class H_RegistrarInoperatividad extends Activity {
 		}	
 	}
 	
+	/**
+	 * Method to recover the activity view state when the inoperability start. 
+	 */
 	private void saveInformation(){
 		SharedPreferences.Editor editor = this.privatePreferences.edit();
 		editor.putString("DETAIL", this.txtDetail.getText().toString());
@@ -144,12 +166,18 @@ public class H_RegistrarInoperatividad extends Activity {
 		editor.commit();
 	}
 	
+	/**
+	 * Method to remove of preferences previously saved information. 
+	 */
 	private void deleteInformation(){
 		Editor editor = this.privatePreferences.edit();
 		editor.clear();
 		editor.commit();
 	}
 	
+	/**
+	 * Method for load all necessary elements in the view
+	 */
 	private void identifyElements(){
 		this.radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 		this.txtDetail = (EditText) findViewById(R.id.txtDetail);
@@ -163,6 +191,9 @@ public class H_RegistrarInoperatividad extends Activity {
 		this.radioGroup.setEnabled(false);
 	}
 	
+	/**
+	 * Override method to hide the keyboard when the user touch outside of an element
+	 */
 	@Override
     public boolean onTouchEvent(MotionEvent event) {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

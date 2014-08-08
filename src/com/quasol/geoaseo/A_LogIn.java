@@ -3,6 +3,7 @@ package com.quasol.geoaseo;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import com.quasol.recursos.Utilities;
 import com.quasol.recursos.WebService;
 
 import android.app.Activity;
@@ -18,7 +19,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class A_LogIn extends Activity {
 	
@@ -40,6 +40,9 @@ public class A_LogIn extends Activity {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}
 	
+	/**
+	 * Method to verify if the user have already a session
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -51,6 +54,11 @@ public class A_LogIn extends Activity {
 		}
 	}
 
+	/**
+	 * This method verify if there are empty fields, else send the user information (user, password)
+	 * to start a new session.
+	 * @param v
+	 */
 	public void logIn(View v){
 		this.txtUser = (TextView) findViewById(R.id.txtUser);
 		this.txtPassword = (TextView) findViewById(R.id.txtPassword);
@@ -59,18 +67,22 @@ public class A_LogIn extends Activity {
 		String password = txtPassword.getText().toString();
 		
 		if(this.user.equals("") || password.equals("")){
-			Toast.makeText(this, getResources().getString(R.string.toastIncompleteFields), Toast.LENGTH_SHORT).show();
+			Utilities.showAlert(this, getResources().getString(R.string.alertEditTextEmpty));
 		}
 		else{
 			if(hayInternet()){
 				new Login().execute(this.user,password);
 			}
 			else{
-				Toast.makeText(this, getResources().getString(R.string.toastInternetFail), Toast.LENGTH_SHORT).show();
+				Utilities.showAlert(this, getResources().getString(R.string.toastInternetFail));
 			}
 		}
 	}
 	
+	/**
+	 * Method to verify if the device have an internet connection 
+	 * @return
+	 */
 	private boolean hayInternet() {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (cm.getActiveNetworkInfo() != null
@@ -82,6 +94,9 @@ public class A_LogIn extends Activity {
 		}
 	}
 	
+	/**
+	 * Override method to hide the keyboard when the user touch outside of an element
+	 */
 	@Override
     public boolean onTouchEvent(MotionEvent event) {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -117,7 +132,7 @@ public class A_LogIn extends Activity {
 		protected void onPostExecute(Boolean result) {
 			progress.dismiss();
 			if(!result){
-				Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastErrorLogin), Toast.LENGTH_SHORT).show();
+				Utilities.showAlert((Activity)getApplicationContext(), getResources().getString(R.string.toastErrorLogin));
 			}
 			else{
 				txtUser.setText("");
@@ -127,6 +142,11 @@ public class A_LogIn extends Activity {
 			}
 		}
 		
+		/**
+		 * This method gets and saves the information that return the server about the necessary data for start the
+		 * application
+		 * @return
+		 */
 		private Boolean saveInformation(){
 			try {
 				String token = this.answer.getJSONObject(0).getString("token");

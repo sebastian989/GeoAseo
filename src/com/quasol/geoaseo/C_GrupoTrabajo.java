@@ -173,7 +173,10 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		}
 	}
 	
-	//Method to finish the journey of all operators
+	/**
+	 * Method to finish the journey of all operators
+	 * @param posCurrentRout
+	 */
 	private void removeAllOperators(int posCurrentRout){
 		JSONArray data = new JSONArray();
 		JSONArray plannedRoutes;
@@ -259,6 +262,9 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		
 	}
 	
+	/**
+	 * Read the description of the previous method
+	 */
 	private void saveSelectedOperators(){
 		String hour = Utilities.getDate();
 		for(int i=0; i<this.adapter.getCurrentSelected().length(); i++){
@@ -274,6 +280,9 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		editor.commit();
 	}
 	
+	/**
+	 * Method to filter the list when the user type something in the text field
+	 */
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		if(s.length()>0){
@@ -294,6 +303,9 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.diaplayListAllOperators();
 	}
 	
+	/**
+	 * Method for load all necessary elements in the view
+	 */
 	private  void identifyElements(){
 		this.lstAllOperators = (ListView) findViewById(R.id.lstAllOperators);
 		this.lstSelectedOperators = (ListView) findViewById(R.id.lstSelectedOperators);
@@ -309,6 +321,9 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.txtSearch.setEnabled(false);
 	}
 	
+	/**
+	 * Override method to hide the keyboard when the user touch outside of an element
+	 */
 	@Override
     public boolean onTouchEvent(MotionEvent event) {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

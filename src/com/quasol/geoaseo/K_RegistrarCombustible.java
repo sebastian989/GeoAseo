@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,13 +37,11 @@ public class K_RegistrarCombustible extends Activity {
 		this.identifyElements();
 	}
 	
-	@Override
-    public boolean onTouchEvent(MotionEvent event) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        return true;
-    }
-	
+	/**
+	 * This method validate if the fields are empty, else ask user if really wants to save
+	 * the information, if the answer is "yes" call the next method (sendInformation)
+	 * @param v
+	 */
 	public void save(View v){
 		final String ticket = this.txtTicket.getText().toString();
 		final String gallons = this.txtGallons.getText().toString();
@@ -78,6 +75,14 @@ public class K_RegistrarCombustible extends Activity {
 		}
 	}
 	
+	/**
+	 * This method save the information of the gas station in a json and send this to server
+	 * @param ticket
+	 * @param gallons
+	 * @param provider
+	 * @param gasKind
+	 * @param cost
+	 */
 	private void sendInformation(String ticket, String gallons, String provider, String gasKind, String cost){
 		JSONObject information = new JSONObject();
 		try {
@@ -93,6 +98,9 @@ public class K_RegistrarCombustible extends Activity {
 		}
 	}
 	
+	/**
+	 * Method for clear all text fields
+	 */
 	private void clearFields(){
 		this.txtTicket.setText("");
 		this.txtGallons.setText("");
@@ -100,6 +108,9 @@ public class K_RegistrarCombustible extends Activity {
 		this.txtCost.setText("");
 	}
 	
+	/**
+	 * Method for load all necessary elements in the view
+	 */
 	private void identifyElements(){
 		this.txtTicket = (EditText) findViewById(R.id.txtTicket);
 		this.txtGallons = (EditText) findViewById(R.id.txtGallons);
@@ -107,4 +118,14 @@ public class K_RegistrarCombustible extends Activity {
 		this.txtCost = (EditText) findViewById(R.id.txtCost);
 		this.radioGroup = (RadioGroup) findViewById(R.id.radioGroupGasKind);
 	}
+	
+	/**
+	 * Override method to hide the keyboard when the user touch outside of an element
+	 */
+	@Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
+    }
 }

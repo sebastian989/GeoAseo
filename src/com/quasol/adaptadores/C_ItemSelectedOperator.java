@@ -54,6 +54,10 @@ public class C_ItemSelectedOperator extends BaseAdapter {
 		return 0;
 	}
 
+	/**
+	 * this method display the names of the employees in the list (selected employees) and change them of list
+	 * if the employee doesn't have started already the day. Else the user can finish the journey of any operator. 
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final int pos = position;
