@@ -11,6 +11,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +30,7 @@ public class K_RegistrarCombustible extends Activity {
 	private EditText txtProvider;
 	private EditText txtCost;
 	private RadioGroup radioGroup;
+	private SharedPreferences sharedpreferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class K_RegistrarCombustible extends Activity {
 		
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		this.identifyElements();
+		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
 	}
 	
 	/**
@@ -128,4 +133,36 @@ public class K_RegistrarCombustible extends Activity {
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         return true;
     }
+	
+	/**
+	 * Method to close the session
+	 * @param v
+	 */
+	public void logOut(View v) {
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		adb.setTitle(getResources().getString(R.string.logout_confirm));
+		adb.setPositiveButton(
+				getResources().getString(R.string.confirm_button_1),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Editor editor = sharedpreferences.edit();
+						editor.clear();
+						editor.commit();
+						Intent intent = new Intent(getApplicationContext(), A_LogIn.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent);
+					}
+				});
+		adb.setNegativeButton(
+				getResources().getString(R.string.confirm_button_2),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
+		adb.show();
+	}
 }
