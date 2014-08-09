@@ -149,29 +149,33 @@ public class A_LogIn extends Activity {
 		 */
 		private Boolean saveInformation(){
 			try {
-				String token = this.answer.getJSONObject(0).getString("token");
-				JSONArray operators = this.answer.getJSONObject(0).getJSONArray("operarios");
-				JSONArray plannedRoutes = this.answer.getJSONObject(0).getJSONArray("rutas_planeadas");
-				JSONArray alternateRoutes = this.answer.getJSONObject(0).getJSONArray("rutas_alternas");
-				JSONArray truckInformation = this.answer.getJSONObject(0).getJSONArray("informacion_vehiculo");
-				
-				for(int i=0; i<plannedRoutes.length(); i++){
-					plannedRoutes.getJSONObject(i).put("estado", "inactiva");
-					plannedRoutes.getJSONObject(i).put("compactaciones", 0);
-					plannedRoutes.getJSONObject(i).put("tipo", "planeada");
-					plannedRoutes.getJSONObject(i).put("tickets", new JSONArray());
-				}
-				
-				SharedPreferences.Editor editor = sharedpreferences.edit();
-				editor.putString("TOKEN", token);
-				editor.putString("USER_ID", user);
-				editor.putString("OPERATORS", operators.toString());
-				editor.putString("PLANNED_ROUTES", plannedRoutes.toString());
-				editor.putString("ALTERNATE_ROUTES", alternateRoutes.toString());
-				editor.putString("TRUCK_INFO", truckInformation.toString());
-				editor.putBoolean("INOPERABILITY", false); 
-				editor.commit();
-				return true;
+			String token = this.answer.getJSONObject(0).getString("token");
+			JSONArray operators = this.answer.getJSONObject(0).getJSONArray("operarios");
+			JSONArray plannedRoutes = this.answer.getJSONObject(0).getJSONArray("rutas_planeadas");
+			JSONArray alternateRoutes = this.answer.getJSONObject(0).getJSONArray("rutas_alternas");
+			JSONArray truckInformation = this.answer.getJSONObject(0).getJSONArray("informacion_vehiculo");
+
+			for(int i=0; i<plannedRoutes.length(); i++){
+			//estas dos lineas incluyendo el if
+					if (plannedRoutes.getJSONObject(i).getString("estado").equals("")) {
+						plannedRoutes.getJSONObject(i).put("estado", "inactiva");
+						plannedRoutes.getJSONObject(i).put("compactaciones", 0);
+						plannedRoutes.getJSONObject(i).put("tipo", "planeada");
+						plannedRoutes.getJSONObject(i).put("tickets", new JSONArray());
+						plannedRoutes.getJSONObject(i).put("ticket_pendiente", false);
+					}
+			}
+
+			SharedPreferences.Editor editor = sharedpreferences.edit();
+			editor.putString("TOKEN", token);
+			editor.putString("USER_ID", user);
+			editor.putString("OPERATORS", operators.toString());
+			editor.putString("PLANNED_ROUTES", plannedRoutes.toString());
+			editor.putString("ALTERNATE_ROUTES", alternateRoutes.toString());
+			editor.putString("TRUCK_INFO", truckInformation.toString());
+			editor.putBoolean("INOPERABILITY", false); 
+			editor.commit();
+			return true;
 			} catch (JSONException e) {
 				return false;
 			}

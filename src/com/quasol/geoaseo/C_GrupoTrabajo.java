@@ -296,7 +296,7 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.displayedListOperators = new JSONArray();
 		for(int i=0; i<this.jsonAllOperators.length(); i++){
 			try {
-				if(this.jsonAllOperators.getJSONObject(i).getString("nombre").toUpperCase().startsWith((s.toString().toUpperCase()))){
+				if(this.jsonAllOperators.getJSONObject(i).getString("nombre").toUpperCase().contains((s.toString().toUpperCase()))){
 					this.displayedListOperators.put(this.jsonAllOperators.getJSONObject(i));
 				}
 			} catch (JSONException e) {
