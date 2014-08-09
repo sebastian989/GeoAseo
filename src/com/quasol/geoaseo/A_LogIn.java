@@ -156,7 +156,6 @@ public class A_LogIn extends Activity {
 			JSONArray truckInformation = this.answer.getJSONObject(0).getJSONArray("informacion_vehiculo");
 
 			for(int i=0; i<plannedRoutes.length(); i++){
-			//estas dos lineas incluyendo el if
 					if (plannedRoutes.getJSONObject(i).getString("estado").equals("")) {
 						plannedRoutes.getJSONObject(i).put("estado", "inactiva");
 						plannedRoutes.getJSONObject(i).put("compactaciones", 0);
