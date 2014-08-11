@@ -1,25 +1,17 @@
 package com.quasol.geoaseo;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
-
 import com.quasol.recursos.Utilities;
-
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class D_RegistrarDatosVehiculo extends Activity {
 
@@ -37,6 +29,12 @@ public class D_RegistrarDatosVehiculo extends Activity {
 				Context.MODE_PRIVATE);
 	}
 
+	/**
+	 * Method to save the truck information if fields are not empty, and if the
+	 * fields are not higher than the previous day
+	 * 
+	 * @param v
+	 */
 	public void Save_truck_information(View v) {
 		if (this.hourmeter.getText().toString().equals("")
 				|| this.odometer.getText().toString().equals("")) {
@@ -94,6 +92,10 @@ public class D_RegistrarDatosVehiculo extends Activity {
 		}
 	}
 
+	/**
+	 * Override method to hide the keyboard when the user touch outside of an
+	 * element
+	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

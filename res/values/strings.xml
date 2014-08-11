@@ -66,6 +66,15 @@
     <string name="alertHourMeter">EL VALOR DE SU HOROMETRO DEL DIA ANTERIOR ES:</string>
     <string name="alertAux">, EL NUEVO VALOR NO PUEDE SER MENOR.</string>
     
+    <!-- E Menu de ciclo -->
+    <string name="addOperators">DEBE AGREGAR UN GRUPO DE OPERARIOS</string>
+    <string name="baseOutput">ESTA SEGURO QUE VA A SALIR DE LA BASE</string>
+    <string name="sureCompaction">SEGURO QUE DESEA REALIZAR UNA COMPACTACIÓN</string>
+    <string name="confirmFinishCollection">DESEA FINALIZAR EL PORTE</string>
+    <string name="alertFinishColectionOne">HA FINALIZADO EL PORTE EN LA RUTA </string>
+    <string name="alertFinishColectionTwo">¿HA TERMINADO DE LIMPIARLA? </string>
+    <string name="areYouSureBase">ESTA SEGURO QUE LLEGO A LA BASE </string>
+    
     <!-- F Seleccionar ruta -->
     <string name="lblSelectedRoute">Ruta seleccionada:</string>
     <string name="lblSheetNumber">Número de hoja:</string>

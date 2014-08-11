@@ -3,10 +3,7 @@ package com.quasol.geoaseo;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.quasol.recursos.SaveInformation;
-import com.quasol.recursos.Utilities;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -24,7 +21,8 @@ public class E_MenuCiclo extends Activity {
 
 	private SharedPreferences sharedpreferences;
 	private AlertDialog.Builder adb;
-	private ImageButton btn_base_exit, btn_start_collection, btn_compactation,
+	
+	private ImageButton btn_base_exit, btn_start_collection, btn_compaction,
 			btn_collection_finish, btn_arrive_final_disposition,
 			btn_come_back_to_base, btn_special_service, btn_inoperability;
 	private Drawable d_base_exit, d_base_exit_two, d_start_collection,
@@ -33,6 +31,7 @@ public class E_MenuCiclo extends Activity {
 			d_arrive_final_disposition, d_arrive_final_disposition_two,
 			d_come_back_to_base, d_come_back_to_base_two, d_special_service,
 			d_special_service_two, d_inoperability, d_inoperability_two;
+	
 	private JSONArray send_data_json;
 	private String method;
 	private TextView numberOfCompatations,nameRoute;
@@ -46,10 +45,14 @@ public class E_MenuCiclo extends Activity {
 		currentState();
 	}
 
+	/**
+	 * Method to register the base output, send to the server the important information, 
+	 * and change the state of buttons.
+	 * @param v
+	 */
 	public void baseOut(View v) {
-
-		this.adb.setTitle("DEBE AGREGAR UN GRUPO DE OPERARIOS");
-		this.adb.setPositiveButton("ACEPTAR",
+		this.adb.setTitle(getResources().getString(R.string.addOperators));
+		this.adb.setPositiveButton(getResources().getString(R.string.accept_button),
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -62,8 +65,8 @@ public class E_MenuCiclo extends Activity {
 		if (selectedOperators == null || selectedOperators.length() <= 2) {
 			this.adb.show();
 		} else {
-			this.adb.setTitle("ESTA SEGURO QUE VA A SALIR DE LA BASE ");
-			this.adb.setPositiveButton("SI",
+			this.adb.setTitle(getResources().getString(R.string.baseOutput));
+			this.adb.setPositiveButton(getResources().getString(R.string.confirm_button_1),
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -72,7 +75,7 @@ public class E_MenuCiclo extends Activity {
 							sendInformation();
 						}
 					});
-			this.adb.setNegativeButton("NO",
+			this.adb.setNegativeButton(getResources().getString(R.string.confirm_button_2),
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -83,14 +86,24 @@ public class E_MenuCiclo extends Activity {
 		}
 	}
 
+	/**
+	 * Method to display the select route interface
+	 * @param v
+	 */
 	public void startCollection(View v) {
 		Intent intent = new Intent(this, F_SeleccionarRuta.class);
 		startActivityForResult(intent, 10);
 	}
 
-	public void compactation(View v) {
+	/**
+	 * Method to register one compaction and add to selected sheet of route
+	 * and ask user if really wants to do one compaction, if the answer is "yes"
+	 * save essential information in preferences
+	 * @param v
+	 */
+	public void compaction(View v) {
 
-		this.adb.setTitle("SEGURO QUE DESEA REALIZAR UNA COMPACTACIÓN");
+		this.adb.setTitle(getResources().getString(R.string.sureCompaction));
 		this.adb.setPositiveButton(
 				getResources().getString(R.string.confirm_button_1),
 				new DialogInterface.OnClickListener() {
@@ -131,9 +144,13 @@ public class E_MenuCiclo extends Activity {
 		this.adb.show();
 	}
 	
+	/**
+	 * Method to finish the collection and close the route if the driver response is the positive button
+	 * @param v
+	 */
 	public void finishCollection(View v) {
 
-		this.adb.setTitle("DESEA FINALIZAR EL PORTE");
+		this.adb.setTitle(getResources().getString(R.string.confirmFinishCollection));
 		this.adb.setPositiveButton(
 				getResources().getString(R.string.confirm_button_1),
 				new DialogInterface.OnClickListener() {
@@ -143,7 +160,7 @@ public class E_MenuCiclo extends Activity {
 						editor.putInt("CURRENT_STATE", 4);
 						editor.commit();
 						try {
-							adb.setTitle("HA FINALIZADO EL PORTE EN LA RUTA " + nameRoute.getText() +" ¿HA TERMINADO DE LIMPIARLA?");
+							adb.setTitle(getResources().getString(R.string.alertFinishColectionOne) + nameRoute.getText() +getResources().getString(R.string.alertFinishColectionTwo));
 							adb.setPositiveButton(
 									getResources().getString(R.string.confirm_button_1),
 									new DialogInterface.OnClickListener() {
@@ -202,16 +219,24 @@ public class E_MenuCiclo extends Activity {
 
 		this.adb.show();
 	}
-
+	
+	/**
+	 * Method to display the filler interface
+	 * @param v
+	 */
 	public void arriveFinalDisposition(View v){
 		Intent intent = new Intent(this, G_formulario_Relleno.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Method to register when the truck arrive in the base, finally register in the server the route list.
+	 * @param v
+	 */
 	public void comeBackToBase(View v){
 		
-			this.adb.setTitle("ESTA SEGURO QUE LLEGO A LA BASE ");
-			this.adb.setPositiveButton("SI",
+			this.adb.setTitle(getResources().getString(R.string.areYouSureBase));
+			this.adb.setPositiveButton(getResources().getString(R.string.confirm_button_1),
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -227,7 +252,7 @@ public class E_MenuCiclo extends Activity {
 							}
 						}
 					});
-			this.adb.setNegativeButton("NO",
+			this.adb.setNegativeButton(getResources().getString(R.string.confirm_button_2),
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -239,19 +264,29 @@ public class E_MenuCiclo extends Activity {
 		
 	}
 	
+	/**
+	 * Method to display the filler interface
+	 * @param v
+	 */
 	public void specialService(View v){
 		
 		
 		
 	}
 	
+	/**
+	 * Method to display inoperability interface
+	 * @param v
+	 */
 	public void inoperability(View v){
 		Intent intent = new Intent(this, H_RegistrarInoperatividad.class);
 		startActivity(intent);
 	}
 	
-	//Configurations methods
 	
+	/**
+	 * Method that will activate when the next activity responds
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 10) {
@@ -261,6 +296,10 @@ public class E_MenuCiclo extends Activity {
 		}
 	}
 	
+	/**
+	 * Method that will activate when the user come back to the cycle menu interface and after 
+	 * change the state of buttons.
+	 */
 	@Override
 	protected void onResume() {
 		setCompactationsAndSheet();
@@ -277,6 +316,9 @@ public class E_MenuCiclo extends Activity {
 		super.onResume();
 	}
 	
+	/**
+	 *Method that send the information to server, from whatever method
+	 */
 	public void sendInformation(){
 		try {
 			new SaveInformation(this).execute("http://pruebasgeoaseo.tk/controller/Fachada.php",
@@ -287,11 +329,17 @@ public class E_MenuCiclo extends Activity {
 		}
 	}
 	
+	/**
+	 *Method to display the teamwork select interface
+	 */
 	public void startTeamOfWork() {
 		Intent intent = new Intent(this, C_GrupoTrabajo.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 *Method to configure the buttons logic, when the truck go out the base
+	 */
 	public void buttonsOutBase() {
 		
 		SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -308,8 +356,8 @@ public class E_MenuCiclo extends Activity {
 		this.btn_start_collection.setImageDrawable(this.d_start_collection);
 		this.btn_start_collection.setEnabled(true);
 		
-		this.btn_compactation.setImageDrawable(this.d_compactation_two);
-		this.btn_compactation.setEnabled(false);
+		this.btn_compaction.setImageDrawable(this.d_compactation_two);
+		this.btn_compaction.setEnabled(false);
 		
 		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
 		this.btn_collection_finish.setEnabled(false);
@@ -327,6 +375,9 @@ public class E_MenuCiclo extends Activity {
 		this.btn_inoperability.setEnabled(true);
 	}
 	
+	/**
+	 *Method to configure the buttons logic, when the truck be in the base
+	 */
 	public void buttonsInBase() {
 		SharedPreferences.Editor editor = sharedpreferences.edit();
 		editor.putInt("CURRENT_STATE", 1);
@@ -336,7 +387,7 @@ public class E_MenuCiclo extends Activity {
 	
 
 	/**
-	 * @category Configuration
+	 * Method to configure the buttons logic, when the truck start to collection
 	 *  
 	 */
 	public void buttonsStartCollection() {
@@ -347,8 +398,8 @@ public class E_MenuCiclo extends Activity {
 		this.btn_start_collection.setImageDrawable(this.d_start_collection_two);
 		this.btn_start_collection.setEnabled(false);
 		
-		this.btn_compactation.setImageDrawable(this.d_compactation);
-		this.btn_compactation.setEnabled(true);
+		this.btn_compaction.setImageDrawable(this.d_compactation);
+		this.btn_compaction.setEnabled(true);
 		
 		this.btn_collection_finish.setImageDrawable(this.d_collection_finish);
 		this.btn_collection_finish.setEnabled(true);
@@ -368,7 +419,7 @@ public class E_MenuCiclo extends Activity {
 	}
 
 	/**
-	 * 
+	 * Method to configure the buttons logic, when finish collection or Finish in filler
 	 * @param type
 	 */
 	public void buttonsFinishCollectionOrFinishFiller(int type) {
@@ -379,8 +430,8 @@ public class E_MenuCiclo extends Activity {
 		this.btn_start_collection.setImageDrawable(this.d_start_collection);
 		this.btn_start_collection.setEnabled(true);
 		
-		this.btn_compactation.setImageDrawable(this.d_compactation_two);
-		this.btn_compactation.setEnabled(false);
+		this.btn_compaction.setImageDrawable(this.d_compactation_two);
+		this.btn_compaction.setEnabled(false);
 		
 		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
 		this.btn_collection_finish.setEnabled(false);
@@ -409,7 +460,7 @@ public class E_MenuCiclo extends Activity {
 	}
 	
 	/**
-	 * 
+	 * Method to configure the buttons logic, when there is inoperability or filler
 	 * @param type
 	 */
 	public void buttonsInoperabilityOrFiller(int type){
@@ -420,8 +471,8 @@ public class E_MenuCiclo extends Activity {
 		this.btn_start_collection.setEnabled(false);
 		this.btn_start_collection.setImageDrawable(this.d_start_collection_two);
 		
-		this.btn_compactation.setImageDrawable(this.d_compactation_two);
-		this.btn_compactation.setEnabled(false);
+		this.btn_compaction.setImageDrawable(this.d_compactation_two);
+		this.btn_compaction.setEnabled(false);
 		
 		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
 		this.btn_collection_finish.setEnabled(false);
@@ -456,7 +507,7 @@ public class E_MenuCiclo extends Activity {
 	}
 
 	/**
-	 * 
+	 * Method to close the session
 	 * @param v
 	 */
 	public void logOut(View v) {
@@ -486,16 +537,18 @@ public class E_MenuCiclo extends Activity {
 				});
 		adb.show();
 	}
-
+	
+	
+	/**
+	 * Method for load all necessary elements in the view
+	 */
 	public void initializeComponents() {
-
-		// Initialize controls
 		this.adb = new AlertDialog.Builder(this);
 		this.btn_base_exit = (ImageButton) findViewById(R.id.btn_base_exit);
 		this.btn_start_collection = (ImageButton) findViewById(R.id.btn_start_collection);
 		this.btn_start_collection.setEnabled(false);
-		this.btn_compactation = (ImageButton) findViewById(R.id.btn_compactation);
-		this.btn_compactation.setEnabled(false);
+		this.btn_compaction = (ImageButton) findViewById(R.id.btn_compaction);
+		this.btn_compaction.setEnabled(false);
 		this.btn_collection_finish = (ImageButton) findViewById(R.id.btn_collection_finish);
 		this.btn_collection_finish.setEnabled(false);
 		this.btn_arrive_final_disposition = (ImageButton) findViewById(R.id.btn_arrive_final_disposition);
@@ -506,8 +559,6 @@ public class E_MenuCiclo extends Activity {
 		this.btn_special_service.setEnabled(false);
 		this.btn_inoperability = (ImageButton) findViewById(R.id.btn_inoperability);
 		this.btn_inoperability.setEnabled(false);
-
-		// Inizialize drawable objects
 		this.d_base_exit = this.getResources().getDrawable(
 				R.drawable.btn_base_exit);
 		this.d_base_exit_two = this.getResources().getDrawable(
@@ -546,6 +597,9 @@ public class E_MenuCiclo extends Activity {
 		setCompactationsAndSheet();
 	}
 	
+	/**
+	 * Method to change the buttons logic according to the state
+	 */
 	public void currentState(){
 		
 		int current_state = sharedpreferences.getInt("CURRENT_STATE", 0);
@@ -567,6 +621,9 @@ public class E_MenuCiclo extends Activity {
 		
 	}
 	
+	/**
+	 * Method to visualize the number of compaction and sheet route in the interface
+	 */
 	public void setCompactationsAndSheet(){
 		
 		int position = sharedpreferences.getInt("POS_CURRENT_ROUTE", -1);
@@ -583,6 +640,9 @@ public class E_MenuCiclo extends Activity {
 		
 	}
 	
+	/**
+	 * Method to clear the number of compaction and sheet route in the interface
+	 */
 	public void clearText(){
 		this.numberOfCompatations.setText("");
 		this.nameRoute.setText("");
