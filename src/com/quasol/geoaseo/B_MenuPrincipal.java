@@ -1,7 +1,9 @@
 package com.quasol.geoaseo;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,7 +19,8 @@ import android.widget.ImageButton;
 public class B_MenuPrincipal extends Activity {
 
 	private SharedPreferences sharedpreferences;
-	private ImageButton teamOfWork, starDay, createRoute, closeRoute;
+	private ImageButton teamOfWork, starDay, createRoute, closeDay;
+	private AlertDialog.Builder adb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +98,9 @@ public class B_MenuPrincipal extends Activity {
 			JSONObject truckObject = truckInformation.getJSONObject(0);
 			newOrometer = truckObject.getInt("nuevo_horometro");
 		} catch (Exception e) {
-			newOrometer = 0;
+			newOrometer = -1;
 		}
-		if (newOrometer != 0) {
+		if (newOrometer != -1) {
 			// Interfaz para continuar con el siclo
 			Intent intent = new Intent(this, E_MenuCiclo.class);
 			startActivity(intent);
@@ -122,9 +125,24 @@ public class B_MenuPrincipal extends Activity {
 	 * 
 	 * @param v
 	 */
-	public void closeRoute(View v) {
-		Intent intent = new Intent(this, J_CerrarRuta.class);
-		startActivity(intent);
+	public void closeDay(View v) {
+		
+		this.adb.setTitle(getResources().getString(R.string.AreYouSureCloseDay));
+		this.adb.setPositiveButton(getResources().getString(R.string.confirm_button_1),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+		this.adb.setNegativeButton(getResources().getString(R.string.confirm_button_2),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+		this.adb.show();
 	}
 
 	/**
@@ -154,7 +172,8 @@ public class B_MenuPrincipal extends Activity {
 		this.teamOfWork = (ImageButton) findViewById(R.id.btn_team_of_work);
 		this.starDay = (ImageButton) findViewById(R.id.btn_start_day);
 		this.createRoute = (ImageButton) findViewById(R.id.btn_create_route);
-		this.closeRoute = (ImageButton) findViewById(R.id.btn_close_route);
+		this.closeDay = (ImageButton) findViewById(R.id.btn_close_day);
+		this.adb = new AlertDialog.Builder(this);
 	}
 
 }

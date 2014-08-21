@@ -34,6 +34,31 @@ public class Utilities {
 		return currentTime;
 	}
 	
+	public static boolean compareDates(String dateServer , String hourServer){
+		
+		Calendar c = Calendar.getInstance(); 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+		String currentTime = dateFormat.format(c.getTime());
+		String [] vecInitilize = currentTime.split(" ");
+		String [] dateIntern = vecInitilize[0].split("-");
+		String [] hourIntern = vecInitilize[1].split(":");
+		String [] dateServerVec = dateServer.split("/");
+		String [] hourServerVec = hourServer.split(":");
+		if(Integer.parseInt(dateIntern[0])==Integer.parseInt(dateServerVec[1])&&
+			Integer.parseInt(dateIntern[1])==Integer.parseInt(dateServerVec[0])&& 
+			 Integer.parseInt(dateIntern[2])==Integer.parseInt(dateServerVec[2])&&
+		      Integer.parseInt(hourIntern[0])==Integer.parseInt(hourServerVec[0])&&
+		       Integer.parseInt(hourIntern[1])==Integer.parseInt(hourServerVec[1]))
+		{	
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
 	public static void showAlert(Activity activity, String message){
 		AlertDialog.Builder adb = new AlertDialog.Builder(activity);
 		adb.setTitle(message);

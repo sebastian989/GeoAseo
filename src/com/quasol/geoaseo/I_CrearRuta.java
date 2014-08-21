@@ -45,7 +45,6 @@ public class I_CrearRuta extends Activity implements OnItemClickListener, TextWa
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.i__crear_ruta);
-		
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
 		this.identifyElements();

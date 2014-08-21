@@ -151,8 +151,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
+            android:background="@drawable/btn_iniciar"
             android:onClick="start"
-            android:text="@string/btnInoperativityStart"
             android:textSize="25sp" />
 
         <Button
@@ -160,9 +160,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:background="@drawable/btn_terminar_activo"
             android:enabled="false"
             android:onClick="finish"
-            android:text="@string/btnInoperativityTerminar"
             android:textSize="25sp" />
 
     </LinearLayout>

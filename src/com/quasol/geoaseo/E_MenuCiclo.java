@@ -34,7 +34,7 @@ public class E_MenuCiclo extends Activity {
 	
 	private JSONArray send_data_json;
 	private String method;
-	private TextView numberOfCompatations,nameRoute;
+	private TextView numberOfCompactions,nameRoute;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -110,21 +110,15 @@ public class E_MenuCiclo extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						try {
-							JSONArray plannedRoutes = new JSONArray(
-									(String) sharedpreferences.getString(
-											"PLANNED_ROUTES", null));
-							int position = (int) sharedpreferences.getInt(
-									"POS_CURRENT_ROUTE", 7000);
-							JSONObject select_route = plannedRoutes
-									.getJSONObject(position);
-							int compactations = select_route
-									.getInt("compactaciones");
-							compactations = compactations + 1;
-							select_route.put("compactaciones", compactations);
-							SharedPreferences.Editor editor = sharedpreferences
-									.edit();
-							editor.putString("PLANNED_ROUTES",
-									plannedRoutes.toString());
+//							JSONArray plannedRoutes = new JSONArray((String) sharedpreferences.getString("PLANNED_ROUTES", null));
+//							int position = (int) sharedpreferences.getInt("POS_CURRENT_ROUTE", 7000);
+//							JSONObject select_route = plannedRoutes.getJSONObject(position);
+//							int compactations = select_route.getInt("compactaciones");
+//							compactations = compactations + 1;
+//							select_route.put("compactaciones", compactations);
+							SharedPreferences.Editor editor = sharedpreferences.edit();
+							int compactions = sharedpreferences.getInt("COMPACTIONS",0);
+							editor.putInt("COMPACTIONS",compactions+1);
 							editor.commit();
 							setCompactationsAndSheet();
 						} catch (Exception e) {
@@ -181,7 +175,7 @@ public class E_MenuCiclo extends Activity {
 												send_data_json = new JSONArray();
 												send_data_json.put((JSONObject)auxRutes.getJSONObject(position));
 												method="fin_porte";
-												clearText();
+												clearSheet();
 												sendInformation();
 												
 											} catch (JSONException e) {
@@ -195,7 +189,7 @@ public class E_MenuCiclo extends Activity {
 									new DialogInterface.OnClickListener() {
 										@Override
 										public void onClick(DialogInterface dialog, int which) {
-											clearText();
+											clearSheet();
 											dialog.dismiss();
 										}
 									});
@@ -226,7 +220,7 @@ public class E_MenuCiclo extends Activity {
 	 */
 	public void arriveFinalDisposition(View v){
 		Intent intent = new Intent(this, G_formulario_Relleno.class);
-		startActivity(intent);
+		startActivityForResult(intent, 10);
 	}
 	
 	/**
@@ -292,6 +286,9 @@ public class E_MenuCiclo extends Activity {
 		if (requestCode == 10) {
 			if (resultCode == 2) {
 				buttonsStartCollection();
+			}
+			else if(resultCode == 3){
+				finishFiller();
 			}
 		}
 	}
@@ -460,6 +457,38 @@ public class E_MenuCiclo extends Activity {
 	}
 	
 	/**
+	 * Method to configure the buttons logic, when finish collection or Finish in filler
+	 * @param type
+	 */
+	public void finishFiller() {
+
+		this.btn_base_exit.setImageDrawable(this.d_base_exit_two);
+		this.btn_base_exit.setEnabled(false);
+		
+		this.btn_start_collection.setImageDrawable(this.d_start_collection);
+		this.btn_start_collection.setEnabled(true);
+		
+		this.btn_compaction.setImageDrawable(this.d_compactation_two);
+		this.btn_compaction.setEnabled(false);
+		
+		this.btn_collection_finish.setImageDrawable(this.d_collection_finish_two);
+		this.btn_collection_finish.setEnabled(false);
+			
+		this.btn_arrive_final_disposition.setImageDrawable(this.d_arrive_final_disposition_two);
+		this.btn_arrive_final_disposition.setEnabled(false);
+		
+		this.btn_come_back_to_base.setImageDrawable(this.d_come_back_to_base);
+		this.btn_come_back_to_base.setEnabled(true);
+		
+		this.btn_special_service.setImageDrawable(this.d_special_service_two);
+		this.btn_special_service.setEnabled(false);
+		
+		this.btn_inoperability.setImageDrawable(this.d_inoperability);
+		this.btn_inoperability.setEnabled(true);
+	}
+	
+	
+	/**
 	 * Method to configure the buttons logic, when there is inoperability or filler
 	 * @param type
 	 */
@@ -592,7 +621,7 @@ public class E_MenuCiclo extends Activity {
 		this.d_inoperability_two = this.getResources().getDrawable(
 				R.drawable.btn_inoperability_two);
 		this.send_data_json= new JSONArray();
-		this.numberOfCompatations = (TextView) findViewById(R.id.numberOfCompatations); 
+		this.numberOfCompactions = (TextView) findViewById(R.id.numberOfCompatations); 
 		this.nameRoute=(TextView) findViewById(R.id.nameRoute); 
 		setCompactationsAndSheet();
 	}
@@ -616,7 +645,11 @@ public class E_MenuCiclo extends Activity {
 				buttonsStartCollection();
 			} else if (current_state == 4) {
 				buttonsFinishCollectionOrFinishFiller(1);
+			} else if(current_state == 5){
+				finishFiller();
 			}
+			
+			//setCompactationsAndSheet();
 		}
 		
 	}
@@ -631,8 +664,9 @@ public class E_MenuCiclo extends Activity {
 			try {
 				JSONArray auxRoutes = new JSONArray(sharedpreferences.getString("PLANNED_ROUTES", null)); 
 				JSONObject auxRoute = auxRoutes.getJSONObject(position);
-				this.numberOfCompatations.setText(auxRoute.getString("compactaciones"));
-				this.nameRoute.setText(auxRoute.getString("Hoja"));
+				int compactions = sharedpreferences.getInt("COMPACTIONS",0);
+				this.numberOfCompactions.setText(String.valueOf(compactions));
+				this.nameRoute.setText(auxRoute.getString("hoja"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -643,9 +677,10 @@ public class E_MenuCiclo extends Activity {
 	/**
 	 * Method to clear the number of compaction and sheet route in the interface
 	 */
-	public void clearText(){
-		this.numberOfCompatations.setText("");
+	public void clearSheet(){
 		this.nameRoute.setText("");
 	}
+	
+	
 
 }

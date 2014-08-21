@@ -42,26 +42,14 @@ public class D_RegistrarDatosVehiculo extends Activity {
 					getResources().getString(R.string.alertEditTextEmpty));
 		} else {
 			try {
-				JSONArray truckInformation = new JSONArray(
-						(String) sharedpreferences.getString("TRUCK_INFO", ""));
-				if ((int) truckInformation.getJSONObject(0).getInt("horometro") <= Integer
-						.parseInt(this.hourmeter.getText().toString())) {
-					if ((int) truckInformation.getJSONObject(0).getInt(
-							"odometro") <= Integer.parseInt(this.odometer
-							.getText().toString())) {
+				JSONArray truckInformation = new JSONArray((String) sharedpreferences.getString("TRUCK_INFO", ""));
+				if ((int) truckInformation.getJSONObject(0).getInt("horometro") <= Integer.parseInt(this.hourmeter.getText().toString())){
+					if ((int) truckInformation.getJSONObject(0).getInt("odometro") <= Integer.parseInt(this.odometer.getText().toString())) {
 
-						truckInformation.getJSONObject(0).put(
-								"nuevo_horometro",
-								Integer.parseInt(this.hourmeter.getText()
-										.toString()));
-						truckInformation.getJSONObject(0).put(
-								"nuevo_odometro",
-								Integer.parseInt(this.odometer.getText()
-										.toString()));
-						SharedPreferences.Editor editor = sharedpreferences
-								.edit();
-						editor.putString("TRUCK_INFO",
-								truckInformation.toString());
+						truckInformation.getJSONObject(0).put("nuevo_horometro",Integer.parseInt(this.hourmeter.getText().toString()));
+						truckInformation.getJSONObject(0).put("nuevo_odometro",Integer.parseInt(this.odometer.getText().toString()));
+						SharedPreferences.Editor editor = sharedpreferences.edit();
+						editor.putString("TRUCK_INFO",truckInformation.toString());
 						editor.commit();
 						Intent intent = new Intent(this, E_MenuCiclo.class);
 						startActivity(intent);

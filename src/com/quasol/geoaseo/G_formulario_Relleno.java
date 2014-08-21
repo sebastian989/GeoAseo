@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -68,6 +69,8 @@ public class G_formulario_Relleno extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 10) {
 			if (resultCode == 2) {
+				Intent intent = new Intent();
+				setResult(3, intent);
 				finish();
 			}
 		}
@@ -96,4 +99,37 @@ public class G_formulario_Relleno extends Activity {
 		this.out_filler.setEnabled(false);
 	
 	}
+	
+	/**
+	 * Method to close the session
+	 * @param v
+	 */
+	public void logOut(View v) {
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		adb.setTitle(getResources().getString(R.string.logout_confirm));
+		adb.setPositiveButton(
+				getResources().getString(R.string.confirm_button_1),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Editor editor = sharedpreferences.edit();
+						editor.clear();
+						editor.commit();
+						Intent intent = new Intent(getApplicationContext(), A_LogIn.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent);
+					}
+				});
+		adb.setNegativeButton(
+				getResources().getString(R.string.confirm_button_2),
+				new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
+		adb.show();
+	}
+	
 }

@@ -38,9 +38,17 @@ public class WebService extends Activity {
 			UrlEncodedFormEntity encodeEntity = null;
 			this.valores.add(new BasicNameValuePair("clase", "webService"));
 			this.valores.add(new BasicNameValuePair("metodo", parametros[0]));
-			for (int i = 1; i < parametros.length; i++) {
-				this.valores.add(new BasicNameValuePair("parametro" + i,parametros[i]));
+			if(parametros[0].equals("login")){
+				
+				this.valores.add(new BasicNameValuePair("usuario",parametros[1]));
+				this.valores.add(new BasicNameValuePair("contrasena",parametros[2]));
 			}
+			else{
+				for (int i = 1; i < parametros.length; i++) {
+					this.valores.add(new BasicNameValuePair("parametro" + i,parametros[i]));
+				}
+			}
+			
 			encodeEntity = new UrlEncodedFormEntity(valores);
 			if (encodeEntity != null){
 				((HttpPost) request).setEntity(encodeEntity);
@@ -48,7 +56,8 @@ public class WebService extends Activity {
 			HttpResponse response = client.execute(request);
 			HttpEntity entity = response.getEntity();
 			this.is = entity.getContent();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+//			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
 			StringBuilder sb = new StringBuilder();
 			sb.append(reader.readLine() + "\n");
 			String line = "0";

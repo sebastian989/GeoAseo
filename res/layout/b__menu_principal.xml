@@ -88,14 +88,14 @@
             android:onClick="createRoute"/>
 
         <ImageButton
-            android:id="@+id/btn_close_route"
+            android:id="@+id/btn_close_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:contentDescription="@string/Close_route_description"
             android:padding="20dp"
-            android:src="@drawable/btn_close_route"
-            android:onClick="closeRoute" />
+            android:src="@drawable/btn_close_day"
+            android:onClick="closeDay" />
     </LinearLayout>
 
     <RelativeLayout

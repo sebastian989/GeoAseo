@@ -45,6 +45,7 @@
     <string name="Maps_description">Boton para cargar el mapa</string>
     <string name="Gas_description">Boton para comprar gasolina</string>
     <string name="Toll_description">Boton para pagar un peaje</string>
+    <string name="AreYouSureCloseDay">¿ESTA USTED SEGURO DE QUERER CERRAR EL DIA?</string>
 
     <!-- C Grupo de trabajo -->
     <string name="selectedOperaors">Operarios seleccionados:</string>

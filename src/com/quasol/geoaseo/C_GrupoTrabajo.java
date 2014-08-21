@@ -7,10 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.quasol.adaptadores.C_ItemSelectedOperator;
-import com.quasol.recursos.SaveInformation;
-import com.quasol.recursos.Utilities;
-
+import android.R.drawable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,21 +28,26 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+
+import com.quasol.adaptadores.C_ItemSelectedOperator;
+import com.quasol.recursos.SaveInformation;
+import com.quasol.recursos.Utilities;
 
 public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClickListener{
 	
 	private ListView lstAllOperators;
 	private ListView lstSelectedOperators;
 	private EditText txtSearch;
-	private Button btnInit;
-	private Button btnFinishAll;
+	private ImageButton btnFinishAll,btnInit;
 	private SharedPreferences sharedpreferences;
 	private JSONArray savedOperators;
 	private JSONArray jsonAllOperators;
 	private JSONArray displayedListOperators;
 	private C_ItemSelectedOperator adapter;
 	private Boolean textChange;
+	private Drawable dBtnFinishAll,dBtnFinishAllTwo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		if(selectedOperators != null){
 			try {
 				this.btnFinishAll.setEnabled(true);
+				this.btnFinishAll.setImageDrawable(this.dBtnFinishAllTwo);
 				this.savedOperators = new JSONArray(selectedOperators);
 				for(int i=0; i<savedOperators.length(); i++){
 					if(savedOperators.getJSONObject(i).getString("hora_fin").equals("")){
@@ -312,8 +316,10 @@ public class C_GrupoTrabajo extends Activity implements TextWatcher, OnItemClick
 		this.lstAllOperators = (ListView) findViewById(R.id.lstAllOperators);
 		this.lstSelectedOperators = (ListView) findViewById(R.id.lstSelectedOperators);
 		this.txtSearch = (EditText) findViewById(R.id.txtSearch);
-		this.btnInit = (Button) findViewById(R.id.btnInit);
-		this.btnFinishAll = (Button) findViewById(R.id.btnFinishAll);
+		this.btnInit = (ImageButton) findViewById(R.id.btnInit);
+		this.btnFinishAll = (ImageButton) findViewById(R.id.btnFinishAll);
+		this.dBtnFinishAll = this.getResources().getDrawable(R.drawable.btn_finish_all);
+		this.dBtnFinishAllTwo = this.getResources().getDrawable(R.drawable.btn_finish_all_two);
 	}
 	
 	private void blockElements(){

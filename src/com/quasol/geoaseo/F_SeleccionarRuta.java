@@ -98,7 +98,7 @@ public class F_SeleccionarRuta extends Activity implements OnItemClickListener {
 			this.routePosition = position;
 			this.selectRoute = this.plannedRoutes.getJSONObject(position);
 			this.lblSelectedRoute.setText(this.selectRoute.getString("nombre"));
-			this.lblRouteSheet.setText(this.selectRoute.getString("Hoja"));
+			this.lblRouteSheet.setText(this.selectRoute.getString("hoja"));
 			this.lblRouteState.setText(this.selectRoute.getString("estado"));
 			
 			if(this.selectRoute.getString("estado").equals("terminada")){

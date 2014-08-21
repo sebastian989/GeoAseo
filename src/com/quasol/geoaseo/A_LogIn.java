@@ -7,8 +7,10 @@ import com.quasol.recursos.Utilities;
 import com.quasol.recursos.WebService;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -28,6 +30,7 @@ public class A_LogIn extends Activity {
 	private String user;
 	private TextView txtUser;
 	private TextView txtPassword;
+	private AlertDialog.Builder adb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class A_LogIn extends Activity {
 		this.progress = new ProgressDialog(this); 
 		this.conection = new WebService();
 		this.sharedpreferences = getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
+		this.adb = new AlertDialog.Builder(this);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}
 	
@@ -47,7 +51,7 @@ public class A_LogIn extends Activity {
 	protected void onResume() {
 		super.onResume();
 		
-		if(this.sharedpreferences.getString("USER_ID", null) != null && !this.sharedpreferences.getString("USER_ID", null).equals(""))
+		if(this.sharedpreferences.getString("USER_ID", null) != null && !this.sharedpreferences.getString("USER_ID", null).equals("") && this.sharedpreferences.getBoolean("SERVER_SYNC",false))
 		{
 			Intent intent = new Intent(getApplicationContext(), B_MenuPrincipal.class);
 			startActivity(intent);
@@ -71,7 +75,9 @@ public class A_LogIn extends Activity {
 		}
 		else{
 			if(hayInternet()){
-				new Login().execute(this.user,password);
+				this.user="10251818";
+				new Login().execute("10251818","10251818");
+//				new Login().execute(this.user,password);
 			}
 			else{
 				Utilities.showAlert(this, getResources().getString(R.string.toastInternetFail));
@@ -117,10 +123,21 @@ public class A_LogIn extends Activity {
 			super.onPreExecute();
 		}
 		
+//		@Override
+//		protected Boolean doInBackground(String... params) {
+//			String [] parameters = {"login",params[0],params[1]};
+//			conection.setUrl("http://pruebasgeoaseo.tk/controller/Fachada.php");
+//			this.answer = conection.conectar(parameters);
+//			if(this.saveInformation()){
+//				return true;
+//			}
+//			return false;
+//		}
+		
 		@Override
 		protected Boolean doInBackground(String... params) {
 			String [] parameters = {"login",params[0],params[1]};
-			conection.setUrl("http://pruebasgeoaseo.tk/controller/Fachada.php");
+			conection.setUrl("http://www.concesionesdeaseo.com/pruebas/FUNLoginGsMovil/Login?sistema=SIS_25&vehiculo=NAM%20545");
 			this.answer = conection.conectar(parameters);
 			if(this.saveInformation()){
 				return true;
@@ -135,10 +152,34 @@ public class A_LogIn extends Activity {
 				Utilities.showAlert((Activity)getApplicationContext(), getResources().getString(R.string.toastErrorLogin));
 			}
 			else{
-				txtUser.setText("");
-				txtPassword.setText("");
-				Intent intent = new Intent(getApplicationContext(), B_MenuPrincipal.class);
-				startActivity(intent);
+				try {
+					if(Utilities.compareDates(this.answer.getJSONObject(0).getString("fecha"),this.answer.getJSONObject(0).getString("hora"))){
+						SharedPreferences.Editor editor = sharedpreferences.edit();
+						editor.putBoolean("SERVER_SYNC", true);
+						editor.commit();
+						txtUser.setText("");
+						txtPassword.setText("");
+						Intent intent = new Intent(getApplicationContext(), B_MenuPrincipal.class);
+						startActivity(intent);
+					}
+					else{
+						adb.setCancelable(false);
+						adb.setTitle("DEBE CAMBIAR LA HORA Y LA FECHA PARA QUE SEAN IGUALES A EL SERVIDOR, FECHA : " + this.answer.getJSONObject(0).getString("fecha") +" HORA: " + this.answer.getJSONObject(0).getString("hora"));
+						adb.setPositiveButton(getResources().getString(R.string.accept_button),
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										startActivityForResult(new Intent(android.provider.Settings.ACTION_DATE_SETTINGS), 0);
+									}
+								});
+						adb.show();
+						
+					}
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		
@@ -156,23 +197,30 @@ public class A_LogIn extends Activity {
 			JSONArray truckInformation = this.answer.getJSONObject(0).getJSONArray("informacion_vehiculo");
 
 			for(int i=0; i<plannedRoutes.length(); i++){
-					if (plannedRoutes.getJSONObject(i).getString("estado").equals("")) {
+				//cambio del cero
+					if (plannedRoutes.getJSONObject(i).getBoolean("ticket_pendiente")) {
+						plannedRoutes.getJSONObject(i).put("estado", "terminada");
+						plannedRoutes.getJSONObject(i).put("tickets", new JSONArray());
+						
+					}
+					else{
 						plannedRoutes.getJSONObject(i).put("estado", "inactiva");
-						plannedRoutes.getJSONObject(i).put("compactaciones", 0);
 						plannedRoutes.getJSONObject(i).put("tipo", "planeada");
 						plannedRoutes.getJSONObject(i).put("tickets", new JSONArray());
-						plannedRoutes.getJSONObject(i).put("ticket_pendiente", false);
+//						plannedRoutes.getJSONObject(i).put("ticket_pendiente", false);
 					}
 			}
 
 			SharedPreferences.Editor editor = sharedpreferences.edit();
 			editor.putString("TOKEN", token);
+			editor.putBoolean("SERVER_SYNC", false);
 			editor.putString("USER_ID", user);
 			editor.putString("OPERATORS", operators.toString());
 			editor.putString("PLANNED_ROUTES", plannedRoutes.toString());
 			editor.putString("ALTERNATE_ROUTES", alternateRoutes.toString());
 			editor.putString("TRUCK_INFO", truckInformation.toString());
 			editor.putBoolean("INOPERABILITY", false); 
+			editor.putInt("COMPACTIONS", 0);
 			editor.commit();
 			return true;
 			} catch (JSONException e) {
